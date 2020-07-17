@@ -1,0 +1,279 @@
+Culture,English,Native,Direction
+af,Afrikaans,Afrikaans,ltr
+af-ZA,Afrikaans (South Africa),Afrikaans (Suid Afrika),ltr
+am-ET,Amharic (Ethiopia),አማርኛ (ኢትዮጵያ),ltr
+ar,Arabic,العربية,rtl
+ar-AE,Arabic (U.A.E.),العربية (الإمارات العربية المتحدة),rtl
+ar-BH,Arabic (Bahrain),العربية (البحرين),rtl
+ar-DZ,Arabic (Algeria),العربية (الجزائر),rtl
+ar-EG,Arabic (Egypt),العربية (مصر),rtl
+ar-IQ,Arabic (Iraq),العربية (العراق),rtl
+ar-JO,Arabic (Jordan),العربية (الأردن),rtl
+ar-KW,Arabic (Kuwait),العربية (الكويت),rtl
+ar-LB,Arabic (Lebanon),العربية (لبنان),rtl
+ar-LY,Arabic (Libya),العربية (ليبيا),rtl
+ar-MA,Arabic (Morocco),العربية (المملكة المغربية),rtl
+ar-OM,Arabic (Oman),العربية (عمان),rtl
+ar-QA,Arabic (Qatar),العربية (قطر),rtl
+ar-SA,Arabic (Saudi Arabia),العربية (المملكة العربية السعودية),rtl
+ar-SY,Arabic (Syria),العربية (سوريا),rtl
+ar-TN,Arabic (Tunisia),العربية (تونس),rtl
+ar-YE,Arabic (Yemen),العربية (اليمن),rtl
+arn-CL,Mapudungun (Chile),Mapudungun (Chile),ltr
+as-IN,Assamese (India),অসমীয়া (ভাৰত),ltr
+az,Azeri,Azərbaycan­ılı,ltr
+az-Cyrl-AZ,Azeri (Cyrillic) (Azerbaijan),Азәрбајҹан (Азәрбајҹан),ltr
+az-Latn-AZ,Azeri (Latin) (Azerbaijan),Azərbaycan­ılı (Azərbaycanca),ltr
+ba-RU,Bashkir (Russia),Башҡорт (Россия),ltr
+be,Belarusian,Беларускі,ltr
+be-BY,Belarusian (Belarus),Беларускі (Беларусь),ltr
+bg,Bulgarian,български,ltr
+bg-BG,Bulgarian (Bulgaria),български (България),ltr
+bn-BD,Bengali (Bangladesh),বাংলা (বাংলাদেশ),ltr
+bn-IN,Bengali (India),বাংলা (ভারত),ltr
+bo-CN,Tibetan (People's Republic of China),བོད་ཡིག (ཀྲུང་ཧྭ་མི་དམངས་སྤྱི་མཐུན་རྒྱལ་ཁབ།),ltr
+br-FR,Breton (France),brezhoneg (Frañs),ltr
+bs-Cyrl-BA,Bosnian (Cyrillic) (Bosnia and Herzegovina),босански (Босна и Херцеговина),ltr
+bs-Latn-BA,Bosnian (Latin) (Bosnia and Herzegovina),bosanski (Bosna i Hercegovina),ltr
+ca,Catalan,català,ltr
+ca-ES,Catalan (Catalan),català (català),ltr
+co-FR,Corsican (France),Corsu (France),ltr
+cs,Czech,čeština,ltr
+cs-CZ,Czech (Czech Republic),čeština (Česká republika),ltr
+cy-GB,Welsh (United Kingdom),Cymraeg (y Deyrnas Unedig),ltr
+da,Danish,dansk,ltr
+da-DK,Danish (Denmark),dansk (Danmark),ltr
+de,German,Deutsch,ltr
+de-AT,German (Austria),Deutsch (Österreich),ltr
+de-CH,German (Switzerland),Deutsch (Schweiz),ltr
+de-DE,German (Germany),Deutsch (Deutschland),ltr
+de-LI,German (Liechtenstein),Deutsch (Liechtenstein),ltr
+de-LU,German (Luxembourg),Deutsch (Luxemburg),ltr
+dsb-DE,Lower Sorbian (Germany),dolnoserbšćina (Nimska),ltr
+dv,Divehi,ދިވެހިބަސް,rtl
+dv-MV,Divehi (Maldives),ދިވެހިބަސް (ދިވެހި ރާއްޖެ),rtl
+el,Greek,ελληνικά,ltr
+el-GR,Greek (Greece),ελληνικά (Ελλάδα),ltr
+en,English,English,ltr
+en-029,English (Caribbean),English (Caribbean),ltr
+en-AU,English (Australia),English (Australia),ltr
+en-BZ,English (Belize),English (Belize),ltr
+en-CA,English (Canada),English (Canada),ltr
+en-GB,English (United Kingdom),English (United Kingdom),ltr
+en-IE,English (Ireland),English (Eire),ltr
+en-IN,English (India),English (India),ltr
+en-JM,English (Jamaica),English (Jamaica),ltr
+en-MY,English (Malaysia),English (Malaysia),ltr
+en-NZ,English (New Zealand),English (New Zealand),ltr
+en-PH,English (Republic of the Philippines),English (Philippines),ltr
+en-SG,English (Singapore),English (Singapore),ltr
+en-TT,English (Trinidad and Tobago),English (Trinidad y Tobago),ltr
+en-US,English (United States),English (United States),ltr
+en-ZA,English (South Africa),English (South Africa),ltr
+en-ZW,English (Zimbabwe),English (Zimbabwe),ltr
+es,Spanish,español,ltr
+es-AR,Spanish (Argentina),Español (Argentina),ltr
+es-BO,Spanish (Bolivia),Español (Bolivia),ltr
+es-CL,Spanish (Chile),Español (Chile),ltr
+es-CO,Spanish (Colombia),Español (Colombia),ltr
+es-CR,Spanish (Costa Rica),Español (Costa Rica),ltr
+es-DO,Spanish (Dominican Republic),Español (República Dominicana),ltr
+es-EC,Spanish (Ecuador),Español (Ecuador),ltr
+es-ES,Spanish (Spain),español (España),ltr
+es-GT,Spanish (Guatemala),Español (Guatemala),ltr
+es-HN,Spanish (Honduras),Español (Honduras),ltr
+es-MX,Spanish (Mexico),Español (México),ltr
+es-NI,Spanish (Nicaragua),Español (Nicaragua),ltr
+es-PA,Spanish (Panama),Español (Panamá),ltr
+es-PE,Spanish (Peru),Español (Perú),ltr
+es-PR,Spanish (Puerto Rico),Español (Puerto Rico),ltr
+es-PY,Spanish (Paraguay),Español (Paraguay),ltr
+es-SV,Spanish (El Salvador),Español (El Salvador),ltr
+es-US,Spanish (United States),Español (Estados Unidos),ltr
+es-UY,Spanish (Uruguay),Español (Uruguay),ltr
+es-VE,Spanish (Venezuela),Español (Republica Bolivariana de Venezuela),ltr
+et,Estonian,eesti,ltr
+et-EE,Estonian (Estonia),eesti (Eesti),ltr
+eu,Basque,euskara,ltr
+eu-ES,Basque (Basque),euskara (euskara),ltr
+fa,Persian,فارسى,rtl
+fa-IR,Persian (Iran),فارسى (ايران),rtl
+fi,Finnish,suomi,ltr
+fi-FI,Finnish (Finland),suomi (Suomi),ltr
+fil-PH,Filipino (Philippines),Filipino (Pilipinas),ltr
+fo,Faroese,føroyskt,ltr
+fo-FO,Faroese (Faroe Islands),føroyskt (Føroyar),ltr
+fr,French,français,ltr
+fr-BE,French (Belgium),français (Belgique),ltr
+fr-CA,French (Canada),français (Canada),ltr
+fr-CH,French (Switzerland),français (Suisse),ltr
+fr-FR,French (France),français (France),ltr
+fr-LU,French (Luxembourg),français (Luxembourg),ltr
+fr-MC,French (Principality of Monaco),français (Principauté de Monaco),ltr
+fy-NL,Frisian (Netherlands),Frysk (Nederlân),ltr
+ga-IE,Irish (Ireland),Gaeilge (Éire),ltr
+gd-GB,Scottish Gaelic (United Kingdom),Gàidhlig (An Rìoghachd Aonaichte),ltr
+gl,Galician,galego,ltr
+gl-ES,Galician (Galician),galego (galego),ltr
+gsw-FR,Alsatian (France),Elsässisch (Frànkrisch),ltr
+gu,Gujarati,ગુજરાતી,ltr
+gu-IN,Gujarati (India),ગુજરાતી (ભારત),ltr
+ha-Latn-NG,Hausa (Latin) (Nigeria),Hausa (Nigeria),rtl
+he,Hebrew,עברית,rtl
+he-IL,Hebrew (Israel),עברית (ישראל),rtl
+hi,Hindi,हिंदी,ltr
+hi-IN,Hindi (India),हिंदी (भारत),ltr
+hr,Croatian,hrvatski,ltr
+hr-BA,Croatian (Latin) (Bosnia and Herzegovina),hrvatski (Bosna i Hercegovina),ltr
+hr-HR,Croatian (Croatia),hrvatski (Hrvatska),ltr
+hsb-DE,Upper Sorbian (Germany),hornjoserbšćina (Němska),ltr
+hu,Hungarian,magyar,ltr
+hu-HU,Hungarian (Hungary),magyar (Magyarország),ltr
+hy,Armenian,Հայերեն,ltr
+hy-AM,Armenian (Armenia),Հայերեն (Հայաստան),ltr
+id,Indonesian,Bahasa Indonesia,ltr
+id-ID,Indonesian (Indonesia),Bahasa Indonesia (Indonesia),ltr
+ig-NG,Igbo (Nigeria),Igbo (Nigeria),ltr
+ii-CN,Yi (People's Republic of China),ꆈꌠꁱꂷ (ꍏꉸꏓꂱꇭꉼꇩ),ltr
+is,Icelandic,íslenska,ltr
+is-IS,Icelandic (Iceland),íslenska (Ísland),ltr
+it,Italian,italiano,ltr
+it-CH,Italian (Switzerland),italiano (Svizzera),ltr
+it-IT,Italian (Italy),italiano (Italia),ltr
+iu-Cans-CA,Inuktitut (Syllabics) (Canada),ᐃᓄᒃᑎᑐᑦ (ᑲᓇᑕ),ltr
+iu-Latn-CA,Inuktitut (Latin) (Canada),Inuktitut (kanata),ltr
+ja,Japanese,日本語,ltr
+ja-JP,Japanese (Japan),日本語 (日本),ltr
+ka,Georgian,ქართული,ltr
+ka-GE,Georgian (Georgia),ქართული (საქართველო),ltr
+kk,Kazakh,Қазащb,ltr
+kk-KZ,Kazakh (Kazakhstan),Қазақ (Қазақстан),ltr
+kl-GL,Greenlandic (Greenland),kalaallisut (Kalaallit Nunaat),ltr
+km-KH,Khmer (Cambodia),ខ្មែរ (កម្ពុជា),ltr
+kn,Kannada,ಕನ್ನಡ,ltr
+kn-IN,Kannada (India),ಕನ್ನಡ (ಭಾರತ),ltr
+ko,Korean,한국어,ltr
+ko-KR,Korean (Korea),한국어 (대한민국),ltr
+kok,Konkani,कोंकणी,ltr
+kok-IN,Konkani (India),कोंकणी (भारत),ltr
+ky,Kyrgyz,Кыргыз,ltr
+ky-KG,Kyrgyz (Kyrgyzstan),Кыргыз (Кыргызстан),ltr
+lb-LU,Luxembourgish (Luxembourg),Lëtzebuergesch (Luxembourg),ltr
+lo-LA,Lao (Lao P.D.R.),ລາວ (ສ.ປ.ປ. ລາວ),ltr
+lt,Lithuanian,lietuvių,ltr
+lt-LT,Lithuanian (Lithuania),lietuvių (Lietuva),ltr
+lv,Latvian,latviešu,ltr
+lv-LV,Latvian (Latvia),latviešu (Latvija),ltr
+mi-NZ,Maori (New Zealand),Reo Māori (Aotearoa),ltr
+mk,Macedonian,македонски јазик,ltr
+mk-MK,Macedonian (Former Yugoslav Republic of Macedonia),македонски јазик (Македонија),ltr
+ml-IN,Malayalam (India),മലയാളം (ഭാരതം),ltr
+mn,Mongolian,Монгол хэл,ltr
+mn-MN,Mongolian (Cyrillic) (Mongolia),Монгол хэл (Монгол улс),ltr
+mn-Mong-CN,Mongolian (Traditional Mongolian) (People's Republic of China),ᠮᠤᠨᠭᠭᠤᠯ ᠬᠡᠯᠡ (ᠪᠦᠭᠦᠳᠡ ᠨᠠᠢᠷᠠᠮᠳᠠᠬᠤ ᠳᠤᠮᠳᠠᠳᠤ ᠠᠷᠠᠳ ᠣᠯᠣᠰ),ltr
+moh-CA,Mohawk (Canada),Kanien'kéha (Canada),ltr
+mr,Marathi,मराठी,ltr
+mr-IN,Marathi (India),मराठी (भारत),ltr
+ms,Malay,Bahasa Malaysia,ltr
+ms-BN,Malay (Brunei Darussalam),Bahasa Malaysia (Brunei Darussalam),ltr
+ms-MY,Malay (Malaysia),Bahasa Malaysia (Malaysia),ltr
+mt-MT,Maltese (Malta),Malti (Malta),ltr
+nb-NO,"Norwegian, Bokmål (Norway)","norsk, bokmål (Norge)",ltr
+ne-NP,Nepali (Nepal),नेपाली (नेपाल),ltr
+nl,Dutch,Nederlands,ltr
+nl-BE,Dutch (Belgium),Nederlands (België),ltr
+nl-NL,Dutch (Netherlands),Nederlands (Nederland),ltr
+nn-NO,"Norwegian, Nynorsk (Norway)","norsk, nynorsk (Noreg)",ltr
+no,Norwegian,norsk,ltr
+nso-ZA,Sesotho sa Leboa (South Africa),Sesotho sa Leboa (Afrika Borwa),ltr
+oc-FR,Occitan (France),Occitan (França),ltr
+or-IN,Oriya (India),ଓଡ଼ିଆ (ଭାରତ),ltr
+pa,Punjabi,ਪੰਜਾਬੀ,ltr
+pa-IN,Punjabi (India),ਪੰਜਾਬੀ (ਭਾਰਤ),ltr
+pl,Polish,polski,ltr
+pl-PL,Polish (Poland),polski (Polska),ltr
+prs-AF,Dari (Afghanistan),درى (افغانستان),rtl
+ps-AF,Pashto (Afghanistan),پښتو (افغانستان),rtl
+pt,Portuguese,Português,ltr
+pt-BR,Portuguese (Brazil),Português (Brasil),ltr
+pt-PT,Portuguese (Portugal),português (Portugal),ltr
+qut-GT,K'iche (Guatemala),K'iche (Guatemala),ltr
+quz-BO,Quechua (Bolivia),runasimi (Bolivia Suyu),ltr
+quz-EC,Quechua (Ecuador),runasimi (Ecuador Suyu),ltr
+quz-PE,Quechua (Peru),runasimi (Peru Suyu),ltr
+rm-CH,Romansh (Switzerland),Rumantsch (Svizra),ltr
+ro,Romanian,română,ltr
+ro-RO,Romanian (Romania),română (România),ltr
+ru,Russian,русский,ltr
+ru-RU,Russian (Russia),русский (Россия),ltr
+rw-RW,Kinyarwanda (Rwanda),Kinyarwanda (Rwanda),ltr
+sa,Sanskrit,संस्कृत,ltr
+sa-IN,Sanskrit (India),संस्कृत (भारतम्),ltr
+sah-RU,Yakut (Russia),саха (Россия),ltr
+se-FI,Sami (Northern) (Finland),davvisámegiella (Suopma),ltr
+se-NO,Sami (Northern) (Norway),davvisámegiella (Norga),ltr
+se-SE,Sami (Northern) (Sweden),davvisámegiella (Ruoŧŧa),ltr
+si-LK,Sinhala (Sri Lanka),සිංහ (ශ්‍රී ලංකා),ltr
+sk,Slovak,slovenčina,ltr
+sk-SK,Slovak (Slovakia),slovenčina (Slovenská republika),ltr
+sl,Slovenian,slovenski,ltr
+sl-SI,Slovenian (Slovenia),slovenski (Slovenija),ltr
+sma-NO,Sami (Southern) (Norway),åarjelsaemiengiele (Nöörje),ltr
+sma-SE,Sami (Southern) (Sweden),åarjelsaemiengiele (Sveerje),ltr
+smj-NO,Sami (Lule) (Norway),julevusámegiella (Vuodna),ltr
+smj-SE,Sami (Lule) (Sweden),julevusámegiella (Svierik),ltr
+smn-FI,Sami (Inari) (Finland),sämikielâ (Suomâ),ltr
+sms-FI,Sami (Skolt) (Finland),sääm´ǩiõll (Lää´ddjânnam),ltr
+sq,Albanian,shqipe,ltr
+sq-AL,Albanian (Albania),shqipe (Shqipëria),ltr
+sr,Serbian,srpski,ltr
+sr-Cyrl-BA,Serbian (Cyrillic) (Bosnia and Herzegovina),српски (Босна и Херцеговина),ltr
+sr-Cyrl-CS,Serbian (Cyrillic) (Serbia and Montenegro (Former)),српски (Србија и Црна Гора (Претходно)),ltr
+sr-Cyrl-ME,Serbian (Cyrillic) (Montenegro),српски (Црна Гора),ltr
+sr-Cyrl-RS,Serbian (Cyrillic) (Serbia),српски (Србија),ltr
+sr-Latn-BA,Serbian (Latin) (Bosnia and Herzegovina),srpski (Bosna i Hercegovina),ltr
+sr-Latn-CS,Serbian (Latin) (Serbia and Montenegro (Former)),srpski (Srbija i Crna Gora (Prethodno)),ltr
+sr-Latn-ME,Serbian (Latin) (Montenegro),srpski (Crna Gora),ltr
+sr-Latn-RS,Serbian (Latin) (Serbia),srpski (Srbija),ltr
+sv,Swedish,svenska,ltr
+sv-FI,Swedish (Finland),svenska (Finland),ltr
+sv-SE,Swedish (Sweden),svenska (Sverige),ltr
+sw,Kiswahili,Kiswahili,ltr
+sw-KE,Kiswahili (Kenya),Kiswahili (Kenya),ltr
+syr,Syriac,ܣܘܪܝܝܐ,rtl
+syr-SY,Syriac (Syria),ܣܘܪܝܝܐ (سوريا),rtl
+ta,Tamil,தமிழ்,ltr
+ta-IN,Tamil (India),தமிழ் (இந்தியா),ltr
+te,Telugu,తెలుగు,ltr
+te-IN,Telugu (India),తెలుగు (భారత దేశం),ltr
+tg-Cyrl-TJ,Tajik (Cyrillic) (Tajikistan),Тоҷикӣ (Тоҷикистон),ltr
+th,Thai,ไทย,ltr
+th-TH,Thai (Thailand),ไทย (ไทย),ltr
+tk-TM,Turkmen (Turkmenistan),türkmençe (Türkmenistan),ltr
+tn-ZA,Setswana (South Africa),Setswana (Aforika Borwa),ltr
+tr,Turkish,Türkçe,ltr
+tr-TR,Turkish (Turkey),Türkçe (Türkiye),ltr
+tt,Tatar,Татар,ltr
+tt-RU,Tatar (Russia),Татар (Россия),ltr
+tzm-Latn-DZ,Tamazight (Latin) (Algeria),Tamazight (Djazaïr),ltr
+ug-CN,Uyghur (People's Republic of China),ئۇيغۇرچە (جۇڭخۇا خەلق جۇمھۇرىيىتى),rtl
+uk,Ukrainian,україньска,ltr
+uk-UA,Ukrainian (Ukraine),україньска (Україна),ltr
+ur,Urdu,اُردو,rtl
+ur-PK,Urdu (Islamic Republic of Pakistan),اُردو (پاکستان),rtl
+uz,Uzbek,U'zbek,ltr
+uz-Cyrl-UZ,Uzbek (Cyrillic) (Uzbekistan),Ўзбек (Ўзбекистон),ltr
+uz-Latn-UZ,Uzbek (Latin) (Uzbekistan),U'zbek (U'zbekiston Respublikasi),ltr
+vi,Vietnamese,Tiếng Việt,ltr
+vi-VN,Vietnamese (Vietnam),Tiếng Việt (Việt Nam),ltr
+wo-SN,Wolof (Senegal),Wolof (Sénégal),ltr
+xh-ZA,isiXhosa (South Africa),isiXhosa (uMzantsi Afrika),ltr
+yo-NG,Yoruba (Nigeria),Yoruba (Nigeria),ltr
+zh-CHS,Chinese (Simplified),中文(简体),ltr
+zh-CHT,Chinese (Traditional),中文(繁體),ltr
+zh-CN,Chinese (People's Republic of China),中文(中华人民共和国),ltr
+zh-HK,Chinese (Hong Kong S.A.R.),中文(香港特别行政區),ltr
+zh-MO,Chinese (Macao S.A.R.),中文(澳門特别行政區),ltr
+zh-SG,Chinese (Singapore),中文(新加坡),ltr
+zh-TW,Chinese (Taiwan),中文(台灣),ltr
+zu-ZA,isiZulu (South Africa),isiZulu (iNingizimu Afrika),ltr
