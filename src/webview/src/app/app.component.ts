@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   title = 'jtw-webview';
   message: WebviewMessage;
   navigator = navigator;
-  key: string = '';
+  key = '';
   translationForms: FormGroup;
   value: FormArray;
   vsCodeFunction = Function(`
@@ -40,37 +40,43 @@ export class AppComponent implements OnInit {
     this.vscode.postMessage('started');
   }
 
-  generateForm(languagesList: Array<Languages>, translationKey: string) {
+  private generateForm(message: WebviewMessage): void {
     this.translationForms = this.formBuilder.group({
-      translationKey: translationKey,
+      translationKey: message.TranslationKey,
       value: this.formBuilder.array([]),
     });
     this.value = this.translationForms.controls.value as FormArray;
-    languagesList.forEach((element) => {
-      this.value.push(this.translationItem(element.Culture));
+    message.value.forEach((element) => {
+      this.value.push(
+        this.translationItem(element.culture, element.translationValue)
+      );
     });
     setTimeout(() => {
       this.setFocus(this.message.languages[0].Culture);
     }, 200);
   }
-  translationItem(culture: string): FormGroup {
+  translationItem(culture: string, translationValue: string = ''): FormGroup {
     return this.formBuilder.group({
-      culture: culture,
-      translationValue: '',
+      culture,
+      translationValue,
     });
   }
 
   @HostListener('window:message', ['$event'])
-  onMessage(event) {
+  private onMessage(event: any): void {
     if (event && event.data) {
-      this.message = event.data as WebviewMessage;
-      this.key = this.message.TranslationKey;
-      this.generateForm(this.message.languages, this.message.TranslationKey);
-      console.log(this.message);
+      if ((event.data as WebviewMessage).TranslationKey) {
+        this.message = event.data as WebviewMessage;
+        this.key = this.message.TranslationKey;
+        this.generateForm(this.message);
+        console.log(this.message);
+      } else if (event.data === 'Saved') {
+        this.dataSaved();
+      }
     }
   }
 
-  setFocus(name) {
+  setFocus(name: string): void {
     const ele = this.form.nativeElement[name];
     if (ele) {
       ele.focus();
@@ -86,10 +92,10 @@ export class AppComponent implements OnInit {
     }
   }
 
-  handleMacKeyEvents($event) {
+  handleMacKeyEvents($event: any): void {
     // MetaKey documentation
     // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey
-    let charCode = String.fromCharCode($event.which).toLowerCase();
+    const charCode = String.fromCharCode($event.which).toLowerCase();
     if ($event.metaKey && charCode === 's') {
       // Action on Cmd + S
       this.save();
@@ -97,8 +103,8 @@ export class AppComponent implements OnInit {
     }
   }
 
-  handleWindowsKeyEvents($event) {
-    let charCode = String.fromCharCode($event.which).toLowerCase();
+  handleWindowsKeyEvents($event): void {
+    const charCode = String.fromCharCode($event.which).toLowerCase();
     if ($event.ctrlKey && charCode === 's') {
       // Action on Ctrl + S
       this.save();
@@ -106,11 +112,14 @@ export class AppComponent implements OnInit {
     }
   }
 
-  save() {
+  save(): void {
     console.log(this.translationForms.value);
 
     this.vscode.postMessage(this.translationForms.value);
-    this.notifierService.notify('success', 'You are awesome! I mean it!');
+  }
+
+  dataSaved(): void {
+    this.notifierService.notify('success', 'Translation Saved');
   }
 }
 
@@ -124,4 +133,10 @@ interface Languages {
 interface WebviewMessage {
   languages: Array<Languages>;
   TranslationKey: string;
+  value: [
+    {
+      culture: string;
+      translationValue: string;
+    }
+  ];
 }
