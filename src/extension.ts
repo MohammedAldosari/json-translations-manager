@@ -24,7 +24,8 @@ interface WebviewMessage {
 let message: WebviewMessage;
 let context: vscode.ExtensionContext;
 let configuration: any;
-let panel: vscode.WebviewPanel;
+let treeDataProvider: JTMTreeDataProvider;
+let panel: vscode.WebviewPanel | undefined;
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(_context: vscode.ExtensionContext) {
@@ -69,12 +70,13 @@ export function activate(_context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(disposable2);
-
-  vscode.window.createTreeView('json-translations-manager', {
-    treeDataProvider: new JTMTreeDataProvider(
-      path.join(vscode.workspace.rootPath!, configuration.translationFolder)
-    ),
+  treeDataProvider = new JTMTreeDataProvider(
+    path.join(vscode.workspace.rootPath!, configuration.translationFolder)
+  );
+  const tv = vscode.window.createTreeView('json-translations-manager', {
+    treeDataProvider,
   });
+
   vscode.commands.registerCommand(
     'json-translations-manager.translateTreeSelectedValue',
     (value) => {
@@ -83,6 +85,23 @@ export function activate(_context: vscode.ExtensionContext) {
       // get selected text
       message = {} as WebviewMessage;
       showTreanslationPanel(value, true);
+    }
+  );
+  vscode.commands.registerCommand(
+    'json-translations-manager.refreshEntry',
+    () => treeDataProvider.refresh()
+  );
+  vscode.commands.registerCommand('json-translations-manager.addEntry', () =>
+    treeDataProvider.add()
+  );
+  vscode.commands.registerCommand(
+    'json-translations-manager.deleteEntry',
+    (value) => treeDataProvider.delete(value)
+  );
+  vscode.commands.registerCommand(
+    'json-translations-manager.editEntry',
+    (value) => {
+      treeDataProvider.rename(value);
     }
   );
 }
@@ -147,6 +166,20 @@ function showTreanslationPanel(key: string, closeActivePanel: boolean = false) {
   message.TranslationKey = key;
   if (!panel || closeActivePanel === false) {
     panel = createWebviewPanel();
+    panel.webview.onDidReceiveMessage(
+      (msg) => onDidReceiveMessage(msg),
+      undefined,
+      context.subscriptions
+    );
+    panel.onDidDispose(
+      () => {
+        panel = undefined;
+      },
+      null,
+      context.subscriptions
+    );
+  } else {
+    panel.reveal(vscode.ViewColumn.One, true);
   }
   panel.webview.html = _getHtmlForWebview(panel, context.extensionPath);
 
@@ -158,11 +191,6 @@ function showTreanslationPanel(key: string, closeActivePanel: boolean = false) {
   if (closeActivePanel) {
     panel.webview.postMessage(message);
   }
-  panel.webview.onDidReceiveMessage(
-    (msg) => onDidReceiveMessage(msg),
-    undefined,
-    context.subscriptions
-  );
 }
 
 function getTranslationValue(languages: Languages[], translationKey: string) {
@@ -247,10 +275,10 @@ function getLanguageDetails() {
 
 function onDidReceiveMessage(_msg: any) {
   if (_msg === 'started') {
-    panel.webview.postMessage(message);
+    panel!.webview.postMessage(message);
   } else if ((_msg as SaveMessage).translationKey) {
     saveTranslation(_msg);
-    panel.webview.postMessage('Saved');
+    panel!.webview.postMessage('Saved');
   }
 }
 
@@ -262,12 +290,13 @@ function saveTranslation(data: SaveMessage) {
   data.value.forEach((element) => {
     jsonfile.readFile(path.join(dir, element.culture + '.json')).then((obj) => {
       _.set(obj, data.translationKey, element.translationValue);
-      jsonfile.writeFile(path.join(dir, element.culture + '.json'), obj, {
+      jsonfile.writeFileSync(path.join(dir, element.culture + '.json'), obj, {
         spaces: 2,
         EOL: '\r\n',
       });
     });
   });
+  treeDataProvider.refresh();
 }
 
 // this method is called when your extension is deactivated

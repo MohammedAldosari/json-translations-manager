@@ -100,6 +100,7 @@ export class AppComponent implements OnInit {
       // Action on Cmd + S
       this.save();
       $event.preventDefault();
+      $event.stopImmediatePropagation();
     }
   }
 
@@ -109,6 +110,7 @@ export class AppComponent implements OnInit {
       // Action on Ctrl + S
       this.save();
       $event.preventDefault();
+      $event.stopImmediatePropagation();
     }
   }
 

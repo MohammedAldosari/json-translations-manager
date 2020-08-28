@@ -28,15 +28,68 @@
       {
         "command": "json-translations-manager.translateTreeSelectedValue",
         "title": "JTM: Adding translation from tree selected value"
+      },
+      {
+        "command": "json-translations-manager.refreshEntry",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "json-translations-manager.addEntry",
+        "title": "Add",
+        "icon": {
+          "light": "resources/light/add.svg",
+          "dark": "resources/dark/add.svg"
+        }
+      },
+      {
+        "command": "json-translations-manager.deleteEntry",
+        "title": "Delete",
+        "icon": {
+          "light": "resources/light/delete.svg",
+          "dark": "resources/dark/delete.svg"
+        }
+      },
+      {
+        "command": "json-translations-manager.editEntry",
+        "title": " Rename",
+        "icon": {
+          "light": "resources/light/edit.svg",
+          "dark": "resources/dark/edit.svg"
+        }
       }
     ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "json-translations-manager.refreshEntry",
+          "when": "view == json-translations-manager",
+          "group": "navigation"
+        },
+        {
+          "command": "json-translations-manager.addEntry",
+          "when": "view == json-translations-manager",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "json-translations-manager.editEntry",
+          "when": "view == json-translations-manager",
+          "group": "inline"
+        },
+        {
+          "command": "json-translations-manager.deleteEntry",
+          "when": "view == json-translations-manager",
+          "group": "inline"
+        }
+      ]
+    },
     "views": {
       "JTM": [
         {
           "id": "json-translations-manager",
-          "name": "Json Translations Manager",
-          "icon": "./src/JTM-Icon.svg",
-          "contextualTitle": "Json Translations Manager"
+          "name": "Json Translations Manager"
         }
       ]
     },

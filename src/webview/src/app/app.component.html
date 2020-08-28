@@ -1,44 +1,42 @@
-<section class="section" *ngIf="message"  (keyup)="onKeyUp($event)">
+<section class="section" *ngIf="message" (keyup)="onKeyUp($event)">
   <div style="text-align: center;">
-    <h2>20.07.18.4</h2>
-    <span class="text-style">translation key = <span style="font-weight: bold;">{{ key }}</span></span
-    >
+    <h2>20.08.07.1</h2>
+    <span class="text-style">translation key = <span style="font-weight: bold;">{{ key }}</span></span>
   </div>
 
-  <form class="form-style" [formGroup]="translationForms"  #form *ngIf="this.message">
+  <form class="form-style" [formGroup]="translationForms" #form *ngIf="this.message">
     <ul>
-      <li formArrayName="value"
-        *ngFor="let item of this.value.controls; let i = index;"
+      <li formArrayName="value" *ngFor="let item of this.value.controls; let i = index;"
         [dir]=" this.message.languages[i].Direction">
         <div [formGroupName]="i">
-        <label [class]=" this.message.languages[i].Direction" [for]=" this.message.languages[i].Culture">
-          {{ this.message.languages[i].Native}}</label>
-        <input type="text" [name]="this.message.languages[i].Culture" formControlName="translationValue" [name]=" this.message.languages[i].Culture" />
-      </div>
+          <label [class]=" this.message.languages[i].Direction" [for]=" this.message.languages[i].Culture">
+            {{ this.message.languages[i].Native}}</label>
+          <input type="text" [name]="this.message.languages[i].Culture" formControlName="translationValue"
+            [name]=" this.message.languages[i].Culture" />
+        </div>
       </li>
 
       <li></li>
     </ul>
     <div style="text-align: center;">
-    <button type="button" (click)="save()" >
-      Save 
+      <button type="button" (click)="save()">
+        Save
 
-      <ng-container
-        *ngIf="navigator.platform.match('Mac'); then Mac; else Other">
-      </ng-container>
+        <ng-container *ngIf="navigator.platform.match('Mac'); then Mac; else Other">
+        </ng-container>
 
-      <ng-template #Mac>
-        <span>
-        (Command+S)
-        </span>
-      </ng-template>
-      <ng-template #Other>
-        <span>
-         (Ctrl+S)
-        </span>
-      </ng-template>
-    </button>
-  </div>
+        <ng-template #Mac>
+          <span>
+            (Command+S)
+          </span>
+        </ng-template>
+        <ng-template #Other>
+          <span>
+            (Ctrl+S)
+          </span>
+        </ng-template>
+      </button>
+    </div>
   </form>
 
 
