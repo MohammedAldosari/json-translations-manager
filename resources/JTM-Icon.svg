@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   sodipodi:docname="i18n.svg">
+   sodipodi:docname="JTM-Icon.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -28,16 +28,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35"
-     inkscape:cx="-538.52537"
+     inkscape:cx="-156.69402"
      inkscape:cy="357.53473"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:pagecheckerboard="true"
      inkscape:window-width="1920"
-     inkscape:window-height="1010"
-     inkscape:window-x="-7"
-     inkscape:window-y="-7"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:document-rotation="0" />
   <metadata
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -59,7 +59,7 @@
      transform="translate(-2.6336463,-150.56894)">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:92.3827px;line-height:1.25;font-family:Jokerman;-inkscape-font-specification:Jokerman;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.27715"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:92.3827px;line-height:1.25;font-family:Jokerman;-inkscape-font-specification:Jokerman;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.27715;"
        x="0.91286302"
        y="231.40199"
        id="text1368"
@@ -68,6 +68,6 @@
          id="tspan1366"
          x="0.91286302"
          y="231.40199"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:92.3827px;font-family:Jokerman;-inkscape-font-specification:Jokerman;fill:#ffffff;stroke-width:0.27715">JTM</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:92.3827px;font-family:Jokerman;-inkscape-font-specification:Jokerman;fill:#ffffff;stroke-width:0.27715;fill-opacity:1;">JTM</tspan></text>
   </g>
 </svg>

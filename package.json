@@ -98,7 +98,7 @@
         {
           "id": "JTM",
           "title": "JTM",
-          "icon": "./src/JTM-Icon.svg"
+          "icon": "resources/JTM-Icon.svg"
         }
       ]
     }

@@ -1,14 +1,14 @@
-import { JTMTreeDataProvider } from './JTMTreeDataProvider';
+import { TreeDataProvider } from './TreeDataProvider';
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as papa from 'papaparse';
-import * as jtmSetting from './jtmSetting';
 import * as jsonfile from 'jsonfile';
 
 import _ from 'lodash';
+import { ConfigurationManager } from './ConfigurationManager';
 
 interface WebviewMessage {
   languages: Array<Languages>;
@@ -23,8 +23,8 @@ interface WebviewMessage {
 
 let message: WebviewMessage;
 let context: vscode.ExtensionContext;
-let configuration: any;
-let treeDataProvider: JTMTreeDataProvider;
+
+let treeDataProvider: TreeDataProvider;
 let panel: vscode.WebviewPanel | undefined;
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -36,7 +36,12 @@ export function activate(_context: vscode.ExtensionContext) {
   );
   console.log('version 20.07.18.4');
   context = _context;
-  configuration = jtmSetting.getSettings();
+  const configurationManager = new ConfigurationManager(
+    vscode.workspace.workspaceFolders![0].uri.fsPath
+  );
+  if (!configurationManager.configuration) {
+    askUserToSelectTranslationPath(configurationManager);
+  }
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with registerCommand
   // The commandId parameter must match the command field in package.json
@@ -52,7 +57,9 @@ export function activate(_context: vscode.ExtensionContext) {
           prompt: 'Enter Translation key',
           placeHolder: '',
         })
-        .then((key) => showTreanslationPanel(key!));
+        .then(async (key) =>
+          showTreanslationPanel(key!, configurationManager.translationPath)
+        );
     }
   );
 
@@ -60,31 +67,32 @@ export function activate(_context: vscode.ExtensionContext) {
 
   let disposable2 = vscode.commands.registerCommand(
     'json-translations-manager.translateSelected',
-    () => {
+    async () => {
       // The code you place here will be executed every time your command is executed
 
       // get selected text
       message = {} as WebviewMessage;
-      showTreanslationPanel(getSelectedText());
+      showTreanslationPanel(
+        getSelectedText(),
+        configurationManager.translationPath
+      );
     }
   );
 
   context.subscriptions.push(disposable2);
-  treeDataProvider = new JTMTreeDataProvider(
-    path.join(vscode.workspace.rootPath!, configuration.translationFolder)
-  );
+  treeDataProvider = new TreeDataProvider(configurationManager.translationPath);
   const tv = vscode.window.createTreeView('json-translations-manager', {
     treeDataProvider,
   });
 
   vscode.commands.registerCommand(
     'json-translations-manager.translateTreeSelectedValue',
-    (value) => {
+    async (value) => {
       // The code you place here will be executed every time your command is executed
 
       // get selected text
       message = {} as WebviewMessage;
-      showTreanslationPanel(value, true);
+      showTreanslationPanel(value, configurationManager.translationPath, true);
     }
   );
   vscode.commands.registerCommand(
@@ -135,13 +143,9 @@ function _getHtmlForWebview(panel: any, extensionPath: any) {
   return indexHtml;
 }
 
-function getLanguagesfiles() {
-  const dir = path.join(
-    vscode.workspace.rootPath!,
-    configuration.translationFolder
-  );
+function getLanguagesfiles(translationPath: string) {
   const fileList: string[] = [];
-  fs.readdirSync(dir).forEach((file) => {
+  fs.readdirSync(translationPath).forEach((file) => {
     fileList.push(file.replace('.json', ''));
   });
   fileList.sort();
@@ -162,12 +166,16 @@ function readCSV(): Array<Languages> {
   return result.data;
 }
 
-function showTreanslationPanel(key: string, closeActivePanel: boolean = false) {
+function showTreanslationPanel(
+  key: string,
+  translationPath: string,
+  closeActivePanel: boolean = false
+) {
   message.TranslationKey = key;
   if (!panel || closeActivePanel === false) {
     panel = createWebviewPanel();
     panel.webview.onDidReceiveMessage(
-      (msg) => onDidReceiveMessage(msg),
+      (msg) => onDidReceiveMessage(msg, translationPath),
       undefined,
       context.subscriptions
     );
@@ -183,8 +191,12 @@ function showTreanslationPanel(key: string, closeActivePanel: boolean = false) {
   }
   panel.webview.html = _getHtmlForWebview(panel, context.extensionPath);
 
-  message.languages = getLanguageDetails();
-  getTranslationValue(message.languages, message.TranslationKey);
+  message.languages = getLanguageDetails(translationPath);
+  getTranslationValue(
+    message.languages,
+    message.TranslationKey,
+    translationPath
+  );
   panel.iconPath = vscode.Uri.file(
     path.join(context.extensionPath, 'src', 'JTM-Icon.svg')
   );
@@ -193,15 +205,14 @@ function showTreanslationPanel(key: string, closeActivePanel: boolean = false) {
   }
 }
 
-function getTranslationValue(languages: Languages[], translationKey: string) {
-  const dir = path.join(
-    vscode.workspace.rootPath!,
-    configuration.translationFolder
-  );
-
+function getTranslationValue(
+  languages: Languages[],
+  translationKey: string,
+  translationPath: string
+) {
   languages.forEach((element) => {
     const obj = jsonfile.readFileSync(
-      path.join(dir, element.Culture + '.json')
+      path.join(translationPath, element.Culture + '.json')
     );
 
     if (!message.value) {
@@ -252,8 +263,8 @@ function getSelectedText(): string {
   return selectedText;
 }
 
-function getLanguageDetails() {
-  const languagefiles: string[] = getLanguagesfiles();
+function getLanguageDetails(translationPath: string) {
+  const languagefiles: string[] = getLanguagesfiles(translationPath);
 
   const languageDetailsList = readCSV();
   const languageDetails = new Array<Languages>();
@@ -273,30 +284,60 @@ function getLanguageDetails() {
   return languageDetails;
 }
 
-function onDidReceiveMessage(_msg: any) {
+function onDidReceiveMessage(_msg: any, translationPath: string) {
   if (_msg === 'started') {
     panel!.webview.postMessage(message);
   } else if ((_msg as SaveMessage).translationKey) {
-    saveTranslation(_msg);
+    saveTranslation(_msg, translationPath);
     panel!.webview.postMessage('Saved');
   }
 }
 
-function saveTranslation(data: SaveMessage) {
-  const dir = path.join(
-    vscode.workspace.rootPath!,
-    configuration.translationFolder
-  );
+function saveTranslation(data: SaveMessage, translationPath: string) {
   data.value.forEach((element) => {
-    jsonfile.readFile(path.join(dir, element.culture + '.json')).then((obj) => {
-      _.set(obj, data.translationKey, element.translationValue);
-      jsonfile.writeFileSync(path.join(dir, element.culture + '.json'), obj, {
-        spaces: 2,
-        EOL: '\r\n',
+    jsonfile
+      .readFile(path.join(translationPath, element.culture + '.json'))
+      .then((obj) => {
+        _.set(obj, data.translationKey, element.translationValue);
+        jsonfile.writeFileSync(
+          path.join(translationPath, element.culture + '.json'),
+          obj,
+          {
+            spaces: 2,
+            EOL: '\r\n',
+          }
+        );
       });
-    });
   });
   treeDataProvider.refresh();
+}
+
+function askUserToSelectTranslationPath(
+  configurationManager: ConfigurationManager
+) {
+  vscode.window
+    .showOpenDialog({
+      canSelectMany: false,
+      canSelectFiles: false,
+      canSelectFolders: true,
+    })
+    .then((fileUri) => {
+      if (fileUri && fileUri[0]) {
+        const folderpath = fileUri[0].fsPath.replace(
+          vscode.workspace.workspaceFolders![0].uri.fsPath,
+          ''
+        );
+
+        configurationManager.set({
+          translationFolder: folderpath,
+          sort: false,
+        });
+        console.log('Settings Saved!');
+        vscode.window.showInformationMessage(
+          'Translation folder configuration Saved successfully'
+        );
+      }
+    });
 }
 
 // this method is called when your extension is deactivated

@@ -4,8 +4,7 @@ import * as path from 'path';
 import * as jsonfile from 'jsonfile';
 import _ from 'lodash';
 
-export class JTMTreeDataProvider
-  implements vscode.TreeDataProvider<Translation> {
+export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
   translationFileList: string[];
   constructor(private translationPath: string) {
     this.translationFileList = this.getLanguagesfiles();
