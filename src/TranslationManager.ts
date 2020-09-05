@@ -7,24 +7,27 @@ import _ from 'lodash';
 import { ISaveMessage, IWebviewMessage } from './WebViewManager';
 
 export class TranslationManager {
-  languageDetailsList: Array<ILanguages>;
+  languageDetailsList: Array<ILanguage>;
   extensionPath: string;
+  translationPath: string;
+  translations: Array<ITranslation> = [];
   languagefiles: string[] = [];
-  constructor(_extensionPath: string) {
+  constructor(_extensionPath: string, _translationPath: string) {
     this.extensionPath = _extensionPath;
     this.languageDetailsList = this.readCSV();
+    this.translationPath = _translationPath;
+    this.getLanguagesfiles();
+    this.getTranslation();
   }
 
-  getLanguagesfiles(translationPath: string) {
-    fs.readdirSync(translationPath).forEach((file) => {
+  getLanguagesfiles() {
+    fs.readdirSync(this.translationPath).forEach((file) => {
       this.languagefiles.push(file.replace('.json', ''));
     });
     this.languagefiles.sort();
-
-    return this.languagefiles;
   }
 
-  readCSV(): Array<ILanguages> {
+  readCSV(): Array<ILanguage> {
     const csvFilePath = path.join(
       this.extensionPath,
       'resources',
@@ -32,17 +35,24 @@ export class TranslationManager {
     );
     const csvFile = fs.readFileSync(csvFilePath);
     const csvData = csvFile.toString();
-    const result = papa.parse<ILanguages>(csvData, {
+    const result = papa.parse<ILanguage>(csvData, {
       header: true,
     });
     return result.data;
   }
-
-  getTranslationValue(translationPath: string, message: IWebviewMessage) {
-    message.languages.forEach((element) => {
+  getTranslation() {
+    this.languagefiles.forEach((lang) => {
       const obj = jsonfile.readFileSync(
-        path.join(translationPath, element.Culture + '.json')
+        path.join(this.translationPath, lang + '.json')
       );
+      this.translations.push({ Culture: lang, Translations: obj });
+    });
+  }
+
+  getTranslationValue(message: IWebviewMessage) {
+    message.languages.forEach((element) => {
+      const obj = this.translations.find((x) => x.Culture === element.Culture)
+        ?.Translations;
 
       if (!message.value) {
         message.value = [
@@ -61,7 +71,8 @@ export class TranslationManager {
   }
 
   getLanguageDetails() {
-    const languageDetails = new Array<ILanguages>();
+    const languageDetails = new Array<ILanguage>();
+
     this.languagefiles.forEach((lang) => {
       let languageDetail = this.languageDetailsList.find(
         (item) => item['Culture'].toUpperCase() === lang.toUpperCase()
@@ -72,36 +83,38 @@ export class TranslationManager {
           Direction: 'ltr',
           English: lang,
           Native: lang,
-        } as ILanguages;
+        } as ILanguage;
       }
       languageDetails.push(languageDetail);
     });
     return languageDetails;
   }
 
-  saveTranslation(data: ISaveMessage, translationPath: string) {
+  saveTranslation(data: ISaveMessage) {
     data.value.forEach((element) => {
-      jsonfile
-        .readFile(path.join(translationPath, element.culture + '.json'))
-        .then((obj) => {
-          _.set(obj, data.translationKey, element.translationValue);
-          jsonfile.writeFileSync(
-            path.join(translationPath, element.culture + '.json'),
-            obj,
-            {
-              spaces: 2,
-              EOL: '\r\n',
-            }
-          );
-        });
+      const obj = this.translations.find((x) => x.Culture === element.culture)
+        ?.Translations;
+      _.set(obj!, data.translationKey, element.translationValue);
+      jsonfile.writeFileSync(
+        path.join(this.translationPath, element.culture + '.json'),
+        obj,
+        {
+          spaces: 2,
+          EOL: '\r\n',
+        }
+      );
     });
     //treeDataProvider.refresh();
   }
 }
 
-export interface ILanguages {
+export interface ILanguage {
   Culture: string;
   English: string;
   Native: string;
   Direction: string;
+}
+export interface ITranslation {
+  Culture: string;
+  Translations: any;
 }

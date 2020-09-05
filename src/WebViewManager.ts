@@ -1,10 +1,10 @@
-import { ILanguages, TranslationManager } from './TranslationManager';
+import { ILanguage, TranslationManager } from './TranslationManager';
 import path from 'path';
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 
 export interface IWebviewMessage {
-  languages: Array<ILanguages>;
+  languages: Array<ILanguage>;
   TranslationKey: string;
   value: [
     {
@@ -30,7 +30,10 @@ export class WebViewManager {
   message = {} as IWebviewMessage;
   context: vscode.ExtensionContext;
   translationManager: TranslationManager;
-  constructor(_context: vscode.ExtensionContext) {
+  constructor(
+    _context: vscode.ExtensionContext,
+    _translationManager: TranslationManager
+  ) {
     this.webviewPath = path.join(
       _context.extensionPath,
       'src',
@@ -39,7 +42,7 @@ export class WebViewManager {
       'jtw-webview'
     );
     this.context = _context;
-    this.translationManager = new TranslationManager(_context.extensionPath);
+    this.translationManager = _translationManager;
   }
   getHtmlForWebview() {
     const appDistPathUri = vscode.Uri.file(this.webviewPath);
@@ -73,16 +76,13 @@ export class WebViewManager {
     );
   }
 
-  showTreanslationPanel(
-    key: string,
-    translationPath: string,
-    closeActivePanel: boolean = false
-  ) {
+  showTreanslationPanel(key: string, closeActivePanel: boolean = false) {
+    this.message = {} as IWebviewMessage;
     this.message.TranslationKey = key;
     if (!this.panel || closeActivePanel === false) {
       this.panel = this.createWebviewPanel();
       this.panel.webview.onDidReceiveMessage(
-        (msg) => this.onDidReceiveMessage(msg, translationPath),
+        (msg) => this.onDidReceiveMessage(msg),
         undefined,
         this.context.subscriptions
       );
@@ -99,20 +99,26 @@ export class WebViewManager {
     this.panel.webview.html = this.getHtmlForWebview();
 
     this.message.languages = this.translationManager.getLanguageDetails();
-    this.translationManager.getTranslationValue(translationPath, this.message);
-    this.panel.iconPath = vscode.Uri.file(
-      path.join(this.context.extensionPath, 'src', 'JTM-Icon.svg')
-    );
+    this.translationManager.getTranslationValue(this.message);
+
+    this.panel.iconPath = {
+      light: vscode.Uri.file(
+        path.join(__filename, '..', '..', 'resources', 'light', 'languages.svg')
+      ),
+      dark: vscode.Uri.file(
+        path.join(__filename, '..', '..', 'resources', 'dark', 'languages.svg')
+      ),
+    };
     if (closeActivePanel) {
       this.panel.webview.postMessage(this.message);
     }
   }
 
-  onDidReceiveMessage(_msg: any, translationPath: string) {
+  onDidReceiveMessage(_msg: any) {
     if (_msg === 'started') {
       this.panel!.webview.postMessage(this.message);
     } else if ((_msg as ISaveMessage).translationKey) {
-      this.translationManager.saveTranslation(_msg, translationPath);
+      this.translationManager.saveTranslation(_msg);
       this.panel!.webview.postMessage('Saved');
     }
   }

@@ -1,7 +1,8 @@
+import { TranslationManager } from './TranslationManager';
 import { TreeDataProvider } from './TreeDataProvider';
 import * as vscode from 'vscode';
 import { ConfigurationManager } from './ConfigurationManager';
-import { IWebviewMessage, WebViewManager } from './WebViewManager';
+import { WebViewManager } from './WebViewManager';
 import { CommandManager } from './CommandManager';
 
 const namespace = 'json-translations-manager';
@@ -21,9 +22,12 @@ export function activate(_context: vscode.ExtensionContext) {
   if (!configurationManager.configuration) {
     askUserToSelectTranslationPath(configurationManager);
   }
+  const translationManager = new TranslationManager(
+    _context.extensionPath,
+    configurationManager.translationPath
+  );
   const commandManager = new CommandManager(
-    configurationManager.translationPath,
-    new WebViewManager(_context)
+    new WebViewManager(_context, translationManager)
   );
 
   _context.subscriptions.push(
@@ -40,9 +44,7 @@ export function activate(_context: vscode.ExtensionContext) {
     )
   );
 
-  const treeDataProvider = new TreeDataProvider(
-    configurationManager.translationPath
-  );
+  const treeDataProvider = new TreeDataProvider(translationManager);
   vscode.window.createTreeView(namespace, {
     treeDataProvider,
   });
@@ -80,12 +82,10 @@ function askUserToSelectTranslationPath(
           vscode.workspace.workspaceFolders![0].uri.fsPath,
           ''
         );
-
         configurationManager.set({
           translationFolder: folderpath,
           sort: false,
         });
-        console.log('Settings Saved!');
         vscode.window.showInformationMessage(
           'Translation folder configuration Saved successfully'
         );

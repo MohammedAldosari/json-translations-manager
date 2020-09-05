@@ -1,3 +1,4 @@
+import { TranslationManager } from './TranslationManager';
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -5,9 +6,9 @@ import * as jsonfile from 'jsonfile';
 import _ from 'lodash';
 
 export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
-  translationFileList: string[];
-  constructor(private translationPath: string) {
-    this.translationFileList = this.getLanguagesfiles();
+  translationManager: TranslationManager;
+  constructor(_translationManager: TranslationManager) {
+    this.translationManager = _translationManager;
   }
 
   getTreeItem(element: Translation): vscode.TreeItem {
@@ -15,7 +16,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
   }
 
   getChildren(element?: Translation): Thenable<Translation[]> {
-    if (!this.translationPath) {
+    if (!this.translationManager.translationPath) {
       vscode.window.showInformationMessage('No Translation in empty workspace');
       return Promise.resolve([]);
     }
@@ -33,12 +34,12 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
    */
   private getTranslationsKeys(): Translation[] {
     let translationKeys: string[] = [];
-    if (this.pathExists(this.translationPath)) {
-      this.translationFileList.forEach((translationFile) => {
-        const translation = JSON.parse(
-          fs.readFileSync(translationFile, 'utf-8')
+    if (this.pathExists(this.translationManager.translationPath)) {
+      this.translationManager.translations.forEach((translation) => {
+        translationKeys = _.union(
+          translationKeys,
+          Object.keys(translation.Translations)
         );
-        translationKeys = _.union(translationKeys, Object.keys(translation));
       });
 
       const translations: Translation[] = [];
@@ -79,15 +80,11 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
     if (element.perent) {
       path = element.perent + '.';
     }
-    if (this.pathExists(this.translationPath)) {
-      this.translationFileList.forEach((translationFile) => {
-        const translation = JSON.parse(
-          fs.readFileSync(translationFile, 'utf-8')
-        );
-
+    if (this.pathExists(this.translationManager.translationPath)) {
+      this.translationManager.translations.forEach((translation) => {
         translationKeys = _.union(
           translationKeys,
-          Object.keys(_.get(translation, path + element.label!))
+          Object.keys(_.get(translation.Translations, path + element.label!))
         );
       });
 
@@ -136,21 +133,10 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
     return true;
   }
 
-  private getLanguagesfiles() {
-    const dir = this.translationPath;
-    const fileList: string[] = [];
-    fs.readdirSync(dir).forEach((file) => {
-      fileList.push(path.join(this.translationPath, file));
-    });
-    fileList.sort();
-    return fileList;
-  }
   private isObject(val: any) {
-    let translation: any;
-    let object;
-    for (var element of this.translationFileList) {
-      translation = JSON.parse(fs.readFileSync(element, 'utf-8'));
-      object = _.get(translation, val);
+    let object = '';
+    for (var element of this.translationManager.translations) {
+      object = _.get(element.Translations, val);
       if (object) {
         break;
       }
@@ -178,11 +164,14 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
         value: value.label!,
       })
       .then((key) => {
-        this.translationFileList.forEach((element) => {
-          const translateion = JSON.parse(fs.readFileSync(element, 'utf-8'));
-          translateion[key!] = translateion[value.label!];
-          delete translateion[value.label!];
-          jsonfile.writeFileSync(element, translateion, {
+        this.translationManager.translations.forEach((element) => {
+          element.Translations[key!] = element.Translations[value.label!];
+          delete element.Translations[value.label!];
+          const TranslationPath = path.join(
+            this.translationManager.translationPath,
+            element.Culture + '.json'
+          );
+          jsonfile.writeFileSync(TranslationPath, element.Translations, {
             spaces: 2,
             EOL: '\r\n',
           });
@@ -195,10 +184,13 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
       });
   }
   delete(value: Translation): void {
-    this.translationFileList.forEach((element) => {
-      const translateion = JSON.parse(fs.readFileSync(element, 'utf-8'));
-      delete translateion[value.label!];
-      jsonfile.writeFileSync(element, translateion, {
+    this.translationManager.translations.forEach((element) => {
+      delete element.Translations[value.label!];
+      const TranslationPath = path.join(
+        this.translationManager.translationPath,
+        element.Culture + '.json'
+      );
+      jsonfile.writeFileSync(TranslationPath, element.Translations, {
         spaces: 2,
         EOL: '\r\n',
       });
@@ -221,28 +213,29 @@ class Translation extends vscode.TreeItem {
     this.command = _command;
     this.isObject = _isObject;
     this.perent = _perent;
+    if (!this.isObject) {
+      this.iconPath = {
+        light: path.join(
+          __filename,
+          '..',
+          '..',
+          'resources',
+          'light',
+          'languages.svg'
+        ),
+        dark: path.join(
+          __filename,
+          '..',
+          '..',
+          'resources',
+          'dark',
+          'languages.svg'
+        ),
+      };
+    }
   }
 
   get tooltip(): string {
     return `${this.label}`;
   }
-
-  // iconPath = {
-  //   light: path.join(
-  //     __filename,
-  //     '..',
-  //     '..',
-  //     'resources',
-  //     'light',
-  //     'dependency.svg'
-  //   ),
-  //   dark: path.join(
-  //     __filename,
-  //     '..',
-  //     '..',
-  //     'resources',
-  //     'dark',
-  //     'dependency.svg'
-  //   ),
-  // };
 }

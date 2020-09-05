@@ -2,36 +2,25 @@ import { WebViewManager } from './WebViewManager';
 import * as vscode from 'vscode';
 
 export class CommandManager {
-  private translationPath: string;
   private webViewManager: WebViewManager;
-  constructor(_translationPath: string, _webViewManager: WebViewManager) {
-    this.translationPath = _translationPath;
+  constructor(_webViewManager: WebViewManager) {
     this.webViewManager = _webViewManager;
   }
   Translate = () => {
     vscode.window
       .showInputBox({
         prompt: 'Enter Translation key',
-        placeHolder: '',
+        placeHolder: 'Use dot (.) notation to make the key a Nested objects',
       })
-      .then((key) =>
-        this.webViewManager.showTreanslationPanel(key!, this.translationPath)
-      );
+      .then((key) => this.webViewManager.showTreanslationPanel(key!));
   };
 
   TranslateSelected = () => {
-    this.webViewManager.showTreanslationPanel(
-      this.getSelectedText(),
-      this.translationPath
-    );
+    this.webViewManager.showTreanslationPanel(this.getSelectedText());
   };
 
   TranslateTreeSelectedValue = (value: any) => {
-    this.webViewManager.showTreanslationPanel(
-      value,
-      this.translationPath,
-      true
-    );
+    this.webViewManager.showTreanslationPanel(value, true);
   };
 
   private getSelectedText(): string {
