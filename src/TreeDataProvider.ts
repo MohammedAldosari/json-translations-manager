@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as jsonfile from 'jsonfile';
 import _ from 'lodash';
+const sortobject = require('deep-sort-object');
 
 export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
   translationManager: TranslationManager;
@@ -155,7 +156,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
   refresh(): void {
     this.translationManager = new TranslationManager(
       this.translationManager.extensionPath,
-      this.translationManager.translationPath
+      this.translationManager.configurationManager
     );
     this._onDidChangeTreeData.fire();
   }
@@ -202,10 +203,18 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
       this.translationManager.translationPath,
       element.Culture + '.json'
     );
+    element.Translations = this.sortObject(element.Translations);
     jsonfile.writeFileSync(TranslationPath, element.Translations, {
       spaces: 2,
       EOL: '\r\n',
     });
+  }
+  private sortObject(unsorted: any) {
+    if (this.translationManager.configurationManager.get()?.sort === false) {
+      return unsorted;
+    } else {
+      return sortobject(unsorted);
+    }
   }
 }
 

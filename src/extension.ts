@@ -24,7 +24,7 @@ export function activate(_context: vscode.ExtensionContext) {
   }
   const translationManager = new TranslationManager(
     _context.extensionPath,
-    configurationManager.translationPath
+    configurationManager
   );
   const commandManager = new CommandManager(
     new WebViewManager(_context, translationManager)

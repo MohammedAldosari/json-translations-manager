@@ -6,7 +6,8 @@ import * as jsonfile from 'jsonfile';
 import _ from 'lodash';
 import { ISaveMessage, IWebviewMessage } from './WebViewManager';
 import { SignalDispatcher } from 'strongly-typed-events';
-
+import { ConfigurationManager } from './ConfigurationManager';
+const sortobject = require('deep-sort-object');
 export class TranslationManager {
   languageDetailsList: Array<ILanguage>;
   extensionPath: string;
@@ -14,10 +15,15 @@ export class TranslationManager {
   translations: Array<ITranslation> = [];
   languagefiles: string[] = [];
   private _onSave = new SignalDispatcher();
-  constructor(_extensionPath: string, _translationPath: string) {
+  configurationManager: ConfigurationManager;
+  constructor(
+    _extensionPath: string,
+    _configurationManager: ConfigurationManager
+  ) {
     this.extensionPath = _extensionPath;
     this.languageDetailsList = this.readCSV();
-    this.translationPath = _translationPath;
+    this.translationPath = _configurationManager.translationPath;
+    this.configurationManager = _configurationManager;
     this.getLanguages();
     this.getTranslation();
   }
@@ -98,9 +104,10 @@ export class TranslationManager {
 
   saveTranslation(data: ISaveMessage) {
     data.value.forEach((element) => {
-      const obj = this.translations.find((x) => x.Culture === element.culture)
+      let obj = this.translations.find((x) => x.Culture === element.culture)
         ?.Translations;
       _.set(obj!, data.translationKey, element.translationValue);
+      obj = this.sortObject(obj);
       jsonfile.writeFileSync(
         path.join(this.translationPath, element.culture + '.json'),
         obj,
@@ -111,6 +118,13 @@ export class TranslationManager {
       );
     });
     this._onSave.dispatch();
+  }
+  private sortObject(unsorted: any) {
+    if (this.configurationManager.get()?.sort === false) {
+      return unsorted;
+    } else {
+      return sortobject(unsorted);
+    }
   }
 }
 
