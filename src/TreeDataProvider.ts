@@ -1,4 +1,4 @@
-import { TranslationManager } from './TranslationManager';
+import { TranslationManager, ITranslation } from './TranslationManager';
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -9,6 +9,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
   translationManager: TranslationManager;
   constructor(_translationManager: TranslationManager) {
     this.translationManager = _translationManager;
+    this.translationManager.onSave.subscribe(() => this.refresh());
   }
 
   getTreeItem(element: Translation): vscode.TreeItem {
@@ -152,50 +153,59 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
   > = this._onDidChangeTreeData.event;
 
   refresh(): void {
+    this.translationManager = new TranslationManager(
+      this.translationManager.extensionPath,
+      this.translationManager.translationPath
+    );
     this._onDidChangeTreeData.fire();
   }
   add(): void {
     vscode.commands.executeCommand('json-translations-manager.translate');
   }
-  rename(value: Translation): void {
+  rename(translation: Translation): void {
     vscode.window
       .showInputBox({
         prompt: 'Rename Translation key',
-        value: value.label!,
+        value: translation.label!,
       })
-      .then((key) => {
+      .then((newKey) => {
         this.translationManager.translations.forEach((element) => {
-          element.Translations[key!] = element.Translations[value.label!];
-          delete element.Translations[value.label!];
-          const TranslationPath = path.join(
-            this.translationManager.translationPath,
-            element.Culture + '.json'
-          );
-          jsonfile.writeFileSync(TranslationPath, element.Translations, {
-            spaces: 2,
-            EOL: '\r\n',
+          element.Translations = _.mapKeys(element.Translations, function (
+            value,
+            key
+          ) {
+            if (key === translation.label!) {
+              return newKey;
+            } else {
+              return key;
+            }
           });
+          this.writeTranslation(element);
         });
-        this._onDidChangeTreeData.fire();
+        this.refresh();
         vscode.commands.executeCommand(
           'json-translations-manager.translateTreeSelectedValue',
-          key!
+          newKey!
         );
       });
   }
   delete(value: Translation): void {
     this.translationManager.translations.forEach((element) => {
       delete element.Translations[value.label!];
-      const TranslationPath = path.join(
-        this.translationManager.translationPath,
-        element.Culture + '.json'
-      );
-      jsonfile.writeFileSync(TranslationPath, element.Translations, {
-        spaces: 2,
-        EOL: '\r\n',
-      });
+      this.writeTranslation(element);
     });
-    this._onDidChangeTreeData.fire();
+    this.refresh();
+  }
+
+  private writeTranslation(element: ITranslation) {
+    const TranslationPath = path.join(
+      this.translationManager.translationPath,
+      element.Culture + '.json'
+    );
+    jsonfile.writeFileSync(TranslationPath, element.Translations, {
+      spaces: 2,
+      EOL: '\r\n',
+    });
   }
 }
 
@@ -233,9 +243,5 @@ class Translation extends vscode.TreeItem {
         ),
       };
     }
-  }
-
-  get tooltip(): string {
-    return `${this.label}`;
   }
 }

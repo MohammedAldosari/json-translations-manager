@@ -38,8 +38,8 @@
         "command": "json-translations-manager.addEntry",
         "title": "Add",
         "icon": {
-          "light": "resources/light/add.svg",
-          "dark": "resources/dark/add.svg"
+          "light": "resources/light/plus.svg",
+          "dark": "resources/dark/plus.svg"
         }
       },
       {
@@ -131,6 +131,7 @@
   "dependencies": {
     "jsonfile": "^6.0.1",
     "lodash": "^4.17.19",
-    "papaparse": "^5.2.0"
+    "papaparse": "^5.2.0",
+    "strongly-typed-events": "^1.6.19"
   }
 }

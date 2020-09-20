@@ -72,6 +72,7 @@ function askUserToSelectTranslationPath(
 ) {
   vscode.window
     .showOpenDialog({
+      defaultUri: vscode.workspace.workspaceFolders![0].uri,
       canSelectMany: false,
       canSelectFiles: false,
       canSelectFolders: true,
@@ -82,16 +83,38 @@ function askUserToSelectTranslationPath(
           vscode.workspace.workspaceFolders![0].uri.fsPath,
           ''
         );
+        askUserToEnableSort(configurationManager, folderpath);
+      }
+    });
+}
+function askUserToEnableSort(
+  configurationManager: ConfigurationManager,
+  folderpath: string
+) {
+  vscode.window
+    .showQuickPick(
+      ['Yes enable Translation Sorting', 'No disable Translation Sorting'],
+      {
+        canPickMany: false,
+        placeHolder: 'Do you want to Sort translation keys alphabetically?',
+      }
+    )
+    .then((selection) => {
+      if (selection === 'Yes enable Translation Sorting') {
+        configurationManager.set({
+          translationFolder: folderpath,
+          sort: true,
+        });
+      } else if (selection === 'No disable Translation Sorting') {
         configurationManager.set({
           translationFolder: folderpath,
           sort: false,
         });
-        vscode.window.showInformationMessage(
-          'Translation folder configuration Saved successfully'
-        );
       }
+      vscode.window.showInformationMessage(
+        'Translation folder configuration Saved successfully'
+      );
     });
 }
-
 // this method is called when your extension is deactivated
 export function deactivate() {}

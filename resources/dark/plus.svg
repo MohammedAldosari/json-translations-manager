@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="plus.svg"
+   id="svg4"
+   version="1.1"
+   width="469.33333pt"
+   viewBox="0 0 469.33333 469.33333"
+   height="469.33333pt">
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     inkscape:current-layer="svg4"
+     inkscape:window-maximized="1"
+     inkscape:window-y="-8"
+     inkscape:window-x="-8"
+     inkscape:cy="689.20695"
+     inkscape:cx="563.56844"
+     inkscape:zoom="0.48023496"
+     showgrid="false"
+     id="namedview6"
+     inkscape:window-height="1017"
+     inkscape:window-width="1920"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10"
+     gridtolerance="10"
+     objecttolerance="10"
+     borderopacity="1"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     inkscape:document-rotation="0" />
+  <path
+     style="fill:#c5c5c5;fill-opacity:1;stroke-width:0.862927"
+     id="path2"
+     d="M 409.55297,165.68228 H 271.48439 V 27.613714 C 271.48439,12.37089 259.11351,0 243.87068,0 H 225.46266 C 210.21984,0 197.84895,12.37089 197.84895,27.613714 V 165.68228 H 59.780387 c -15.242825,0 -27.613714,12.37088 -27.613714,27.61371 v 18.40803 c 0,15.24283 12.370889,27.61372 27.613714,27.61372 H 197.84895 V 377.3863 c 0,15.24281 12.37089,27.6137 27.61371,27.6137 h 18.40802 c 15.24283,0 27.61371,-12.37089 27.61371,-27.6137 V 239.31774 h 138.06858 c 15.24282,0 27.6137,-12.37089 27.6137,-27.61372 v -18.40803 c 0,-15.24283 -12.37088,-27.61371 -27.6137,-27.61371 z m 0,0" />
+</svg>

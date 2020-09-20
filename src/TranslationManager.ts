@@ -5,6 +5,7 @@ import * as jsonfile from 'jsonfile';
 
 import _ from 'lodash';
 import { ISaveMessage, IWebviewMessage } from './WebViewManager';
+import { SignalDispatcher } from 'strongly-typed-events';
 
 export class TranslationManager {
   languageDetailsList: Array<ILanguage>;
@@ -12,15 +13,20 @@ export class TranslationManager {
   translationPath: string;
   translations: Array<ITranslation> = [];
   languagefiles: string[] = [];
+  private _onSave = new SignalDispatcher();
   constructor(_extensionPath: string, _translationPath: string) {
     this.extensionPath = _extensionPath;
     this.languageDetailsList = this.readCSV();
     this.translationPath = _translationPath;
-    this.getLanguagesfiles();
+    this.getLanguages();
     this.getTranslation();
   }
 
-  getLanguagesfiles() {
+  public get onSave() {
+    return this._onSave.asEvent();
+  }
+
+  getLanguages() {
     fs.readdirSync(this.translationPath).forEach((file) => {
       this.languagefiles.push(file.replace('.json', ''));
     });
@@ -104,7 +110,7 @@ export class TranslationManager {
         }
       );
     });
-    //treeDataProvider.refresh();
+    this._onSave.dispatch();
   }
 }
 

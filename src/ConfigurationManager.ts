@@ -11,14 +11,18 @@ export class ConfigurationManager {
     this.get();
   }
   get(): IConfiguration | undefined {
-    if (!this.configuration) {
-      const rawdata = fs.readFileSync(
-        path.join(this.path, this.configFileName)
-      );
-      if (rawdata) {
-        this.configuration = JSON.parse(rawdata.toString());
-        this.setTranslationPath();
+    try {
+      if (!this.configuration) {
+        const rawdata = fs.readFileSync(
+          path.join(this.path, this.configFileName)
+        );
+        if (rawdata) {
+          this.configuration = JSON.parse(rawdata.toString());
+          this.setTranslationPath();
+        }
       }
+    } catch (err) {
+      console.error(err);
     }
     return this.configuration;
   }
