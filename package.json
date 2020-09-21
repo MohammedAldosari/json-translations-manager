@@ -10,6 +10,7 @@
     "Other"
   ],
   "activationEvents": [
+    "onCommand:json-translations-manager.init",
     "onCommand:json-translations-manager.translate",
     "onCommand:json-translations-manager.translateSelected",
     "onView:json-translations-manager"
@@ -19,19 +20,23 @@
     "commands": [
       {
         "command": "json-translations-manager.init",
-        "title": "JTM: Initialize or update translation configration"
+        "title": "Initialize or update translation configration",
+        "category": "JTM"
       },
       {
         "command": "json-translations-manager.translate",
-        "title": "JTM: Add translation"
+        "title": "Add translation",
+        "category": "JTM"
       },
       {
         "command": "json-translations-manager.translateSelected",
-        "title": "JTM: Adding translation from selected"
+        "title": "Adding translation from selected",
+        "category": "JTM"
       },
       {
         "command": "json-translations-manager.translateTreeSelectedValue",
-        "title": "JTM: Adding translation from tree selected value"
+        "title": "Adding translation from tree selected value",
+        "category": "JTM"
       },
       {
         "command": "json-translations-manager.refreshEntry",
@@ -64,6 +69,28 @@
       }
     ],
     "menus": {
+      "commandPalette": [
+        {
+          "command": "json-translations-manager.translateTreeSelectedValue",
+          "when": "false"
+        },
+        {
+          "command": "json-translations-manager.refreshEntry",
+          "when": "false"
+        },
+        {
+          "command": "json-translations-manager.addEntry",
+          "when": "false"
+        },
+        {
+          "command": "json-translations-manager.deleteEntry",
+          "when": "false"
+        },
+        {
+          "command": "json-translations-manager.editEntry",
+          "when": "false"
+        }
+      ],
       "view/title": [
         {
           "command": "json-translations-manager.refreshEntry",

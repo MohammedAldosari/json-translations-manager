@@ -32,7 +32,7 @@ export class ConfigurationManager {
   set(_configration: IConfiguration) {
     this.configuration = _configration;
     this.setTranslationPath();
-    fs.appendFileSync(
+    fs.writeFileSync(
       path.join(this.path, this.configFileName),
       JSON.stringify(_configration, null, 2)
     );
