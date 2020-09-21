@@ -19,9 +19,76 @@ export function activate(_context: vscode.ExtensionContext) {
   const configurationManager = new ConfigurationManager(
     vscode.workspace.workspaceFolders![0].uri.fsPath
   );
+
   if (!configurationManager.configuration) {
-    askUserToSelectTranslationPath(configurationManager);
+    vscode.commands.executeCommand('setContext', `${namespace}:noConfig`, true);
+    //askUserToSelectTranslationPath(configurationManager);
   }
+
+  _context.subscriptions.push(
+    vscode.commands.registerCommand(`${namespace}.init`, () => {
+      askUserToSelectTranslationPath(_context, configurationManager);
+    })
+  );
+}
+
+function askUserToSelectTranslationPath(
+  _context: vscode.ExtensionContext,
+  configurationManager: ConfigurationManager
+) {
+  vscode.window
+    .showOpenDialog({
+      defaultUri: vscode.workspace.workspaceFolders![0].uri,
+      canSelectMany: false,
+      canSelectFiles: false,
+      canSelectFolders: true,
+    })
+    .then((fileUri) => {
+      if (fileUri && fileUri[0]) {
+        const folderpath = fileUri[0].fsPath.replace(
+          vscode.workspace.workspaceFolders![0].uri.fsPath,
+          ''
+        );
+        askUserToEnableSort(_context, configurationManager, folderpath);
+      }
+    });
+}
+function askUserToEnableSort(
+  _context: vscode.ExtensionContext,
+  configurationManager: ConfigurationManager,
+  folderpath: string
+) {
+  vscode.window
+    .showQuickPick(
+      ['Yes enable Translation Sorting', 'No disable Translation Sorting'],
+      {
+        canPickMany: false,
+        placeHolder: 'Do you want to Sort translation keys alphabetically?',
+      }
+    )
+    .then((selection) => {
+      if (selection === 'Yes enable Translation Sorting') {
+        configurationManager.set({
+          translationFolder: folderpath,
+          sort: true,
+        });
+      } else if (selection === 'No disable Translation Sorting') {
+        configurationManager.set({
+          translationFolder: folderpath,
+          sort: false,
+        });
+      }
+      RegisterCommands(_context, configurationManager);
+      vscode.window.showInformationMessage(
+        'Translation folder configuration Saved successfully'
+      );
+    });
+}
+
+function RegisterCommands(
+  _context: vscode.ExtensionContext,
+  configurationManager: ConfigurationManager
+) {
   const translationManager = new TranslationManager(
     _context.extensionPath,
     configurationManager
@@ -29,7 +96,6 @@ export function activate(_context: vscode.ExtensionContext) {
   const commandManager = new CommandManager(
     new WebViewManager(_context, translationManager)
   );
-
   _context.subscriptions.push(
     vscode.commands.registerCommand(
       `${namespace}.translate`,
@@ -65,56 +131,6 @@ export function activate(_context: vscode.ExtensionContext) {
   vscode.commands.registerCommand(`${namespace}.editEntry`, (value) => {
     treeDataProvider.rename(value);
   });
-}
-
-function askUserToSelectTranslationPath(
-  configurationManager: ConfigurationManager
-) {
-  vscode.window
-    .showOpenDialog({
-      defaultUri: vscode.workspace.workspaceFolders![0].uri,
-      canSelectMany: false,
-      canSelectFiles: false,
-      canSelectFolders: true,
-    })
-    .then((fileUri) => {
-      if (fileUri && fileUri[0]) {
-        const folderpath = fileUri[0].fsPath.replace(
-          vscode.workspace.workspaceFolders![0].uri.fsPath,
-          ''
-        );
-        askUserToEnableSort(configurationManager, folderpath);
-      }
-    });
-}
-function askUserToEnableSort(
-  configurationManager: ConfigurationManager,
-  folderpath: string
-) {
-  vscode.window
-    .showQuickPick(
-      ['Yes enable Translation Sorting', 'No disable Translation Sorting'],
-      {
-        canPickMany: false,
-        placeHolder: 'Do you want to Sort translation keys alphabetically?',
-      }
-    )
-    .then((selection) => {
-      if (selection === 'Yes enable Translation Sorting') {
-        configurationManager.set({
-          translationFolder: folderpath,
-          sort: true,
-        });
-      } else if (selection === 'No disable Translation Sorting') {
-        configurationManager.set({
-          translationFolder: folderpath,
-          sort: false,
-        });
-      }
-      vscode.window.showInformationMessage(
-        'Translation folder configuration Saved successfully'
-      );
-    });
 }
 // this method is called when your extension is deactivated
 export function deactivate() {}

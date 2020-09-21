@@ -18,6 +18,10 @@
   "contributes": {
     "commands": [
       {
+        "command": "json-translations-manager.init",
+        "title": "JTM: Initialize or update translation configration"
+      },
+      {
         "command": "json-translations-manager.translate",
         "title": "JTM: Add translation"
       },
@@ -85,6 +89,13 @@
         }
       ]
     },
+    "viewsWelcome": [
+      {
+        "view": "json-translations-manager",
+        "contents": "No translation configration found.\n[Add translation](command:json-translations-manager.init)",
+        "when": "json-translations-manager:noConfig == true"
+      }
+    ],
     "views": {
       "JTM": [
         {
