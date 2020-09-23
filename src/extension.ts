@@ -6,6 +6,7 @@ import { WebViewManager } from './WebViewManager';
 import { CommandManager } from './CommandManager';
 
 const namespace = 'json-translations-manager';
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(_context: vscode.ExtensionContext) {
@@ -98,6 +99,18 @@ function RegisterCommands(
   const commandManager = new CommandManager(
     new WebViewManager(_context, translationManager)
   );
+  const treeDataProvider = new TreeDataProvider(translationManager);
+  vscode.window.createTreeView(namespace, {
+    treeDataProvider,
+  });
+  treeDataProvider.onRefresh.clear();
+  treeDataProvider.onRefresh.subscribe(() =>
+    RegisterCommands(_context, configurationManager)
+  );
+
+  _context.subscriptions.forEach((element) => {
+    element.dispose();
+  });
   _context.subscriptions.push(
     vscode.commands.registerCommand(
       `${namespace}.translate`,
@@ -112,27 +125,32 @@ function RegisterCommands(
     )
   );
 
-  const treeDataProvider = new TreeDataProvider(translationManager);
-  vscode.window.createTreeView(namespace, {
-    treeDataProvider,
-  });
-
-  vscode.commands.registerCommand(
-    `${namespace}.translateTreeSelectedValue`,
-    commandManager.TranslateTreeSelectedValue
+  _context.subscriptions.push(
+    vscode.commands.registerCommand(
+      `${namespace}.translateTreeSelectedValue`,
+      commandManager.TranslateTreeSelectedValue
+    )
   );
-  vscode.commands.registerCommand(`${namespace}.refreshEntry`, () =>
-    treeDataProvider.refresh()
+  _context.subscriptions.push(
+    vscode.commands.registerCommand(`${namespace}.refreshEntry`, () =>
+      treeDataProvider.refresh()
+    )
   );
-  vscode.commands.registerCommand(`${namespace}.addEntry`, () =>
-    treeDataProvider.add()
+  _context.subscriptions.push(
+    vscode.commands.registerCommand(`${namespace}.addEntry`, () =>
+      treeDataProvider.add()
+    )
   );
-  vscode.commands.registerCommand(`${namespace}.deleteEntry`, (value) =>
-    treeDataProvider.delete(value)
+  _context.subscriptions.push(
+    vscode.commands.registerCommand(`${namespace}.deleteEntry`, (value) =>
+      treeDataProvider.delete(value)
+    )
   );
-  vscode.commands.registerCommand(`${namespace}.editEntry`, (value) => {
-    treeDataProvider.rename(value);
-  });
+  _context.subscriptions.push(
+    vscode.commands.registerCommand(`${namespace}.editEntry`, (value) => {
+      treeDataProvider.rename(value);
+    })
+  );
 }
 // this method is called when your extension is deactivated
 export function deactivate() {}

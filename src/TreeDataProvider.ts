@@ -4,13 +4,20 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as jsonfile from 'jsonfile';
 import _ from 'lodash';
+import { SignalDispatcher } from 'strongly-typed-events';
 const sortobject = require('deep-sort-object');
 
 export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
   translationManager: TranslationManager;
+  private _onRefresh = new SignalDispatcher();
   constructor(_translationManager: TranslationManager) {
     this.translationManager = _translationManager;
+    this.translationManager.onSave.clear();
     this.translationManager.onSave.subscribe(() => this.refresh());
+  }
+
+  public get onRefresh() {
+    return this._onRefresh.asEvent();
   }
 
   getTreeItem(element: Translation): vscode.TreeItem {
@@ -154,10 +161,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
   > = this._onDidChangeTreeData.event;
 
   refresh(): void {
-    this.translationManager = new TranslationManager(
-      this.translationManager.extensionPath,
-      this.translationManager.configurationManager
-    );
+    this._onRefresh.dispatch();
     this._onDidChangeTreeData.fire();
   }
   add(): void {
