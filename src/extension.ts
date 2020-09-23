@@ -23,6 +23,8 @@ export function activate(_context: vscode.ExtensionContext) {
   if (!configurationManager.configuration) {
     vscode.commands.executeCommand('setContext', `${namespace}:noConfig`, true);
     //askUserToSelectTranslationPath(configurationManager);
+  } else {
+    RegisterCommands(_context, configurationManager);
   }
 
   _context.subscriptions.push(

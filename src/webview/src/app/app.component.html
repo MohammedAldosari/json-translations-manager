@@ -1,10 +1,10 @@
 <section class="section" *ngIf="message" (keyup)="onKeyUp($event)">
-  <div style="text-align: center;">
-    <h2>20.08.07.1</h2>
-    <span class="text-style">translation key = <span style="font-weight: bold;">{{ key }}</span></span>
-  </div>
 
   <form class="form-style" [formGroup]="translationForms" #form *ngIf="this.message">
+    <div>
+      <span class="text-style">Translation key : <span style="font-weight: bold;">{{ key }}</span></span>
+    </div>
+
     <ul>
       <li formArrayName="value" *ngFor="let item of this.value.controls; let i = index;"
         [dir]=" this.message.languages[i].Direction">
