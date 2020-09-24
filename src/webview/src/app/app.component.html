@@ -1,7 +1,10 @@
-<section class="section" *ngIf="message" (keyup)="onKeyUp($event)">
-
+<section class="section" (keyup)="onKeyUp($event)">
+  <div class="center">
+    <div class="svg" style="width:10%"></div>
+    <h3 class="text-style">Json Tralation Manger</h3>
+  </div>
   <form class="form-style" [formGroup]="translationForms" #form *ngIf="this.message">
-    <div>
+    <div class="key-text">
       <span class="text-style">Translation key : <span style="font-weight: bold;">{{ key }}</span></span>
     </div>
 

@@ -2,6 +2,23 @@
   padding: 20px;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
+
+.svg {
+  width: 100px;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--vscode-activityBar-foreground); /* defines the background color of the image */
+  mask: var(--logo) no-repeat center / contain;
+  -webkit-mask: var(--logo) no-repeat center / contain;
+}
+
+.center {
+  text-align: center;
+}
+.key-text {
+  margin-bottom: 20px;
+}
 .text-style {
   font-family: Georgia, "Times New Roman", Times, serif;
   color: var(--vscode-activityBar-foreground);

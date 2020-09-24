@@ -59,7 +59,10 @@ export class WebViewManager {
       '<base href="/">',
       `<base href="${String(baseUri)}/">`
     );
-
+    indexHtml = indexHtml.replace(
+      '/JTM-Icon.svg',
+      `${String(baseUri)}/JTM-Icon.svg`
+    );
     return indexHtml;
   }
 
@@ -69,7 +72,10 @@ export class WebViewManager {
       'Translate',
       vscode.ViewColumn.One,
       {
-        localResourceRoots: [vscode.Uri.file(this.webviewPath)],
+        localResourceRoots: [
+          vscode.Uri.file(this.webviewPath),
+          vscode.Uri.file(path.join(this.webviewPath, 'JTM-Icon.svg')),
+        ],
         enableScripts: true,
         retainContextWhenHidden: true,
       }

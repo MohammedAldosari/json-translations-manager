@@ -3,19 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { NotifierModule } from "angular-notifier";
+import { NotifierModule } from 'angular-notifier';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NotifierModule
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, ReactiveFormsModule, FormsModule, NotifierModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
