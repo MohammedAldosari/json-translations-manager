@@ -91,10 +91,10 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
     }
     if (this.pathExists(this.translationManager.translationPath)) {
       this.translationManager.translations.forEach((translation) => {
-        translationKeys = _.union(
-          translationKeys,
-          Object.keys(_.get(translation.Translations, path + element.label!))
-        );
+        const object = _.get(translation.Translations, path + element.label!);
+        if (object) {
+          translationKeys = _.union(translationKeys, Object.keys(object));
+        }
       });
 
       const translations: Translation[] = [];

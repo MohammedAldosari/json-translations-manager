@@ -65,8 +65,9 @@ export class TranslationManager {
 
   getTranslationValue(message: IWebviewMessage) {
     message.languages.forEach((element) => {
-      const obj = this.translations.find((x) => x.Culture === element.Culture)
-        ?.Translations;
+      const obj = this.translations.find(
+        (x) => x.Culture.toLowerCase() === element.Culture.toLowerCase()
+      )?.Translations;
 
       if (!message.value) {
         message.value = [
@@ -89,7 +90,7 @@ export class TranslationManager {
 
     this.languagefiles.forEach((lang) => {
       let languageDetail = this.languageDetailsList.find(
-        (item) => item['Culture'].toUpperCase() === lang.toUpperCase()
+        (item) => item['Culture'].toLowerCase() === lang.toLowerCase()
       );
       if (!languageDetail) {
         languageDetail = {
@@ -106,8 +107,9 @@ export class TranslationManager {
 
   saveTranslation(data: ISaveMessage) {
     data.value.forEach((element) => {
-      let obj = this.translations.find((x) => x.Culture === element.culture)
-        ?.Translations;
+      let obj = this.translations.find(
+        (x) => x.Culture.toLowerCase() === element.culture.toLowerCase()
+      )?.Translations;
       _.set(obj!, data.translationKey, element.translationValue);
       obj = this.sortObject(obj);
       jsonfile.writeFileSync(

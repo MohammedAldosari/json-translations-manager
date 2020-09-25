@@ -87,30 +87,36 @@ function askUserToEnableSort(
       );
     });
 }
-
-function RegisterCommands(
+let translationManager: TranslationManager;
+let commandManager: CommandManager;
+let treeDataProvider: TreeDataProvider;
+function init(
   _context: vscode.ExtensionContext,
   configurationManager: ConfigurationManager
 ) {
-  const translationManager = new TranslationManager(
+  translationManager = new TranslationManager(
     _context.extensionPath,
     configurationManager
   );
-  const commandManager = new CommandManager(
+  commandManager = new CommandManager(
     new WebViewManager(_context, translationManager)
   );
-  const treeDataProvider = new TreeDataProvider(translationManager);
+  treeDataProvider = new TreeDataProvider(translationManager);
   vscode.window.createTreeView(namespace, {
     treeDataProvider,
   });
   treeDataProvider.onRefresh.clear();
   treeDataProvider.onRefresh.subscribe(() =>
-    RegisterCommands(_context, configurationManager)
+    init(_context, configurationManager)
   );
+}
 
-  _context.subscriptions.forEach((element) => {
-    element.dispose();
-  });
+function RegisterCommands(
+  _context: vscode.ExtensionContext,
+  configurationManager: ConfigurationManager
+) {
+  init(_context, configurationManager);
+
   _context.subscriptions.push(
     vscode.commands.registerCommand(
       `${namespace}.translate`,
