@@ -5,7 +5,7 @@ export class ConfigurationManager {
   private path: string = '';
   translationPath: string = '';
   configuration: IConfiguration | undefined = undefined;
-  private configFileName = 'jtm-config.json';
+  private configFileName = 'jtmConfig.json';
   constructor(_path: string) {
     this.path = _path;
     this.get();
