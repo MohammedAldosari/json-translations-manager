@@ -9,7 +9,7 @@ import { SignalDispatcher } from 'strongly-typed-events';
 import { ConfigurationManager } from './ConfigurationManager';
 const sortobject = require('deep-sort-object');
 export class TranslationManager {
-  languageDetailsList: Array<ILanguage>;
+  languageDetailsList: Array<ILanguage> = [];
   extensionPath: string;
   translationPath: string;
   translations: Array<ITranslation> = [];
@@ -21,11 +21,13 @@ export class TranslationManager {
     _configurationManager: ConfigurationManager
   ) {
     this.extensionPath = _extensionPath;
-    this.languageDetailsList = this.readCSV();
     this.translationPath = _configurationManager.translationPath;
     this.configurationManager = _configurationManager;
-    this.getLanguages();
-    this.getTranslation();
+    if (_configurationManager.configuration) {
+      this.languageDetailsList = this.readCSV();
+      this.getLanguages();
+      this.getTranslation();
+    }
   }
 
   public get onSave() {

@@ -1,65 +1,59 @@
-# json-translations-manager README
+<center>
 
-This is the README for your extension "json-translations-manager". After writing up a brief description, we recommend including the following sections.
+[<img src="https://raw.githubusercontent.com/MohammedAldosari/json-translations-manager/master/resources/JTM-Icon.svg" width="200"/>](JTM)
 
-## Features
+# JSON Translation Manager
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## The fastest and simplest way manage your translation files
 
-For example if there is an image subfolder under your extension project workspace:
+---
 
-\!\[feature X\]\(images/feature-x.png\)
+</center>
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+# What is JSON Translation Manager?
 
-## Requirements
+A visual studio code extension to manage internationalization translation files and keep them in sync. it's allow you to edit multiple languages on the same time.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+# Installation
 
-## Extension Settings
+1. Open Extensions sidebar panel in Visual Studio Code. View → Extensions
+2. Search for JSON Translation Manager
+3. Click Install
+4. Click Reload
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+# Usage
 
-For example:
+To start using JSON Translation Manager you need first to specify the localization (i18n) folder with one language file (e.g. en.json, ar.json, etc.).
 
-This extension contributes the following settings:
+The following commands are available in VS Code's command palette, use the ID to add them to your keyboard shortcuts:
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+| ID                                            | Command                                                  |
+| --------------------------------------------- | -------------------------------------------------------- |
+| `json-translations-manager.config`            | Initialize or update JTM configration                    |
+| `json-translations-manager.translate`         | Add translation                                          |
+| `json-translations-manager.translateSelected` | Adding translation and assign the selected text as a key |
 
-## Known Issues
+# Upcoming Features
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- Analysing translation usage
+- Support multiple language files
+- Autocomplete translation keys
+- Add hover tooltip on keys to show the translation value
 
-## Release Notes
+# Bugs and Feedback
 
-Users appreciate release notes as you update your extension.
+To report issues with this extension for VS Code, open a bug on GitHub. If you would like to suggest a feature, create a feature request on GitHub.
 
-### 1.0.0
+# Want to Contribute?
 
-Initial release of ...
+Contributions of any kind welcome. Thanks for considering.
 
-### 1.0.1
+# Authors
 
-Fixed issue #.
+Made by **Mohammed Hassan Aldosari** follow me in [Twitter](https://twitter.com/mhwdosari)
 
-### 1.1.0
+> Icons made by [Pixel perfect](https://www.flaticon.com/authors/pixel-perfect) from www.flaticon.com is licensed by [CC 3.0](http://creativecommons.org/licenses/by/3.0/)
 
-Added features X, Y, and Z.
+Enjoy 👍
 
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+---

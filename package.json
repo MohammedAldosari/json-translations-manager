@@ -10,7 +10,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:json-translations-manager.init",
+    "onCommand:json-translations-manager.config",
     "onCommand:json-translations-manager.translate",
     "onCommand:json-translations-manager.translateSelected",
     "onView:json-translations-manager"
@@ -19,8 +19,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "json-translations-manager.init",
-        "title": "Initialize or update translation configration",
+        "command": "json-translations-manager.config",
+        "title": "Initialize or update JTM configration",
         "category": "JTM"
       },
       {
@@ -30,7 +30,7 @@
       },
       {
         "command": "json-translations-manager.translateSelected",
-        "title": "Adding translation from selected",
+        "title": "Adding translation from selected text",
         "category": "JTM"
       },
       {
@@ -119,7 +119,7 @@
     "viewsWelcome": [
       {
         "view": "json-translations-manager",
-        "contents": "No translation configration found.\n[Add translation](command:json-translations-manager.init)",
+        "contents": "No translation configration found.\n[Add translation](command:json-translations-manager.config)",
         "when": "json-translations-manager:noConfig == true"
       }
     ],
