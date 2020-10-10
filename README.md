@@ -2,9 +2,9 @@
 
 [<img src="https://raw.githubusercontent.com/MohammedAldosari/json-translations-manager/master/resources/JTM-Icon-blue.svg" width="200"/>](JTM)
 
-<h2>JSON Translation Manager</h2>
+<h1>JSON Translation Manager</h1>
 
-<h4> The fastest and simplest way manage your translation files</h4>
+<h3> The fastest and simplest way manage your translation files</h3>
 
 ---
 
