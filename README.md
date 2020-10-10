@@ -69,6 +69,7 @@ The JTM view lets you manage your translation by (add, rename, delete, refresh)
 <img src="https://raw.githubusercontent.com/MohammedAldosari/json-translations-manager/master/resources/imgs/JTMView.gif"/>
 
 </div>
+
 # Upcoming Features
 
 - Analysing translation usage
