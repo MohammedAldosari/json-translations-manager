@@ -121,7 +121,8 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
                   title: 'JTM: Adding translation from tree selected value',
                   arguments: [path + element.label! + '.' + key],
                 },
-                false
+                false,
+                path + element.label!
               )
             );
           }
@@ -168,6 +169,10 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
     vscode.commands.executeCommand('json-translations-manager.translate');
   }
   rename(translation: Translation): void {
+    let path = '';
+    if (translation.perent) {
+      path = translation.perent + '.';
+    }
     vscode.window
       .showInputBox({
         prompt: 'Rename Translation key',
@@ -175,29 +180,36 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
       })
       .then((newKey) => {
         this.translationManager.translations.forEach((element) => {
-          element.Translations = _.mapKeys(element.Translations, function (
-            value,
-            key
-          ) {
-            if (key === translation.label!) {
-              return newKey;
-            } else {
-              return key;
-            }
-          });
-          this.writeTranslation(element);
+          _.set(
+            element.Translations,
+            path + newKey,
+            _.get(element.Translations, path + translation.label!)
+          );
+          const result = _.unset(
+            element.Translations,
+            path + translation.label!
+          );
+          if (result === true) {
+            this.writeTranslation(element);
+          }
         });
         this.refresh();
         vscode.commands.executeCommand(
           'json-translations-manager.translateTreeSelectedValue',
-          newKey!
+          path + newKey!
         );
       });
   }
-  delete(value: Translation): void {
+  delete(translation: Translation): void {
+    let path = '';
+    if (translation.perent) {
+      path = translation.perent + '.';
+    }
     this.translationManager.translations.forEach((element) => {
-      delete element.Translations[value.label!];
-      this.writeTranslation(element);
+      const result = _.unset(element.Translations, path + translation.label!);
+      if (result === true) {
+        this.writeTranslation(element);
+      }
     });
     this.refresh();
   }

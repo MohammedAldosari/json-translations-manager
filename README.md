@@ -62,7 +62,13 @@ This command will create a translation from the the selected text and save it on
 
 </div>
 
+### JTM View
+The JTM view lets you manage your translation by (add, rename, delete, refresh)
+<div align="center">
 
+<img src="https://raw.githubusercontent.com/MohammedAldosari/json-translations-manager/master/resources/imgs/JTMView.gif"/>
+
+</div>
 # Upcoming Features
 
 - Analysing translation usage
@@ -81,8 +87,6 @@ Contributions of any kind welcome. Thanks for considering.
 # Authors
 
 Made by **Mohammed Hassan Aldosari** follow me in [Twitter](https://twitter.com/mhwdosari)
-
-> Icons made by [Pixel perfect](https://www.flaticon.com/authors/pixel-perfect) from www.flaticon.com is licensed by [CC 3.0](http://creativecommons.org/licenses/by/3.0/)
 
 Enjoy 👍
 
