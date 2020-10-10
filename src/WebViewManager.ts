@@ -36,9 +36,7 @@ export class WebViewManager {
   ) {
     this.webviewPath = path.join(
       _context.extensionPath,
-      'src',
-      'webview',
-      'dist',
+      'resources',
       'jtw-webview'
     );
     this.context = _context;
