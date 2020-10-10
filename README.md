@@ -1,6 +1,6 @@
 <center>
 
-[<img src="https://raw.githubusercontent.com/MohammedAldosari/json-translations-manager/master/resources/JTM-Icon.svg" width="200"/>](JTM)
+[<img src="https://raw.githubusercontent.com/MohammedAldosari/json-translations-manager/master/resources/JTM-Icon-blue.svg" width="200"/>](JTM)
 
 # JSON Translation Manager
 
