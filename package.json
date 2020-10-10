@@ -1,7 +1,12 @@
 {
   "name": "json-translations-manager",
-  "displayName": "JSON Translations Editor",
-  "description": "Edit your translation files in parallel. This extension help the developers to manage the app translations",
+  "displayName": "JSON Translation Manager",
+  "description": "A visual studio code extension to manage internationalization translation files and keep them in sync. it's allow you to edit multiple languages on the same time",
+  "publisher": "Mohammed",
+  "icon": "icon.png",
+  "repository": {
+        "url": "https://github.com/MohammedAldosari/json-translations-manager"
+    },
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.46.0"
