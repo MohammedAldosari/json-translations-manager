@@ -30,7 +30,7 @@
       },
       {
         "command": "json-translations-manager.translateSelected",
-        "title": "Adding translation from selected text",
+        "title": "Add translation from selected text",
         "category": "JTM"
       },
       {
