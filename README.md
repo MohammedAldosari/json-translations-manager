@@ -1,4 +1,4 @@
-<center>
+<div align="center">
 
 [<img src="https://raw.githubusercontent.com/MohammedAldosari/json-translations-manager/master/resources/JTM-Icon-blue.svg" width="200"/>](JTM)
 
@@ -8,7 +8,7 @@
 
 ---
 
-</center>
+</div>
 
 # What is JSON Translation Manager?
 
