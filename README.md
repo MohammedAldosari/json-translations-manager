@@ -1,6 +1,6 @@
 <div align="center">
 
-[<img src="https://raw.githubusercontent.com/MohammedAldosari/json-translations-manager/master/resources/JTM-Icon-blue.svg" width="200"/>](JTM)
+[<img src="https://raw.githubusercontent.com/MohammedAldosari/json-translations-manager/master/resources/JTM-Icon-blue.svg" width="300"/>](JTM)
 
 <h1>JSON Translation Manager</h1>
 
@@ -29,9 +29,20 @@ The following commands are available in VS Code's command palette, use the ID to
 
 | ID                                            | Command                                                  |
 | --------------------------------------------- | -------------------------------------------------------- |
-| `json-translations-manager.config`            | Initialize or update JTM configration                    |
-| `json-translations-manager.translate`         | Add translation                                          |
-| `json-translations-manager.translateSelected` | Adding translation and assign the selected text as a key |
+| `JTM:Initialize or update JTM configration`            | Initialize or update JTM configration                    |
+| `JTM:Add translation`         | Allow you to add translation by sipcfy the key and you can use dot (.) notation to make the key a Nested objects                                          |
+| `JTM:json-translations-manager.translateSelected` | Adding translation and assign the selected text as a key |
+
+# Example
+
+## JTM:Initialize or update JTM configration
+This command will create or update the `jtmConfig.json` file on your porject.
+
+<div align="center">
+
+[<img src="https://raw.githubusercontent.com/MohammedAldosari/json-translations-manager/master/resources/imgs/config.gif"/>](JTM)
+
+</div>
 
 # Upcoming Features
 
