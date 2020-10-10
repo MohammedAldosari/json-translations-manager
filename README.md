@@ -1,6 +1,6 @@
 <div align="center">
 
-[<img src="https://raw.githubusercontent.com/MohammedAldosari/json-translations-manager/master/resources/JTM-Icon-blue.svg" width="300"/>](JTM)
+[<img src="https://raw.githubusercontent.com/MohammedAldosari/json-translations-manager/master/resources/JTM-Icon-blue.svg" width="300"/>]
 
 <h1>JSON Translation Manager</h1>
 
@@ -40,7 +40,7 @@ This command will create or update the `jtmConfig.json` file on your porject.
 
 <div align="center">
 
-[<img src="https://raw.githubusercontent.com/MohammedAldosari/json-translations-manager/master/resources/imgs/config.gif"/>](JTM)
+[<img src="https://raw.githubusercontent.com/MohammedAldosari/json-translations-manager/master/resources/imgs/config.gif"/>]
 
 </div>
 
