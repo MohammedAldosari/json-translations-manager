@@ -5,8 +5,8 @@
   "publisher": "Mohammed",
   "icon": "icon.png",
   "repository": {
-        "url": "https://github.com/MohammedAldosari/json-translations-manager"
-    },
+    "url": "https://github.com/MohammedAldosari/json-translations-manager"
+  },
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.46.0"
@@ -161,7 +161,7 @@
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.13.25",
     "@types/papaparse": "^5.2.3",
-    "@types/vscode": "^1.50.0",
+    "@types/vscode": "^1.46.0",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
     "eslint": "^6.8.0",
