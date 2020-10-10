@@ -37,7 +37,7 @@ export class WebViewManager {
     this.webviewPath = path.join(
       _context.extensionPath,
       'resources',
-      'jtw-webview'
+      'jtm-webview'
     );
     this.context = _context;
     this.translationManager = _translationManager;
