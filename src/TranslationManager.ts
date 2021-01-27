@@ -87,6 +87,15 @@ export class TranslationManager {
     });
   }
 
+  getTranslationValueFromText(text: string) {
+    let x: any = {};
+    this.translations.forEach(element => {
+      x[element.Culture] = _.get(element.Translations, text, '')
+    });
+
+    return x;
+  }
+
   getLanguageDetails() {
     const languageDetails = new Array<ILanguage>();
 

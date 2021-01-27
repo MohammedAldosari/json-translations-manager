@@ -12,6 +12,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
   private _onRefresh = new SignalDispatcher();
   constructor(_translationManager: TranslationManager) {
     this.translationManager = _translationManager;
+
     this.translationManager.onSave.clear();
     this.translationManager.onSave.subscribe(() => this.refresh());
   }
@@ -38,9 +39,6 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
     return Promise.resolve([]);
   }
 
-  /**
-   * Given the path to package.json, read all its dependencies and devDependencies.
-   */
   private getTranslationsKeys(): Translation[] {
     let translationKeys: string[] = [];
     if (this.pathExists(this.translationManager.translationPath)) {
@@ -57,7 +55,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
           translations.push(
             new Translation(
               element,
-              vscode.TreeItemCollapsibleState.Collapsed,
+              vscode.TreeItemCollapsibleState.Expanded,
               undefined,
               true
             )
@@ -104,7 +102,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
             translations.push(
               new Translation(
                 key,
-                vscode.TreeItemCollapsibleState.Collapsed,
+                vscode.TreeItemCollapsibleState.Expanded,
                 undefined,
                 true,
                 element.label
@@ -242,7 +240,8 @@ class Translation extends vscode.TreeItem {
     _collapsibleState: vscode.TreeItemCollapsibleState,
     _command?: vscode.Command,
     _isObject: boolean = false,
-    _perent: string = ''
+    _perent: string = '',
+
   ) {
     super(_label, _collapsibleState);
     this.command = _command;
@@ -268,5 +267,8 @@ class Translation extends vscode.TreeItem {
         ),
       };
     }
+
+
+
   }
 }

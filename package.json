@@ -7,18 +7,15 @@
   "repository": {
     "url": "https://github.com/MohammedAldosari/json-translations-manager"
   },
-  "version": "0.0.3",
+  "version": "21.1.27",
   "engines": {
-    "vscode": "^1.46.0"
+    "vscode": "^1.40.0"
   },
   "categories": [
     "Other"
   ],
   "activationEvents": [
-    "onCommand:json-translations-manager.config",
-    "onCommand:json-translations-manager.translate",
-    "onCommand:json-translations-manager.translateSelected",
-    "onView:json-translations-manager"
+    "onStartupFinished"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -148,6 +145,7 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
+    "package": "vsce package",
     "compile": "tsc -p ./",
     "lint": "eslint src --ext ts",
     "watch": "tsc -watch -p ./",
@@ -161,7 +159,7 @@
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.13.25",
     "@types/papaparse": "^5.2.3",
-    "@types/vscode": "^1.46.0",
+    "@types/vscode": "^1.40.0",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
     "eslint": "^6.8.0",

@@ -73,9 +73,6 @@ The JTM view lets you manage your translation by (add, rename, delete, refresh)
 # Upcoming Features
 
 - Analysing translation usage
-- Support multiple language files
-- Autocomplete translation keys
-- Add hover tooltip on keys to show the translation value
 
 # Bugs and Feedback
 

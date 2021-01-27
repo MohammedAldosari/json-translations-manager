@@ -3,6 +3,8 @@ import * as vscode from 'vscode';
 import { ConfigurationManager } from './ConfigurationManager';
 import { TranslationManager } from './TranslationManager';
 import { TreeDataProvider } from './TreeDataProvider';
+import SnippetProvider from './SnippetProvider';
+import HoverProvider from './HoverProvider';
 
 const namespace = 'json-translations-manager';
 export class CommandManager {
@@ -10,11 +12,14 @@ export class CommandManager {
   private translationManager!: TranslationManager;
 
   private treeDataProvider!: TreeDataProvider;
+
   constructor(
     _context: vscode.ExtensionContext,
-    configurationManager: ConfigurationManager
+    _configurationManager: ConfigurationManager
   ) {
-    this.init(_context, configurationManager);
+
+    this.init(_context, _configurationManager);
+
   }
 
   init(
@@ -25,14 +30,30 @@ export class CommandManager {
       _context.extensionPath,
       configurationManager
     );
+    const snippetProvider = new SnippetProvider(this.translationManager);
+    _context.subscriptions.push(
+      vscode.languages.registerCompletionItemProvider(
+        ['html', 'typescript'],
+        snippetProvider.ItemProvider(),
+        'JTM'
+      )
+    );
+    _context.subscriptions.push(
+      vscode.languages.registerHoverProvider("html", new HoverProvider(_context, this.translationManager).createHoverProvider())
+    );
     this.webViewManager = new WebViewManager(_context, this.translationManager);
     this.treeDataProvider = new TreeDataProvider(this.translationManager);
     vscode.window.createTreeView(namespace, {
       treeDataProvider: this.treeDataProvider,
     });
     this.treeDataProvider.onRefresh.clear();
-    this.treeDataProvider.onRefresh.subscribe(() =>
-      this.init(_context, configurationManager)
+    this.treeDataProvider.onRefresh.subscribe(() => {
+      this.treeDataProvider = new TreeDataProvider(this.translationManager);
+      vscode.window.createTreeView(namespace, {
+        treeDataProvider: this.treeDataProvider,
+      });
+      snippetProvider.createSnippets();
+    }
     );
   }
   Translate = async () => {
