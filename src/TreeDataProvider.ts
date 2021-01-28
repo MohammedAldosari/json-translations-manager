@@ -141,15 +141,20 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
     return true;
   }
 
-  private isObject(val: any) {
+  private isObject(val: any): boolean {
     let object = '';
+    let returnValue = false;
     for (var element of this.translationManager.translations) {
       object = _.get(element.Translations, val);
       if (object) {
         break;
       }
     }
-    return object !== null && object.constructor.name === 'Object';
+    if (object && object.constructor.name === 'Object') {
+      returnValue = true;
+    }
+    return returnValue;
+
   }
 
   private _onDidChangeTreeData: vscode.EventEmitter<
@@ -160,6 +165,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
   > = this._onDidChangeTreeData.event;
 
   refresh(): void {
+    this.translationManager.getTranslation();
     this._onRefresh.dispatch();
     this._onDidChangeTreeData.fire();
   }

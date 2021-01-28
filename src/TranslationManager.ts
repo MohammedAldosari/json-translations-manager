@@ -57,6 +57,7 @@ export class TranslationManager {
     return result.data;
   }
   getTranslation() {
+    this.translations = [];
     this.languagefiles.forEach((lang) => {
       const obj = jsonfile.readFileSync(
         path.join(this.translationPath, lang + '.json')
@@ -90,7 +91,7 @@ export class TranslationManager {
   getTranslationValueFromText(text: string) {
     let x: any = {};
     this.translations.forEach(element => {
-      x[element.Culture] = _.get(element.Translations, text, '')
+      x[element.Culture] = _.get(element.Translations, text, '');
     });
 
     return x;

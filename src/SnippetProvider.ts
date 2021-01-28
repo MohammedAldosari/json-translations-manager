@@ -30,6 +30,7 @@ export default class SnippetProvider {
 
     public createSnippets() {
         let translationKeys: string[] = [];
+        this.itemList = [];
         if (this.pathExists(this.translationManager.translationPath)) {
             this.translationManager.translations.forEach((translation) => {
                 translationKeys = _.union(
