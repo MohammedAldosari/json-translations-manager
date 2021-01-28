@@ -1,4 +1,4 @@
-import { TranslationManager, ITranslation } from './TranslationManager';
+import { TranslationManager, ITranslation, KeyInfo } from './TranslationManager';
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -89,7 +89,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
     }
     if (this.pathExists(this.translationManager.translationPath)) {
       this.translationManager.translations.forEach((translation) => {
-        const object = _.get(translation.Translations, path + element.label!);
+        const object = this.getKeyInfo(path + element.label!, translation.Translations)?.value;
         if (object) {
           translationKeys = _.union(translationKeys, Object.keys(object));
         }
@@ -145,7 +145,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
     let object = '';
     let returnValue = false;
     for (var element of this.translationManager.translations) {
-      object = _.get(element.Translations, val);
+      object = this.getKeyInfo(val, element.Translations)?.value;
       if (object) {
         break;
       }
@@ -155,6 +155,30 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
     }
     return returnValue;
 
+  }
+
+  private getKeyInfo(key: string, translations: ITranslation): KeyInfo | undefined {
+    let flag = true;
+    let path = [];
+    path.push(key);
+    while (flag) {
+      const x = _.get(translations, path, '');
+      if (x) {
+        flag = false;
+        const returndValue: KeyInfo = { path, value: x };
+        return returndValue;
+      }
+      else {
+        if (key) {
+          path = path.filter(function (e) { return e !== key; });
+          path = path.concat(key.replace(/\./, '^~').split('^~'));
+          key = path[path.length - 1];
+        } else {
+          flag = false;
+          return undefined;
+        }
+      }
+    }
   }
 
   private _onDidChangeTreeData: vscode.EventEmitter<
@@ -187,7 +211,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
           _.set(
             element.Translations,
             path + newKey,
-            _.get(element.Translations, path + translation.label!)
+            _.get(element.Translations, [path, translation.label!])
           );
           const result = _.unset(
             element.Translations,

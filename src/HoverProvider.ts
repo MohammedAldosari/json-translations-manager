@@ -41,7 +41,7 @@ export default class HoverProvider {
                 if (selectedText.includes(text)) {
                     let isNull = true;
                     let returnValue = `${selectedText} \n`;
-                    const x = HoverProvider.translationManager.getTranslationValueFromText(selectedText);
+                    const x = HoverProvider.translationManager.getTranslationValuesFromText(selectedText);
                     for (const [key, value] of Object.entries(x)) {
                         if (value) {
                             isNull = false;

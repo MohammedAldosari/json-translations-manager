@@ -1,3 +1,4 @@
+
 import * as fs from 'fs';
 import * as path from 'path';
 import * as papa from 'papaparse';
@@ -76,25 +77,25 @@ export class TranslationManager {
         message.value = [
           {
             culture: element.Culture,
-            translationValue: _.get(obj, message.TranslationKey, ''),
+            translationValue: this.getKeyInfo(message.TranslationKey, obj)?.value
           },
         ];
       } else {
         message.value.push({
           culture: element.Culture,
-          translationValue: _.get(obj, message.TranslationKey, ''),
+          translationValue: this.getKeyInfo(message.TranslationKey, obj)?.value
         });
       }
     });
   }
 
-  getTranslationValueFromText(text: string) {
-    let x: any = {};
+  getTranslationValuesFromText(text: string) {
+    let translationValues: any = {};
     this.translations.forEach(element => {
-      x[element.Culture] = _.get(element.Translations, text, '');
+      translationValues[element.Culture] = this.getKeyInfo(text, element.Translations)?.value;
     });
 
-    return x;
+    return translationValues;
   }
 
   getLanguageDetails() {
@@ -122,7 +123,12 @@ export class TranslationManager {
       let obj = this.translations.find(
         (x) => x.Culture.toLowerCase() === element.culture.toLowerCase()
       )?.Translations;
-      _.set(obj!, data.translationKey, element.translationValue);
+      const keyInfo = this.getKeyInfo(data.translationKey, obj);
+      if (keyInfo) {
+        _.set(obj!, keyInfo.path, element.translationValue);
+      } else {
+        _.set(obj!, data.translationKey, element.translationValue);
+      }
       obj = this.sortObject(obj);
       jsonfile.writeFileSync(
         path.join(this.translationPath, element.culture + '.json'),
@@ -142,6 +148,34 @@ export class TranslationManager {
       return sortobject(unsorted);
     }
   }
+  private getKeyInfo(key: string, translations: ITranslation): KeyInfo | undefined {
+    let flag = true;
+    let path = [];
+    path.push(key);
+    while (flag) {
+      const x = _.get(translations, path, '');
+      if (x) {
+        flag = false;
+        const returndValue: KeyInfo = { path, value: x };
+        return returndValue;
+      }
+      else {
+        if (key) {
+          path = path.filter(function (e) { return e !== key; });
+          path = path.concat(key.replace(/\./, '^~').split('^~'));
+          key = path[path.length - 1];
+        } else {
+          flag = false;
+          return undefined;
+        }
+      }
+    }
+  }
+}
+
+export interface KeyInfo {
+  path: Array<string>,
+  value: any
 }
 
 export interface ILanguage {
