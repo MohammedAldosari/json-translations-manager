@@ -19,7 +19,7 @@ export default class SnippetProvider {
                 position: vscode.Position
             ) => {
                 const text = document.lineAt(position).text;
-                if (text.includes("JTM")) {
+                if (text.includes("JTM") || text.includes("jtm")) {
                     return this.itemList;
                 }
 

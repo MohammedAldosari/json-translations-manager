@@ -208,14 +208,16 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
       })
       .then((newKey) => {
         this.translationManager.translations.forEach((element) => {
+          let keyInfo = this.getKeyInfo(path + translation.label!, element.Translations)!;
+          keyInfo.path[keyInfo.path.length - 1] = newKey!;
           _.set(
             element.Translations,
-            path + newKey,
-            _.get(element.Translations, [path, translation.label!])
+            keyInfo.path,
+            keyInfo?.value
           );
           const result = _.unset(
             element.Translations,
-            path + translation.label!
+            keyInfo.path
           );
           if (result === true) {
             this.writeTranslation(element);
@@ -234,7 +236,8 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
       path = translation.perent + '.';
     }
     this.translationManager.translations.forEach((element) => {
-      const result = _.unset(element.Translations, path + translation.label!);
+      const keyInfo = this.getKeyInfo(path + translation.label!, element.Translations)!;
+      const result = _.unset(element.Translations, keyInfo.path);
       if (result === true) {
         this.writeTranslation(element);
       }
