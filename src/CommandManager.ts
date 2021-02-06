@@ -40,7 +40,7 @@ export class CommandManager {
         'JTM', 'jtm'
       )
     );
-    const hoverProvider = new HoverProvider(_context, this.translationManager).createHoverProvider()
+    const hoverProvider = new HoverProvider(_context, this.translationManager).createHoverProvider();
     _context.subscriptions.push(
       vscode.languages.registerHoverProvider(this.languageIdentifiers, hoverProvider),
     );
