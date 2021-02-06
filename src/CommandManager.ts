@@ -13,6 +13,8 @@ export class CommandManager {
 
   private treeDataProvider!: TreeDataProvider;
 
+  private languageIdentifiers = ['coffeescript', 'csharp', 'go', 'handlebars', 'haml', 'html', 'java', 'javascript', 'javascriptreact, jsx', 'php', 'jade, pug', 'python', 'razor', 'ruby', 'rust', 'swift', 'typescript', 'typescriptreact', 'vue', 'vue-html'];
+
   constructor(
     _context: vscode.ExtensionContext,
     _configurationManager: ConfigurationManager
@@ -33,13 +35,14 @@ export class CommandManager {
     const snippetProvider = new SnippetProvider(this.translationManager);
     _context.subscriptions.push(
       vscode.languages.registerCompletionItemProvider(
-        ['html', 'typescript'],
+        this.languageIdentifiers,
         snippetProvider.ItemProvider(),
-        'JTM'
+        'JTM', 'jtm'
       )
     );
+    const hoverProvider = new HoverProvider(_context, this.translationManager).createHoverProvider()
     _context.subscriptions.push(
-      vscode.languages.registerHoverProvider("html", new HoverProvider(_context, this.translationManager).createHoverProvider())
+      vscode.languages.registerHoverProvider(this.languageIdentifiers, hoverProvider),
     );
     this.webViewManager = new WebViewManager(_context, this.translationManager);
     this.treeDataProvider = new TreeDataProvider(this.translationManager);

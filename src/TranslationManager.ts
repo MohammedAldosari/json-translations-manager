@@ -163,7 +163,13 @@ export class TranslationManager {
         if (key) {
           path = path.filter(function (e) { return e !== key; });
           path = path.concat(key.replace(/\./, '^~').split('^~'));
-          key = path[path.length - 1];
+          if (key === path[path.length - 1]) {
+            flag = false;
+            return undefined;
+          }
+          else {
+            key = path[path.length - 1];
+          }
         } else {
           flag = false;
           return undefined;

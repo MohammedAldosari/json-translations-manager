@@ -5,11 +5,8 @@ import _ from 'lodash';
 
 export default class HoverProvider {
 
-    private context: vscode.ExtensionContext;
     static translationManager: TranslationManager;
-    private regExpList = ['(?<=\>).*?(?=\<)', '(?<=\').*?(?=\')', '(?<=\").*?(?=\")'];
     constructor(_context: vscode.ExtensionContext, _translationManager: TranslationManager) {
-        this.context = _context;
         HoverProvider.translationManager = _translationManager;
 
 
@@ -53,9 +50,10 @@ export default class HoverProvider {
                         return null;
                     }
                     return new vscode.Hover({
-                        language: 'html',
+                        language: document.languageId,
                         value: returnValue
-                    });
+                    },
+                    );
                 }
                 else { return null; }
             }
