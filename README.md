@@ -31,7 +31,7 @@ The following commands are available in VS Code's command palette:
 | --------------------------------------------- | -------------------------------------------------------- |
 | `JTM:Initialize or update JTM configration`            | Initialize or update JTM configration                    |
 | `JTM:Add translation`         | Allow you to add translation by sipcfy the key and you can use dot (.) notation to make the key a Nested objects                                          |
-| `JTM:json-translations-manager.translateSelected` | Adding translation and assign the selected text as a key |
+| `JTM:Add translation from selected text` | Adding translation and assign the selected text as a key |
 
 ## Examples
 

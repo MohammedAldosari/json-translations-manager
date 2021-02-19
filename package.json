@@ -8,7 +8,7 @@
   "repository": {
     "url": "https://github.com/MohammedAldosari/json-translations-manager"
   },
-  "version": "21.2.6",
+  "version": "21.2.19",
   "engines": {
     "vscode": "^1.45.0"
   },
@@ -28,12 +28,12 @@
       },
       {
         "command": "json-translations-manager.translate",
-        "title": "Add translation",
+        "title": "Add or update translation",
         "category": "JTM"
       },
       {
         "command": "json-translations-manager.translateSelected",
-        "title": "Add translation from selected text",
+        "title": "Add or update translation from selected text",
         "category": "JTM"
       },
       {
