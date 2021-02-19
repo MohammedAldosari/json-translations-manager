@@ -183,8 +183,8 @@ export class CommandManager {
     folderpath: string
   ) {
     const sort = {
-      enable: 'Yes enable Translation Sorting',
-      disable: 'No disable Translation Sorting',
+      enable: 'Yes',
+      disable: 'No',
     };
     const selection = await vscode.window.showQuickPick(
       [sort.enable, sort.disable],

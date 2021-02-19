@@ -169,7 +169,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
         return returndValue;
       }
       else {
-        if (key) {
+        if (key && key.includes('.')) {
           path = path.filter(function (e) { return e !== key; });
           path = path.concat(key.replace(/\./, '^~').split('^~'));
           key = path[path.length - 1];
