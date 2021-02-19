@@ -160,16 +160,10 @@ export class TranslationManager {
         return returndValue;
       }
       else {
-        if (key) {
+        if (key && key.includes('.')) {
           path = path.filter(function (e) { return e !== key; });
           path = path.concat(key.replace(/\./, '^~').split('^~'));
-          if (key === path[path.length - 1]) {
-            flag = false;
-            return undefined;
-          }
-          else {
-            key = path[path.length - 1];
-          }
+          key = path[path.length - 1];
         } else {
           flag = false;
           return undefined;
@@ -177,6 +171,7 @@ export class TranslationManager {
       }
     }
   }
+
 }
 
 export interface KeyInfo {

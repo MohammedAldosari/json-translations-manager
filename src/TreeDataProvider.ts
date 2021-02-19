@@ -105,7 +105,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
                 vscode.TreeItemCollapsibleState.Expanded,
                 undefined,
                 true,
-                element.label
+                element.label as string
               )
             );
           } else {
@@ -169,7 +169,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
         return returndValue;
       }
       else {
-        if (key) {
+        if (key && key.includes('.')) {
           path = path.filter(function (e) { return e !== key; });
           path = path.concat(key.replace(/\./, '^~').split('^~'));
           key = path[path.length - 1];
@@ -201,10 +201,11 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
     if (translation.perent) {
       path = translation.perent + '.';
     }
+    const value: string = translation.label! as string;
     vscode.window
       .showInputBox({
         prompt: 'Rename Translation key',
-        value: translation.label!,
+        value: value,
       })
       .then((newKey) => {
         this.translationManager.translations.forEach((element) => {

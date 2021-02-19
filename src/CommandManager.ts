@@ -40,7 +40,7 @@ export class CommandManager {
         'JTM', 'jtm'
       )
     );
-    const hoverProvider = new HoverProvider(_context, this.translationManager).createHoverProvider()
+    const hoverProvider = new HoverProvider(_context, this.translationManager).createHoverProvider();
     _context.subscriptions.push(
       vscode.languages.registerHoverProvider(this.languageIdentifiers, hoverProvider),
     );
@@ -183,8 +183,8 @@ export class CommandManager {
     folderpath: string
   ) {
     const sort = {
-      enable: 'Yes enable Translation Sorting',
-      disable: 'No disable Translation Sorting',
+      enable: 'Yes',
+      disable: 'No',
     };
     const selection = await vscode.window.showQuickPick(
       [sort.enable, sort.disable],
