@@ -210,10 +210,11 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
       .then((newKey) => {
         this.translationManager.translations.forEach((element) => {
           let keyInfo = this.getKeyInfo(path + translation.label!, element.Translations)!;
-          keyInfo.path[keyInfo.path.length - 1] = newKey!;
+          let newpath = [...keyInfo.path];
+          newpath[newpath.length - 1] = newKey!;
           _.set(
             element.Translations,
-            keyInfo.path,
+            newpath,
             keyInfo?.value
           );
           const result = _.unset(
