@@ -8,7 +8,7 @@
   "repository": {
     "url": "https://github.com/MohammedAldosari/json-translations-manager"
   },
-  "version": "21.6.5",
+  "version": "21.6.5.2",
   "engines": {
     "vscode": "^1.45.0"
   },
