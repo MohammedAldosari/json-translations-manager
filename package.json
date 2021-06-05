@@ -8,7 +8,7 @@
   "repository": {
     "url": "https://github.com/MohammedAldosari/json-translations-manager"
   },
-  "version": "21.6.5.2",
+  "version": "21.6.5-2",
   "engines": {
     "vscode": "^1.45.0"
   },
@@ -160,7 +160,7 @@
     "@types/mocha": "^8.2.2",
     "@types/node": "^15.12.1",
     "@types/papaparse": "^5.2.5",
-    "@types/vscode": "^1.56.0",
+    "@types/vscode": "^1.45.0",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
     "eslint": "^7.28.0",
