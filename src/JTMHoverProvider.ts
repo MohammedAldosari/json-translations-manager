@@ -3,11 +3,11 @@ import { TranslationManager } from './TranslationManager';
 import * as fs from 'fs';
 import _ from 'lodash';
 
-export default class HoverProvider {
+export default class JTMHoverProvider {
 
     static translationManager: TranslationManager;
     constructor(_context: vscode.ExtensionContext, _translationManager: TranslationManager) {
-        HoverProvider.translationManager = _translationManager;
+        JTMHoverProvider.translationManager = _translationManager;
 
 
     }
@@ -25,7 +25,7 @@ export default class HoverProvider {
 
         return {
             provideHover(document, position) {
-                const selectedText = HoverProvider.getSelectedText();
+                const selectedText = JTMHoverProvider.getSelectedText();
                 if (!selectedText) {
                     return null;
                 }
@@ -38,7 +38,7 @@ export default class HoverProvider {
                 if (selectedText.includes(text)) {
                     let isNull = true;
                     let returnValue = `${selectedText} \n`;
-                    const x = HoverProvider.translationManager.getTranslationValuesFromText(selectedText);
+                    const x = JTMHoverProvider.translationManager.getTranslationValuesFromText(selectedText);
                     for (const [key, value] of Object.entries(x)) {
                         if (value) {
                             isNull = false;

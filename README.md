@@ -14,6 +14,14 @@
 
 A visual studio code extension to manage internationalization translation files and keep them in sync. it's allow you to edit multiple languages on the same time.
 
+# Features
+
+1. Add, remove, rename, and sort translation keys.
+2. Nested keys support.
+3. Show key translation values when you select the key and hover.
+4. Add tree management to vscode sidebar to easily manage and navigate throw your translation keys.
+5. Support Snippets by writing 'JTM' or 'jtm' which provide you with translation key completion on any of the following programing files  ```['coffeescript', 'csharp', 'go', 'handlebars', 'haml', 'html', 'java', 'javascript', 'javascriptreact, jsx', 'php', 'jade, pug', 'python', 'razor', 'ruby', 'rust', 'swift', 'typescript', 'typescriptreact', 'vue', 'vue-html']```
+
 # Installation
 
 1. Open Extensions sidebar panel in Visual Studio Code. View → Extensions
@@ -23,7 +31,7 @@ A visual studio code extension to manage internationalization translation files 
 
 # Usage
 
-To start using JSON Translation Manager you need first to specify the localization (i18n) folder with one language file (e.g. en.json, ar.json, etc.).
+To start using JSON Translation Manager you need first to specify the localization (i18n) folder with one language file or more (e.g. en.json, ar.json, etc.).
 
 The following commands are available in VS Code's command palette:
 
