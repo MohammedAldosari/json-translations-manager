@@ -1,3 +1,4 @@
+
 import { TranslationManager, ITranslation, KeyInfo } from './TranslationManager';
 import * as vscode from 'vscode';
 import * as fs from 'fs';
@@ -84,6 +85,9 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
   private getObjectKeys(element: Translation): Translation[] {
     let translationKeys: string[] = [];
     let path = '';
+    if (element.label === 'create-dc' || element.label === 'actions') {
+      console.log('create-dc');
+    }
     if (element.perent) {
       path = element.perent + '.';
     }
@@ -105,7 +109,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
                 vscode.TreeItemCollapsibleState.Expanded,
                 undefined,
                 true,
-                element.label as string
+                path + element.label as string
               )
             );
           } else {
@@ -270,6 +274,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
 class Translation extends vscode.TreeItem {
   isObject: boolean;
   perent: string;
+
   constructor(
     _label: string,
     _collapsibleState: vscode.TreeItemCollapsibleState,
