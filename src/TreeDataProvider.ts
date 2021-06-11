@@ -11,6 +11,8 @@ const sortobject = require('deep-sort-object');
 export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
   translationManager: TranslationManager;
   private _onRefresh = new SignalDispatcher();
+  static treeItemCollapsibleState = vscode.TreeItemCollapsibleState.Expanded;
+  static whitespaceWorkaround = ' ';
   constructor(_translationManager: TranslationManager) {
     this.translationManager = _translationManager;
 
@@ -23,10 +25,12 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
   }
 
   getTreeItem(element: Translation): vscode.TreeItem {
+    element.contextValue = element.isObject ? 'Object' : 'Item';
     return element;
   }
 
   getChildren(element?: Translation): Thenable<Translation[]> {
+
     if (!this.translationManager.translationPath) {
       vscode.window.showInformationMessage('No Translation in empty workspace');
       return Promise.resolve([]);
@@ -55,8 +59,8 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
         if (this.isObject(element)) {
           translations.push(
             new Translation(
-              element,
-              vscode.TreeItemCollapsibleState.Expanded,
+              element.trim() + TreeDataProvider.whitespaceWorkaround,
+              TreeDataProvider.treeItemCollapsibleState,
               undefined,
               true
             )
@@ -64,12 +68,12 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
         } else {
           translations.push(
             new Translation(
-              element,
+              element.trim() + TreeDataProvider.whitespaceWorkaround,
               vscode.TreeItemCollapsibleState.None,
               {
                 command: 'json-translations-manager.translateTreeSelectedValue',
                 title: 'JTM: Adding translation from tree selected value',
-                arguments: [element],
+                arguments: [element.trim()],
               },
               false
             )
@@ -85,15 +89,13 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
   private getObjectKeys(element: Translation): Translation[] {
     let translationKeys: string[] = [];
     let path = '';
-    if (element.label === 'create-dc' || element.label === 'actions') {
-      console.log('create-dc');
-    }
+
     if (element.perent) {
-      path = element.perent + '.';
+      path = element.perent.trim() + '.';
     }
     if (this.pathExists(this.translationManager.translationPath)) {
       this.translationManager.translations.forEach((translation) => {
-        const object = this.getKeyInfo(path + element.label!, translation.Translations)?.value;
+        const object = this.getKeyInfo(path + element.label?.toString().trim()!, translation.Translations)?.value;
         if (object) {
           translationKeys = _.union(translationKeys, Object.keys(object));
         }
@@ -102,29 +104,29 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
       const translations: Translation[] = [];
       if (translationKeys) {
         translationKeys.forEach((key) => {
-          if (this.isObject(path + element.label! + '.' + key)) {
+          if (this.isObject(path + element.label?.toString().trim() + '.' + key)) {
             translations.push(
               new Translation(
-                key,
-                vscode.TreeItemCollapsibleState.Expanded,
+                key.trim() + TreeDataProvider.whitespaceWorkaround,
+                TreeDataProvider.treeItemCollapsibleState,
                 undefined,
                 true,
-                path + element.label as string
+                path + element.label?.toString().trim() as string
               )
             );
           } else {
             translations.push(
               new Translation(
-                key,
+                key + TreeDataProvider.whitespaceWorkaround,
                 vscode.TreeItemCollapsibleState.None,
                 {
                   command:
                     'json-translations-manager.translateTreeSelectedValue',
                   title: 'JTM: Adding translation from tree selected value',
-                  arguments: [path + element.label! + '.' + key],
+                  arguments: [path + element.label?.toString().trim()! + '.' + key],
                 },
                 false,
-                path + element.label!
+                path + element.label?.toString().trim()!
               )
             );
           }
@@ -197,15 +199,24 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
     this._onRefresh.dispatch();
     this._onDidChangeTreeData.fire();
   }
-  add(): void {
-    vscode.commands.executeCommand('json-translations-manager.translate');
+  add(value?: Translation): void {
+    if (!value) {
+      vscode.commands.executeCommand('json-translations-manager.translate');
+    } else {
+      let path = '';
+      if (value.perent) {
+        path = value.perent + '.';
+      }
+      vscode.commands.executeCommand('json-translations-manager.translate', path + value.label?.toString().trim());
+    }
+
   }
   rename(translation: Translation): void {
     let path = '';
     if (translation.perent) {
       path = translation.perent + '.';
     }
-    const value: string = translation.label! as string;
+    const value: string = translation.label?.toString().trim()! as string;
     vscode.window
       .showInputBox({
         prompt: 'Rename Translation key',
@@ -213,7 +224,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
       })
       .then((newKey) => {
         this.translationManager.translations.forEach((element) => {
-          let keyInfo = this.getKeyInfo(path + translation.label!, element.Translations)!;
+          let keyInfo = this.getKeyInfo(path + translation.label?.toString().trim()!, element.Translations)!;
           let newpath = [...keyInfo.path];
           newpath[newpath.length - 1] = newKey!;
           _.set(
@@ -242,12 +253,24 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
       path = translation.perent + '.';
     }
     this.translationManager.translations.forEach((element) => {
-      const keyInfo = this.getKeyInfo(path + translation.label!, element.Translations)!;
+      const keyInfo = this.getKeyInfo(path + translation.label?.toString().trim()!, element.Translations)!;
       const result = _.unset(element.Translations, keyInfo.path);
       if (result === true) {
         this.writeTranslation(element);
       }
     });
+    this.refresh();
+  }
+
+  collapseEntry(): void {
+    TreeDataProvider.treeItemCollapsibleState = vscode.TreeItemCollapsibleState.Collapsed;
+    TreeDataProvider.whitespaceWorkaround = TreeDataProvider.whitespaceWorkaround + ' ';
+    this.refresh();
+  }
+
+  expandEntry(): void {
+    TreeDataProvider.treeItemCollapsibleState = vscode.TreeItemCollapsibleState.Expanded;
+    TreeDataProvider.whitespaceWorkaround = TreeDataProvider.whitespaceWorkaround + ' ';
     this.refresh();
   }
 

@@ -64,14 +64,29 @@ export class CommandManager {
     }
     );
   }
-  Translate = async () => {
+  Translate = async (value?: string) => {
     await this.checkConfigration();
-    const key = await vscode.window.showInputBox({
-      prompt: 'Enter Translation key',
-      placeHolder: 'Use dot (.) notation to make the key a Nested objects',
-    });
+    let key: any;
+    if (value) {
+      value = value + '.';
 
-    await this.webViewManager.showTreanslationPanel(key!);
+      key = await vscode.window.showInputBox({
+        prompt: 'Enter Translation key',
+        placeHolder: 'Use dot (.) notation to make the key a Nested objects',
+        value,
+        valueSelection: [value!.length, value!.length]
+      });
+    }
+    else {
+
+      key = await vscode.window.showInputBox({
+        prompt: 'Enter Translation key',
+        placeHolder: 'Use dot (.) notation to make the key a Nested objects'
+      });
+    }
+    if (key) {
+      await this.webViewManager.showTreanslationPanel(key!);
+    }
   };
 
   TranslateSelected = async () => {
@@ -141,8 +156,8 @@ export class CommandManager {
     );
 
     _context.subscriptions.push(
-      vscode.commands.registerCommand(`${namespace}.addEntry`, () =>
-        this.treeDataProvider.add()
+      vscode.commands.registerCommand(`${namespace}.addEntry`, (value) =>
+        this.treeDataProvider.add(value)
       )
     );
 
@@ -155,6 +170,17 @@ export class CommandManager {
     _context.subscriptions.push(
       vscode.commands.registerCommand(`${namespace}.editEntry`, (value) => {
         this.treeDataProvider.rename(value);
+      })
+    );
+
+    _context.subscriptions.push(
+      vscode.commands.registerCommand(`${namespace}.collapseEntry`, () => {
+        this.treeDataProvider.collapseEntry();
+      })
+    );
+    _context.subscriptions.push(
+      vscode.commands.registerCommand(`${namespace}.expandEntry`, () => {
+        this.treeDataProvider.expandEntry();
       })
     );
   }

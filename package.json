@@ -8,7 +8,7 @@
   "repository": {
     "url": "https://github.com/MohammedAldosari/json-translations-manager"
   },
-  "version": "21.6.52",
+  "version": "21.6.11",
   "engines": {
     "vscode": "^1.45.0"
   },
@@ -69,6 +69,22 @@
           "light": "resources/light/edit.svg",
           "dark": "resources/dark/edit.svg"
         }
+      },
+      {
+        "command": "json-translations-manager.collapseEntry",
+        "title": " Collapse",
+        "icon": {
+          "light": "resources/light/collapse.svg",
+          "dark": "resources/dark/collapse.svg"
+        }
+      },
+      {
+        "command": "json-translations-manager.expandEntry",
+        "title": " Expand",
+        "icon": {
+          "light": "resources/light/expand.svg",
+          "dark": "resources/dark/expand.svg"
+        }
       }
     ],
     "menus": {
@@ -92,6 +108,14 @@
         {
           "command": "json-translations-manager.editEntry",
           "when": "false"
+        },
+        {
+          "command": "json-translations-manager.collapseEntry",
+          "when": "false"
+        },
+        {
+          "command": "json-translations-manager.expandEntry",
+          "when": "false"
         }
       ],
       "view/title": [
@@ -104,9 +128,24 @@
           "command": "json-translations-manager.addEntry",
           "when": "view == json-translations-manager",
           "group": "navigation"
+        },
+        {
+          "command": "json-translations-manager.collapseEntry",
+          "when": "view == json-translations-manager",
+          "group": "navigation"
+        },
+        {
+          "command": "json-translations-manager.expandEntry",
+          "when": "view == json-translations-manager",
+          "group": "navigation"
         }
       ],
       "view/item/context": [
+        {
+          "command": "json-translations-manager.addEntry",
+          "when": "view == json-translations-manager && viewItem == Object",
+          "group": "inline"
+        },
         {
           "command": "json-translations-manager.editEntry",
           "when": "view == json-translations-manager",
@@ -161,8 +200,8 @@
     "@types/node": "^15.12.1",
     "@types/papaparse": "^5.2.5",
     "@types/vscode": "^1.45.0",
-    "@typescript-eslint/eslint-plugin": "^4.26.0",
-    "@typescript-eslint/parser": "^4.26.0",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
     "eslint": "^7.28.0",
     "glob": "^7.1.7",
     "mocha": "^8.4.0",
