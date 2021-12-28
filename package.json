@@ -3,11 +3,12 @@
   "displayName": "JTM: JSON Translation Manager",
   "description": "A visual studio code extension to manage internationalization translation files and keep them in sync. it's allow you to edit multiple languages on the same time",
   "publisher": "Mohammed",
+  "license": "MIT",
   "icon": "icon.png",
   "repository": {
     "url": "https://github.com/MohammedAldosari/json-translations-manager"
   },
-  "version": "21.1.29",
+  "version": "21.2.19",
   "engines": {
     "vscode": "^1.45.0"
   },
@@ -27,12 +28,12 @@
       },
       {
         "command": "json-translations-manager.translate",
-        "title": "Add translation",
+        "title": "Add or update translation",
         "category": "JTM"
       },
       {
         "command": "json-translations-manager.translateSelected",
-        "title": "Add translation from selected text",
+        "title": "Add or update translation from selected text",
         "category": "JTM"
       },
       {
@@ -159,7 +160,7 @@
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.13.40",
     "@types/papaparse": "^5.2.5",
-    "@types/vscode": "^1.52.0",
+    "@types/vscode": "^1.45.0",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
     "eslint": "^6.8.0",
