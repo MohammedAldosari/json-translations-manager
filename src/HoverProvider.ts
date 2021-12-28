@@ -1,6 +1,5 @@
 import * as vscode from "vscode";
 import { TranslationManager } from './TranslationManager';
-import * as fs from 'fs';
 import _ from 'lodash';
 
 export default class HoverProvider {

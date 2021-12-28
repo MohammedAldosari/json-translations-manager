@@ -12,9 +12,6 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
   private _onRefresh = new SignalDispatcher();
   constructor(_translationManager: TranslationManager) {
     this.translationManager = _translationManager;
-
-    this.translationManager.onSave.clear();
-    this.translationManager.onSave.subscribe(() => this.refresh());
   }
 
   public get onRefresh() {

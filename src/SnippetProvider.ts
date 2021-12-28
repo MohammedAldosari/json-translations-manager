@@ -9,6 +9,7 @@ export default class SnippetProvider {
 
     constructor(_translationManager: TranslationManager) {
         this.translationManager = _translationManager;
+
         this.createSnippets();
     }
 
@@ -22,7 +23,6 @@ export default class SnippetProvider {
                 if (text.includes("JTM") || text.includes("jtm")) {
                     return this.itemList;
                 }
-
                 return undefined;
             }
         };
@@ -86,7 +86,6 @@ export default class SnippetProvider {
                 []
             );
         }
-
         return iterateObject;
     })();
 }

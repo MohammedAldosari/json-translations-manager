@@ -22,10 +22,30 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+<<<<<<< Updated upstream
             "aot": true,
             "assets": ["src/JTM-Icon.svg", "src/assets"],
             "styles": ["src/styles.scss"],
             "scripts": []
+=======
+            "assets": [
+              "src/JTM-Icon.svg",
+              "src/assets"
+            ],
+            "styles": [
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/lara-light-indigo/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "src/styles.scss"
+            ],
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+>>>>>>> Stashed changes
           },
           "configurations": {
             "production": {
@@ -82,20 +102,14 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
-            "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
             ],
-            "exclude": ["**/node_modules/**"]
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
           }
         },
         "e2e": {

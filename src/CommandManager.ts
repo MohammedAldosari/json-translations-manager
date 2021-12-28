@@ -33,6 +33,8 @@ export class CommandManager {
       configurationManager
     );
     const snippetProvider = new SnippetProvider(this.translationManager);
+
+
     _context.subscriptions.push(
       vscode.languages.registerCompletionItemProvider(
         this.languageIdentifiers,
@@ -56,6 +58,11 @@ export class CommandManager {
         treeDataProvider: this.treeDataProvider,
       });
       snippetProvider.createSnippets();
+    }
+    );
+    this.translationManager.onSave.subscribe(() => {
+      snippetProvider.createSnippets();
+      this.treeDataProvider.refresh();
     }
     );
   }
