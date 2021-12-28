@@ -1,25 +1,13 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    }
-    
-]
-}
-=======
-  "compileOnSave": false,
+
+ "compileOnSave": false,
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
 
   },
-=======
-  "compileOnSave": false,
->>>>>>> 06efee3da7cdbd1d74a31cf582fb0370c062880a
+
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
@@ -37,7 +25,3 @@
     ]
   }
 }
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 06efee3da7cdbd1d74a31cf582fb0370c062880a
