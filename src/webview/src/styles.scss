@@ -3,33 +3,9 @@
 body {
   background-color: var(--vscode-activityBar-background);
 }
-.p-chips {
-  display: block !important;
-}
-.p-chips .p-chips-multiple-container .p-chips-input-token input {
-  color: var(--vscode-activityBar-foreground) !important;
-}
-.p-chips .p-chips-multiple-container .p-chips-token .p-chips-token-icon {
-  margin-left: unset;
-  margin-inline-start: 0.5rem;
-}
-.p-chips-input-token {
-  margin-inline-start: 0.5rem !important;
-}
-
-.p-inputtext {
-  background: transparent !important;
-  border: none !important;
-}
 
 .d-inline {
   display: inline !important;
-}
-.p-chips .p-chips-multiple-container:not(.p-disabled).p-focus {
-  outline: 0 none;
-  outline-offset: 0;
-  box-shadow: unset !important;
-  border-color: transparent !important;
 }
 
 .p-checkbox .p-checkbox-box.p-highlight {

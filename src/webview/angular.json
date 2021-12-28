@@ -22,12 +22,6 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-<<<<<<< Updated upstream
-            "aot": true,
-            "assets": ["src/JTM-Icon.svg", "src/assets"],
-            "styles": ["src/styles.scss"],
-            "scripts": []
-=======
             "assets": [
               "src/JTM-Icon.svg",
               "src/assets"
@@ -45,7 +39,6 @@
             "sourceMap": true,
             "optimization": false,
             "namedChunks": true
->>>>>>> Stashed changes
           },
           "configurations": {
             "production": {
@@ -58,7 +51,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
