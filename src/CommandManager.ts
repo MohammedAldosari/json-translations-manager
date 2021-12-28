@@ -4,7 +4,9 @@ import { ConfigurationManager } from './ConfigurationManager';
 import { TranslationManager } from './TranslationManager';
 import { TreeDataProvider } from './TreeDataProvider';
 import SnippetProvider from './SnippetProvider';
-import HoverProvider from './HoverProvider';
+import { HoverProvider } from 'vscode';
+import JTMHoverProvider from './JTMHoverProvider';
+
 
 const namespace = 'json-translations-manager';
 export class CommandManager {
@@ -12,6 +14,7 @@ export class CommandManager {
   private translationManager!: TranslationManager;
 
   private treeDataProvider!: TreeDataProvider;
+  private hoverProvider!: HoverProvider;
 
   private languageIdentifiers = ['coffeescript', 'csharp', 'go', 'handlebars', 'haml', 'html', 'java', 'javascript', 'javascriptreact, jsx', 'php', 'jade, pug', 'python', 'razor', 'ruby', 'rust', 'swift', 'typescript', 'typescriptreact', 'vue', 'vue-html'];
 
@@ -42,10 +45,12 @@ export class CommandManager {
         'JTM', 'jtm'
       )
     );
-    const hoverProvider = new HoverProvider(_context, this.translationManager).createHoverProvider();
-    _context.subscriptions.push(
-      vscode.languages.registerHoverProvider(this.languageIdentifiers, hoverProvider),
-    );
+    if (!this.hoverProvider) {
+      this.hoverProvider = new JTMHoverProvider(_context, this.translationManager).createHoverProvider();
+      _context.subscriptions.push(
+        vscode.languages.registerHoverProvider(this.languageIdentifiers, this.hoverProvider),
+      );
+    }
     this.webViewManager = new WebViewManager(_context, this.translationManager);
     this.treeDataProvider = new TreeDataProvider(this.translationManager);
     vscode.window.createTreeView(namespace, {
@@ -66,14 +71,29 @@ export class CommandManager {
     }
     );
   }
-  Translate = async () => {
+  Translate = async (value?: string) => {
     await this.checkConfigration();
-    const key = await vscode.window.showInputBox({
-      prompt: 'Enter Translation key',
-      placeHolder: 'Use dot (.) notation to make the key a Nested objects',
-    });
+    let key: any;
+    if (value) {
+      value = value + '.';
 
-    await this.webViewManager.showTreanslationPanel(key!);
+      key = await vscode.window.showInputBox({
+        prompt: 'Enter Translation key',
+        placeHolder: 'Use dot (.) notation to make the key a Nested objects',
+        value,
+        valueSelection: [value!.length, value!.length]
+      });
+    }
+    else {
+
+      key = await vscode.window.showInputBox({
+        prompt: 'Enter Translation key',
+        placeHolder: 'Use dot (.) notation to make the key a Nested objects'
+      });
+    }
+    if (key) {
+      await this.webViewManager.showTreanslationPanel(key!);
+    }
   };
 
   TranslateSelected = async () => {
@@ -143,8 +163,8 @@ export class CommandManager {
     );
 
     _context.subscriptions.push(
-      vscode.commands.registerCommand(`${namespace}.addEntry`, () =>
-        this.treeDataProvider.add()
+      vscode.commands.registerCommand(`${namespace}.addEntry`, (value) =>
+        this.treeDataProvider.add(value)
       )
     );
 
@@ -157,6 +177,17 @@ export class CommandManager {
     _context.subscriptions.push(
       vscode.commands.registerCommand(`${namespace}.editEntry`, (value) => {
         this.treeDataProvider.rename(value);
+      })
+    );
+
+    _context.subscriptions.push(
+      vscode.commands.registerCommand(`${namespace}.collapseEntry`, () => {
+        this.treeDataProvider.collapseEntry();
+      })
+    );
+    _context.subscriptions.push(
+      vscode.commands.registerCommand(`${namespace}.expandEntry`, () => {
+        this.treeDataProvider.expandEntry();
       })
     );
   }

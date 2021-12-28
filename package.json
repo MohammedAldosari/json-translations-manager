@@ -8,7 +8,7 @@
   "repository": {
     "url": "https://github.com/MohammedAldosari/json-translations-manager"
   },
-  "version": "21.2.19",
+  "version": "21.6.110",
   "engines": {
     "vscode": "^1.45.0"
   },
@@ -69,6 +69,22 @@
           "light": "resources/light/edit.svg",
           "dark": "resources/dark/edit.svg"
         }
+      },
+      {
+        "command": "json-translations-manager.collapseEntry",
+        "title": " Collapse",
+        "icon": {
+          "light": "resources/light/collapse.svg",
+          "dark": "resources/dark/collapse.svg"
+        }
+      },
+      {
+        "command": "json-translations-manager.expandEntry",
+        "title": " Expand",
+        "icon": {
+          "light": "resources/light/expand.svg",
+          "dark": "resources/dark/expand.svg"
+        }
       }
     ],
     "menus": {
@@ -92,6 +108,14 @@
         {
           "command": "json-translations-manager.editEntry",
           "when": "false"
+        },
+        {
+          "command": "json-translations-manager.collapseEntry",
+          "when": "false"
+        },
+        {
+          "command": "json-translations-manager.expandEntry",
+          "when": "false"
         }
       ],
       "view/title": [
@@ -104,9 +128,24 @@
           "command": "json-translations-manager.addEntry",
           "when": "view == json-translations-manager",
           "group": "navigation"
+        },
+        {
+          "command": "json-translations-manager.collapseEntry",
+          "when": "view == json-translations-manager",
+          "group": "navigation"
+        },
+        {
+          "command": "json-translations-manager.expandEntry",
+          "when": "view == json-translations-manager",
+          "group": "navigation"
         }
       ],
       "view/item/context": [
+        {
+          "command": "json-translations-manager.addEntry",
+          "when": "view == json-translations-manager && viewItem == Object",
+          "group": "inline"
+        },
         {
           "command": "json-translations-manager.editEntry",
           "when": "view == json-translations-manager",
@@ -157,24 +196,24 @@
     "@types/glob": "^7.1.3",
     "@types/jsonfile": "^6.0.0",
     "@types/lodash-es": "^4.17.4",
-    "@types/mocha": "^7.0.2",
-    "@types/node": "^13.13.40",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "^15.12.1",
     "@types/papaparse": "^5.2.5",
     "@types/vscode": "^1.45.0",
-    "@typescript-eslint/eslint-plugin": "^2.30.0",
-    "@typescript-eslint/parser": "^2.30.0",
-    "eslint": "^6.8.0",
-    "glob": "^7.1.6",
-    "mocha": "^7.1.2",
-    "prettier": "^2.2.1",
-    "typescript": "^3.9.7",
-    "vscode-test": "^1.5.0"
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
+    "eslint": "^7.28.0",
+    "glob": "^7.1.7",
+    "mocha": "^8.4.0",
+    "prettier": "^2.3.1",
+    "typescript": "^4.3.2",
+    "vscode-test": "^1.5.2"
   },
   "dependencies": {
     "deep-sort-object": "^1.0.2",
     "jsonfile": "^6.1.0",
-    "lodash": "^4.17.20",
-    "papaparse": "^5.3.0",
-    "strongly-typed-events": "^1.7.3"
+    "lodash": "^4.17.21",
+    "papaparse": "^5.3.1",
+    "strongly-typed-events": "^2.1.7"
   }
 }

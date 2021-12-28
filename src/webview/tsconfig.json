@@ -1,10 +1,6 @@
-/*
-  This is a "Solution Style" tsconfig.json file, and is used by editors and TypeScript’s language server to improve development experience.
-  It is not intended to be used to perform a compilation.
-
-  To learn more about this file see: https://angular.io/config/solution-tsconfig.
-*/
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   "files": [],
   "references": [
@@ -21,6 +17,9 @@
     "strictInjectionParameters": true,
 
   },
+=======
+  "compileOnSave": false,
+>>>>>>> 06efee3da7cdbd1d74a31cf582fb0370c062880a
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
@@ -38,4 +37,7 @@
     ]
   }
 }
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> 06efee3da7cdbd1d74a31cf582fb0370c062880a
