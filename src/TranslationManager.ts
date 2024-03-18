@@ -1,14 +1,13 @@
+import * as fs from "fs";
+import * as path from "path";
+import * as papa from "papaparse";
+import * as jsonfile from "jsonfile";
 
-import * as fs from 'fs';
-import * as path from 'path';
-import * as papa from 'papaparse';
-import * as jsonfile from 'jsonfile';
-
-import _ from 'lodash';
-import { ISaveMessage, IWebviewMessage } from './WebViewManager';
-import { SignalDispatcher } from 'strongly-typed-events';
-import { ConfigurationManager } from './ConfigurationManager';
-const sortobject = require('deep-sort-object');
+import { ISaveMessage, IWebviewMessage } from "./WebViewManager";
+import { SignalDispatcher } from "strongly-typed-events";
+import { ConfigurationManager } from "./ConfigurationManager";
+import { get, set } from "lodash";
+const sortobject = require("deep-sort-object");
 export class TranslationManager {
   languageDetailsList: Array<ILanguage> = [];
   extensionPath: string;
@@ -37,8 +36,8 @@ export class TranslationManager {
 
   getLanguages() {
     fs.readdirSync(this.translationPath).forEach((file) => {
-      if (file.toLowerCase().includes('.json')) {
-        this.languagefiles.push(file.replace('.json', ''));
+      if (file.toLowerCase().includes(".json")) {
+        this.languagefiles.push(file.replace(".json", ""));
       }
     });
     this.languagefiles.sort();
@@ -47,8 +46,8 @@ export class TranslationManager {
   readCSV(): Array<ILanguage> {
     const csvFilePath = path.join(
       this.extensionPath,
-      'resources',
-      'languages list culture.csv'
+      "resources",
+      "languages list culture.csv"
     );
     const csvFile = fs.readFileSync(csvFilePath);
     const csvData = csvFile.toString();
@@ -61,7 +60,7 @@ export class TranslationManager {
     this.translations = [];
     this.languagefiles.forEach((lang) => {
       const obj = jsonfile.readFileSync(
-        path.join(this.translationPath, lang + '.json')
+        path.join(this.translationPath, lang + ".json")
       );
       this.translations.push({ Culture: lang, Translations: obj });
     });
@@ -77,13 +76,14 @@ export class TranslationManager {
         message.value = [
           {
             culture: element.Culture,
-            translationValue: this.getKeyInfo(message.TranslationKey, obj)?.value
+            translationValue: this.getKeyInfo(message.TranslationKey, obj)
+              ?.value,
           },
         ];
       } else {
         message.value.push({
           culture: element.Culture,
-          translationValue: this.getKeyInfo(message.TranslationKey, obj)?.value
+          translationValue: this.getKeyInfo(message.TranslationKey, obj)?.value,
         });
       }
     });
@@ -91,8 +91,11 @@ export class TranslationManager {
 
   getTranslationValuesFromText(text: string) {
     let translationValues: any = {};
-    this.translations.forEach(element => {
-      translationValues[element.Culture] = this.getKeyInfo(text, element.Translations)?.value;
+    this.translations.forEach((element) => {
+      translationValues[element.Culture] = this.getKeyInfo(
+        text,
+        element.Translations
+      )?.value;
     });
 
     return translationValues;
@@ -103,12 +106,12 @@ export class TranslationManager {
 
     this.languagefiles.forEach((lang) => {
       let languageDetail = this.languageDetailsList.find(
-        (item) => item['Culture'].toLowerCase() === lang.toLowerCase()
+        (item) => item["Culture"].toLowerCase() === lang.toLowerCase()
       );
       if (!languageDetail) {
         languageDetail = {
           Culture: lang,
-          Direction: 'ltr',
+          Direction: "ltr",
           English: lang,
           Native: lang,
         } as ILanguage;
@@ -125,17 +128,17 @@ export class TranslationManager {
       )?.Translations;
       const keyInfo = this.getKeyInfo(data.translationKey, obj);
       if (keyInfo) {
-        _.set(obj!, keyInfo.path, element.translationValue);
+        set(obj!, keyInfo.path, element.translationValue);
       } else {
-        _.set(obj!, data.translationKey, element.translationValue);
+        set(obj!, data.translationKey, element.translationValue);
       }
       obj = this.sortObject(obj);
       jsonfile.writeFileSync(
-        path.join(this.translationPath, element.culture + '.json'),
+        path.join(this.translationPath, element.culture + ".json"),
         obj,
         {
           spaces: 2,
-          EOL: '\r\n',
+          EOL: "\r\n",
         }
       );
     });
@@ -148,28 +151,26 @@ export class TranslationManager {
       return sortobject(unsorted);
     }
   }
-  private getKeyInfo(key: string, translations: ITranslation): KeyInfo | undefined {
+  private getKeyInfo(
+    key: string,
+    translations: ITranslation
+  ): KeyInfo | undefined {
     let flag = true;
     let path = [];
     path.push(key);
     while (flag) {
-      const x = _.get(translations, path, '');
+      const x = get(translations, path, "");
       if (x) {
         flag = false;
         const returndValue: KeyInfo = { path, value: x };
         return returndValue;
-      }
-      else {
-        if (key) {
-          path = path.filter(function (e) { return e !== key; });
-          path = path.concat(key.replace(/\./, '^~').split('^~'));
-          if (key === path[path.length - 1]) {
-            flag = false;
-            return undefined;
-          }
-          else {
-            key = path[path.length - 1];
-          }
+      } else {
+        if (key && key.includes(".")) {
+          path = path.filter(function (e) {
+            return e !== key;
+          });
+          path = path.concat(key.replace(/\./, "^~").split("^~"));
+          key = path[path.length - 1];
         } else {
           flag = false;
           return undefined;
@@ -180,8 +181,8 @@ export class TranslationManager {
 }
 
 export interface KeyInfo {
-  path: Array<string>,
-  value: any
+  path: Array<string>;
+  value: any;
 }
 
 export interface ILanguage {
