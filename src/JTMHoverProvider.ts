@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { TranslationManager } from "./TranslationManager";
+import _ from "lodash";
 
 export default class JTMHoverProvider {
   static translationManager: TranslationManager;

@@ -35,6 +35,7 @@ export class TranslationManager {
   }
 
   getLanguages() {
+    this.languagefiles = [];
     fs.readdirSync(this.translationPath).forEach((file) => {
       if (file.toLowerCase().includes(".json")) {
         this.languagefiles.push(file.replace(".json", ""));

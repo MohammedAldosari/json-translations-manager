@@ -1,6 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~angular-notifier/styles";
 
-body{
-    background-color:var(--vscode-activityBar-background);
+body {
+  background-color: var(--vscode-activityBar-background);
+}
+
+.d-inline {
+  display: inline !important;
+}
+
+.p-checkbox .p-checkbox-box.p-highlight {
+  border-color: var(--vscode-textLink-foreground) !important;
+  background: var(--vscode-textLink-foreground) !important;
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+  border-color: var(--vscode-textLink-foreground) !important;
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem #c7d2fe;
+  border-color: var(--vscode-textLink-foreground) !important;
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+  border-color: var(--vscode-textLink-foreground) !important;
+  background: var(--vscode-textLink-foreground) !important;
+  color: var(--vscode-activityBar-foreground);
+}
+
+.p-chips .p-chips-multiple-container .p-chips-token {
+  color: var(--vscode-editor-background) !important;
+}
+.ng2-tag-input {
+  padding: 0px !important;
+  border-bottom: 0px !important;
+}
+.ng2-tag-input__text-input {
+  background: transparent;
+  color: var(--vscode-activityBar-foreground);
+}
+tag {
+  border-radius: 5px !important;
 }

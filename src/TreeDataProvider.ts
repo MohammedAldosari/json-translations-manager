@@ -20,9 +20,6 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
   static whitespaceWorkaround = " ";
   constructor(_translationManager: TranslationManager) {
     this.translationManager = _translationManager;
-
-    this.translationManager.onSave.clear();
-    this.translationManager.onSave.subscribe(() => this.refresh());
   }
 
   public get onRefresh() {
@@ -63,8 +60,8 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
         if (this.isObject(element)) {
           translations.push(
             new Translation(
-              element,
-              vscode.TreeItemCollapsibleState.Expanded,
+              element.trim() + TreeDataProvider.whitespaceWorkaround,
+              TreeDataProvider.treeItemCollapsibleState,
               undefined,
               true
             )
@@ -72,7 +69,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
         } else {
           translations.push(
             new Translation(
-              element,
+              element.trim() + TreeDataProvider.whitespaceWorkaround,
               vscode.TreeItemCollapsibleState.None,
               {
                 command: "json-translations-manager.translateTreeSelectedValue",
@@ -116,8 +113,8 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
           ) {
             translations.push(
               new Translation(
-                key,
-                vscode.TreeItemCollapsibleState.Expanded,
+                key.trim() + TreeDataProvider.whitespaceWorkaround,
+                TreeDataProvider.treeItemCollapsibleState,
                 undefined,
                 true,
                 (path + element.label?.toString().trim()) as string
@@ -126,7 +123,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
           } else {
             translations.push(
               new Translation(
-                key,
+                key + TreeDataProvider.whitespaceWorkaround,
                 vscode.TreeItemCollapsibleState.None,
                 {
                   command:
@@ -137,7 +134,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
                   ],
                 },
                 false,
-                path + element.label!
+                path + element.label?.toString().trim()!
               )
             );
           }
@@ -231,6 +228,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
     if (translation.perent) {
       path = translation.perent + ".";
     }
+    const value: string = translation.label?.toString().trim()! as string;
     vscode.window
       .showInputBox({
         prompt: "Rename Translation key",
@@ -314,6 +312,7 @@ export class TreeDataProvider implements vscode.TreeDataProvider<Translation> {
 class Translation extends vscode.TreeItem {
   isObject: boolean;
   perent: string;
+
   constructor(
     _label: string,
     _collapsibleState: vscode.TreeItemCollapsibleState,
