@@ -1,11 +1,12 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from "fs";
+import * as path from "path";
+import * as vscode from "vscode";
 
 export class ConfigurationManager {
-  private path: string = '';
-  translationPath: string = '';
+  private path: string = "";
+  translationPath: string = "";
   configuration: IConfiguration | undefined = undefined;
-  private configFileName = 'jtmConfig.json';
+  private configFileName = "jtmConfig.json";
   constructor(_path: string) {
     this.path = _path;
     this.get();
@@ -22,8 +23,8 @@ export class ConfigurationManager {
         }
       }
     } catch (err) {
-      //console.error(err);
-      //vscode.window.showErrorMessage('No translation configration found');
+      console.error(err);
+      vscode.window.showErrorMessage("No translation configration found");
     }
     return this.configuration;
   }
