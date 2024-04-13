@@ -15,17 +15,14 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
             "outputPath": "../../resources/jtm-webview",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/JTM-Icon.svg",
-              "src/assets"
-            ],
+            "assets": ["src/JTM-Icon.svg", "src/assets"],
             "styles": [
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/lara-light-indigo/theme.css",
@@ -74,18 +71,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "jtw-webview:build"
+            "buildTarget": "jtw-webview:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "jtw-webview:build:production"
+              "buildTarget": "jtw-webview:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "jtw-webview:build"
+            "buildTarget": "jtw-webview:build"
           }
         },
         "test": {
@@ -95,13 +92,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         },
@@ -120,7 +112,6 @@
       }
     }
   },
-  "defaultProject": "jtw-webview",
   "schematics": {
     "@schematics/angular": {
       "component": {

@@ -1,13 +1,13 @@
-import { WebViewManager } from "./WebViewManager";
-import * as vscode from "vscode";
-import { ConfigurationManager } from "./ConfigurationManager";
-import { TranslationManager } from "./TranslationManager";
-import { TreeDataProvider } from "./TreeDataProvider";
-import SnippetProvider from "./SnippetProvider";
-import { HoverProvider } from "vscode";
-import JTMHoverProvider from "./JTMHoverProvider";
+import { WebViewManager } from './WebViewManager';
+import * as vscode from 'vscode';
+import { ConfigurationManager } from './ConfigurationManager';
+import { TranslationManager } from './TranslationManager';
+import { TreeDataProvider } from './TreeDataProvider';
+import SnippetProvider from './SnippetProvider';
+import { HoverProvider } from 'vscode';
+import JTMHoverProvider from './JTMHoverProvider';
 
-const namespace = "json-translations-manager";
+const namespace = 'json-translations-manager';
 export class CommandManager {
   private webViewManager!: WebViewManager;
   private translationManager!: TranslationManager;
@@ -16,29 +16,29 @@ export class CommandManager {
   private hoverProvider!: HoverProvider;
 
   private languageIdentifiers = [
-    "clojure",
-    "coffeescript",
-    "csharp",
-    "go",
-    "handlebars",
-    "haml",
-    "html",
-    "java",
-    "javascript",
-    "javascriptreact",
-    "jsx",
-    "php",
-    "jade",
-    "pug",
-    "python",
-    "razor",
-    "ruby",
-    "rust",
-    "swift",
-    "typescript",
-    "typescriptreact",
-    "vue",
-    "vue-html",
+    'clojure',
+    'coffeescript',
+    'csharp',
+    'go',
+    'handlebars',
+    'haml',
+    'html',
+    'java',
+    'javascript',
+    'javascriptreact',
+    'jsx',
+    'php',
+    'jade',
+    'pug',
+    'python',
+    'razor',
+    'ruby',
+    'rust',
+    'swift',
+    'typescript',
+    'typescriptreact',
+    'vue',
+    'vue-html',
   ];
 
   constructor(
@@ -62,11 +62,11 @@ export class CommandManager {
       vscode.languages.registerCompletionItemProvider(
         this.languageIdentifiers,
         snippetProvider.ItemProvider(),
-        "JTM",
-        "jtm"
+        'JTM',
+        'jtm'
       )
     );
-    if (!this.hoverProvider) {
+    if (!this.hoverProvider && configurationManager.configuration) {
       this.hoverProvider = new JTMHoverProvider(
         _context,
         this.translationManager
@@ -96,22 +96,23 @@ export class CommandManager {
       this.treeDataProvider.refresh();
     });
   }
+
   Translate = async (value?: string) => {
     await this.checkConfigration();
     let key: any;
     if (value) {
-      value = value + ".";
+      value = value + '.';
 
       key = await vscode.window.showInputBox({
-        prompt: "Enter Translation key",
-        placeHolder: "Use dot (.) notation to make the key a Nested objects",
+        prompt: 'Enter Translation key',
+        placeHolder: 'Use dot (.) notation to make the key a Nested objects',
         value,
         valueSelection: [value!.length, value!.length],
       });
     } else {
       key = await vscode.window.showInputBox({
-        prompt: "Enter Translation key",
-        placeHolder: "Use dot (.) notation to make the key a Nested objects",
+        prompt: 'Enter Translation key',
+        placeHolder: 'Use dot (.) notation to make the key a Nested objects',
       });
     }
     if (key) {
@@ -131,7 +132,7 @@ export class CommandManager {
 
   private getSelectedText(): string {
     const editor = vscode.window.activeTextEditor;
-    let selectedText = "";
+    let selectedText = '';
     if (editor) {
       selectedText = editor.document.getText(editor.selection);
     }
@@ -229,7 +230,7 @@ export class CommandManager {
     if (fileUri && fileUri[0]) {
       const folderpath = fileUri[0].fsPath.replace(
         vscode.workspace.workspaceFolders![0].uri.fsPath,
-        ""
+        ''
       );
       await this.askUserToEnableSort(
         _context,
@@ -244,14 +245,14 @@ export class CommandManager {
     folderpath: string
   ) {
     const sort = {
-      enable: "Yes",
-      disable: "No",
+      enable: 'Yes',
+      disable: 'No',
     };
     const selection = await vscode.window.showQuickPick(
       [sort.enable, sort.disable],
       {
         canPickMany: false,
-        placeHolder: "Do you want to Sort translation keys alphabetically?",
+        placeHolder: 'Do you want to Sort translation keys alphabetically?',
       }
     );
 
@@ -267,13 +268,13 @@ export class CommandManager {
       });
     }
     vscode.commands.executeCommand(
-      "setContext",
+      'setContext',
       `${namespace}:noConfig`,
       false
     );
     this.init(_context, configurationManager);
     vscode.window.showInformationMessage(
-      "Translation folder configuration Saved successfully"
+      'Translation folder configuration Saved successfully'
     );
   }
 }

@@ -1,8 +1,8 @@
-import * as vscode from "vscode";
-import { TranslationManager } from "./TranslationManager";
-import * as fs from "fs";
+import * as vscode from 'vscode';
+import { TranslationManager } from './TranslationManager';
+import * as fs from 'fs';
 
-import { union } from "lodash";
+import { union } from 'lodash';
 
 export default class SnippetProvider {
   itemList: vscode.CompletionItem[] = [];
@@ -20,7 +20,7 @@ export default class SnippetProvider {
         position: vscode.Position
       ) => {
         const text = document.lineAt(position).text;
-        if (text.includes("JTM") || text.includes("jtm")) {
+        if (text.includes('JTM') || text.includes('jtm')) {
           return this.itemList;
         }
 
@@ -43,11 +43,23 @@ export default class SnippetProvider {
     translationKeys.forEach((element) => {
       this.itemList.push({
         label: `JTM: ${element}`,
-        detail: "",
+        detail: '',
+        documentation: this.getTransliationDocumintationInformation(element),
         insertText: element,
         kind: vscode.CompletionItemKind.Text,
       });
     });
+  }
+
+  private getTransliationDocumintationInformation(key: string): string {
+    let returnValue = `${key} \n`;
+    const x = this.translationManager.getTranslationValuesFromText(key);
+    for (const [key, value] of Object.entries(x)) {
+      if (value) {
+        returnValue = returnValue + `   ${key}: ${value} \n`;
+      }
+    }
+    return returnValue;
   }
   private pathExists(p: string): boolean {
     try {
@@ -71,10 +83,10 @@ export default class SnippetProvider {
       } else {
         currentPath.push(key);
       }
-      if (typeof value === "object" && value !== null) {
+      if (typeof value === 'object' && value !== null) {
         return [...current, ...iterateObject(value, currentPath)];
       } else {
-        return [...current, currentPath.join(".")];
+        return [...current, currentPath.join('.')];
       }
     }
 

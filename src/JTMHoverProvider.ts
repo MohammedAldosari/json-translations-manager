@@ -1,6 +1,6 @@
-import * as vscode from "vscode";
-import { TranslationManager } from "./TranslationManager";
-import _ from "lodash";
+import * as vscode from 'vscode';
+import { TranslationManager } from './TranslationManager';
+import _ from 'lodash';
 
 export default class JTMHoverProvider {
   static translationManager: TranslationManager;
@@ -12,7 +12,7 @@ export default class JTMHoverProvider {
   }
   static getSelectedText(): string {
     const editor = vscode.window.activeTextEditor;
-    let selectedText = "";
+    let selectedText = '';
     if (editor) {
       selectedText = editor.document.getText(editor.selection);
     }

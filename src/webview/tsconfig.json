@@ -1,27 +1,33 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-
- "compileOnSave": false,
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-
-  },
-
+  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
     "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "importHelpers": true,
-    "target": "es2015",
+    "noImplicitAny": false,
+    "target": "ES2022",
+    "typeRoots": ["node_modules/@types"],
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "lib": ["es2018", "dom"],
+    "baseUrl": "./",
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@env/*": ["src/environments/*"]
+    },
+    "useDefineForClassFields": false
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "enableIvy": true,
+    "preserveWhitespaces": false,
+    "buildOptimizer": true,
+    "sourceMap": true,
+    "polyfills": "./polyfills.ts",
+    "browserTarget": "app:build:production"
   }
 }

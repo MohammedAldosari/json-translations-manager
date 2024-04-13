@@ -10,7 +10,7 @@ export interface IWebviewMessage {
     {
       culture: string;
       translationValue: string | Array<string>;
-    }
+    },
   ];
 }
 
@@ -20,7 +20,7 @@ export interface ISaveMessage {
     {
       culture: string;
       translationValue: string | Array<string>;
-    }
+    },
   ];
 }
 

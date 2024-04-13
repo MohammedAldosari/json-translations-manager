@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { CheckboxModule } from 'primeng/checkbox';
-import { HotToastModule } from '@ngneat/hot-toast';
+import { provideHotToastConfig } from '@ngxpert/hot-toast';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
@@ -16,11 +16,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     CheckboxModule,
     TagInputModule,
-    HotToastModule.forRoot({
+  ],
+  providers: [
+    provideHotToastConfig({
       position: 'bottom-center',
       dismissible: true,
-    }),],
-  providers: [],
+    }),
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

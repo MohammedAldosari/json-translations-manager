@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
-import { HotToastService } from '@ngneat/hot-toast';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   selector: 'app-root',
@@ -38,8 +38,8 @@ export class AppComponent implements OnInit {
   constructor(
     private notifierService: HotToastService,
     private formBuilder: FormBuilder,
-    private changeDetectorRef: ChangeDetectorRef
-  ) { }
+    private changeDetectorRef: ChangeDetectorRef,
+  ) {}
   ngOnInit(): void {
     this.vscode.postMessage('started');
   }
@@ -54,37 +54,45 @@ export class AppComponent implements OnInit {
     this.translationForms.controls.isArray.valueChanges.subscribe(() => {
       this.value.controls.forEach((element: FormGroup) => {
         if (this.translationForms.controls.isArray.value === true) {
-          element.controls.translationValue.setValue(element.controls.translationValue.value.split(','));
-        }
-        else {
-          element.controls.translationValue.setValue(element.controls.translationValue.value.toString());
+          element.controls.translationValue.setValue(
+            element.controls.translationValue.value.split(','),
+          );
+        } else {
+          element.controls.translationValue.setValue(
+            element.controls.translationValue.value.toString(),
+          );
         }
       });
-      console.log('**************');
-      console.log(this.value);
       this.changeDetectorRef.detectChanges();
     });
 
     message.value.forEach((element) => {
       if (this.translationForms.controls.isArray.value === false) {
-        this.translationForms.controls.isArray.setValue(this.isArrayOfStrings(element.translationValue));
+        this.translationForms.controls.isArray.setValue(
+          this.isArrayOfStrings(element.translationValue),
+        );
       }
       this.value.push(
-        this.translationItem(element.culture, element.translationValue)
+        this.translationItem(element.culture, element.translationValue),
       );
     });
     setTimeout(() => {
       this.setFocus(this.message.languages[0].Culture);
     }, 200);
   }
-  translationItem(culture: string, translationValue: string | Array<string>): FormGroup {
+  translationItem(
+    culture: string,
+    translationValue: string | Array<string>,
+  ): FormGroup {
     return this.formBuilder.group({
       culture: new FormControl(culture),
       translationValue: new FormControl(translationValue),
     });
   }
   isArrayOfStrings(value: any): boolean {
-    return Array.isArray(value) && value.every(item => typeof item === "string");
+    return (
+      Array.isArray(value) && value.every((item) => typeof item === 'string')
+    );
   }
 
   @HostListener('window:message', ['$event'])
@@ -94,7 +102,7 @@ export class AppComponent implements OnInit {
         this.message = event.data as WebviewMessage;
         this.key = this.message.TranslationKey;
         this.generateForm(this.message);
-        console.log(this.message);
+
       } else if (event.data === 'Saved') {
         this.dataSaved();
       }
@@ -140,8 +148,6 @@ export class AppComponent implements OnInit {
   }
 
   save(): void {
-    console.log(this.translationForms.value);
-
     this.vscode.postMessage(this.translationForms.value);
   }
 
@@ -164,6 +170,6 @@ interface WebviewMessage {
     {
       culture: string;
       translationValue: string;
-    }
+    },
   ];
 }
