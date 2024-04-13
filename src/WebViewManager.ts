@@ -9,8 +9,8 @@ export interface IWebviewMessage {
   value: [
     {
       culture: string;
-      translationValue: string;
-    }
+      translationValue: string | Array<string>;
+    },
   ];
 }
 
@@ -19,8 +19,8 @@ export interface ISaveMessage {
   value: [
     {
       culture: string;
-      translationValue: string;
-    }
+      translationValue: string | Array<string>;
+    },
   ];
 }
 

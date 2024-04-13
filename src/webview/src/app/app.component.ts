@@ -4,9 +4,11 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
+  ChangeDetectorRef,
 } from '@angular/core';
-import { NotifierService } from 'angular-notifier';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+
+import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +24,7 @@ export class AppComponent implements OnInit {
   key = '';
   translationForms: FormGroup;
   value: FormArray;
+
   vsCodeFunction = Function(`
   if (typeof acquireVsCodeApi == 'function') {
     return acquireVsCodeApi();
@@ -33,8 +36,9 @@ export class AppComponent implements OnInit {
   vscode = this.vsCodeFunction();
 
   constructor(
-    private notifierService: NotifierService,
-    private formBuilder: FormBuilder
+    private notifierService: HotToastService,
+    private formBuilder: FormBuilder,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {}
   ngOnInit(): void {
     this.vscode.postMessage('started');
@@ -43,23 +47,52 @@ export class AppComponent implements OnInit {
   private generateForm(message: WebviewMessage): void {
     this.translationForms = this.formBuilder.group({
       translationKey: message.TranslationKey,
+      isArray: false,
       value: this.formBuilder.array([]),
     });
     this.value = this.translationForms.controls.value as FormArray;
+    this.translationForms.controls.isArray.valueChanges.subscribe(() => {
+      this.value.controls.forEach((element: FormGroup) => {
+        if (this.translationForms.controls.isArray.value === true) {
+          element.controls.translationValue.setValue(
+            element.controls.translationValue.value.split(','),
+          );
+        } else {
+          element.controls.translationValue.setValue(
+            element.controls.translationValue.value.toString(),
+          );
+        }
+      });
+      this.changeDetectorRef.detectChanges();
+    });
+
     message.value.forEach((element) => {
+      if (this.translationForms.controls.isArray.value === false) {
+        this.translationForms.controls.isArray.setValue(
+          this.isArrayOfStrings(element.translationValue),
+        );
+      }
       this.value.push(
-        this.translationItem(element.culture, element.translationValue)
+        this.translationItem(element.culture, element.translationValue),
       );
     });
     setTimeout(() => {
       this.setFocus(this.message.languages[0].Culture);
     }, 200);
   }
-  translationItem(culture: string, translationValue: string = ''): FormGroup {
+  translationItem(
+    culture: string,
+    translationValue: string | Array<string>,
+  ): FormGroup {
     return this.formBuilder.group({
-      culture,
-      translationValue,
+      culture: new FormControl(culture),
+      translationValue: new FormControl(translationValue),
     });
+  }
+  isArrayOfStrings(value: any): boolean {
+    return (
+      Array.isArray(value) && value.every((item) => typeof item === 'string')
+    );
   }
 
   @HostListener('window:message', ['$event'])
@@ -69,7 +102,7 @@ export class AppComponent implements OnInit {
         this.message = event.data as WebviewMessage;
         this.key = this.message.TranslationKey;
         this.generateForm(this.message);
-        console.log(this.message);
+
       } else if (event.data === 'Saved') {
         this.dataSaved();
       }
@@ -83,7 +116,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  onKeyUp($event): void {
+  onKeyDown($event): void {
     // Detect platform
     if (navigator.platform.match('Mac')) {
       this.handleMacKeyEvents($event);
@@ -115,13 +148,11 @@ export class AppComponent implements OnInit {
   }
 
   save(): void {
-    console.log(this.translationForms.value);
-
     this.vscode.postMessage(this.translationForms.value);
   }
 
   dataSaved(): void {
-    this.notifierService.notify('success', 'Translation Saved');
+    this.notifierService.success('Translation Saved');
   }
 }
 
@@ -139,6 +170,6 @@ interface WebviewMessage {
     {
       culture: string;
       translationValue: string;
-    }
+    },
   ];
 }

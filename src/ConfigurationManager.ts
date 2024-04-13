@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as vscode from 'vscode';
 
 export class ConfigurationManager {
   private path: string = '';
@@ -22,8 +23,7 @@ export class ConfigurationManager {
         }
       }
     } catch (err) {
-      //console.error(err);
-      //vscode.window.showErrorMessage('No translation configration found');
+      console.error(err);
     }
     return this.configuration;
   }

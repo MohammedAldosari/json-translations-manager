@@ -7,7 +7,6 @@ import SnippetProvider from './SnippetProvider';
 import { HoverProvider } from 'vscode';
 import JTMHoverProvider from './JTMHoverProvider';
 
-
 const namespace = 'json-translations-manager';
 export class CommandManager {
   private webViewManager!: WebViewManager;
@@ -16,15 +15,37 @@ export class CommandManager {
   private treeDataProvider!: TreeDataProvider;
   private hoverProvider!: HoverProvider;
 
-  private languageIdentifiers = ['coffeescript', 'csharp', 'go', 'handlebars', 'haml', 'html', 'java', 'javascript', 'javascriptreact, jsx', 'php', 'jade, pug', 'python', 'razor', 'ruby', 'rust', 'swift', 'typescript', 'typescriptreact', 'vue', 'vue-html'];
+  private languageIdentifiers = [
+    'clojure',
+    'coffeescript',
+    'csharp',
+    'go',
+    'handlebars',
+    'haml',
+    'html',
+    'java',
+    'javascript',
+    'javascriptreact',
+    'jsx',
+    'php',
+    'jade',
+    'pug',
+    'python',
+    'razor',
+    'ruby',
+    'rust',
+    'swift',
+    'typescript',
+    'typescriptreact',
+    'vue',
+    'vue-html',
+  ];
 
   constructor(
     _context: vscode.ExtensionContext,
     _configurationManager: ConfigurationManager
   ) {
-
     this.init(_context, _configurationManager);
-
   }
 
   init(
@@ -36,17 +57,25 @@ export class CommandManager {
       configurationManager
     );
     const snippetProvider = new SnippetProvider(this.translationManager);
+
     _context.subscriptions.push(
       vscode.languages.registerCompletionItemProvider(
         this.languageIdentifiers,
         snippetProvider.ItemProvider(),
-        'JTM', 'jtm'
+        'JTM',
+        'jtm'
       )
     );
-    if (!this.hoverProvider) {
-      this.hoverProvider = new JTMHoverProvider(_context, this.translationManager).createHoverProvider();
+    if (!this.hoverProvider && configurationManager.configuration) {
+      this.hoverProvider = new JTMHoverProvider(
+        _context,
+        this.translationManager
+      ).createHoverProvider();
       _context.subscriptions.push(
-        vscode.languages.registerHoverProvider(this.languageIdentifiers, this.hoverProvider),
+        vscode.languages.registerHoverProvider(
+          this.languageIdentifiers,
+          this.hoverProvider
+        )
       );
     }
     this.webViewManager = new WebViewManager(_context, this.translationManager);
@@ -61,9 +90,13 @@ export class CommandManager {
         treeDataProvider: this.treeDataProvider,
       });
       snippetProvider.createSnippets();
-    }
-    );
+    });
+    this.translationManager.onSave.subscribe(() => {
+      snippetProvider.createSnippets();
+      this.treeDataProvider.refresh();
+    });
   }
+
   Translate = async (value?: string) => {
     await this.checkConfigration();
     let key: any;
@@ -74,14 +107,12 @@ export class CommandManager {
         prompt: 'Enter Translation key',
         placeHolder: 'Use dot (.) notation to make the key a Nested objects',
         value,
-        valueSelection: [value!.length, value!.length]
+        valueSelection: [value!.length, value!.length],
       });
-    }
-    else {
-
+    } else {
       key = await vscode.window.showInputBox({
         prompt: 'Enter Translation key',
-        placeHolder: 'Use dot (.) notation to make the key a Nested objects'
+        placeHolder: 'Use dot (.) notation to make the key a Nested objects',
       });
     }
     if (key) {
@@ -242,7 +273,6 @@ export class CommandManager {
       false
     );
     this.init(_context, configurationManager);
-    //  this.RegisterCommands(_context, configurationManager);
     vscode.window.showInformationMessage(
       'Translation folder configuration Saved successfully'
     );

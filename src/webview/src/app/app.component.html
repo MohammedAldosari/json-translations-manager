@@ -1,47 +1,89 @@
-<section class="section" (keyup)="onKeyUp($event)">
+<section class="section" (keydown)="onKeyDown($event)">
   <div class="center">
-    <div class="svg" style="width:10%"></div>
-    <h3 class="text-style">Json Tralation Manger</h3>
+    <div class="svg" style="width: 10%"></div>
+    <h3 class="text-style">Json Translation Manager v2</h3>
   </div>
-  <form class="form-style" [formGroup]="translationForms" #form *ngIf="this.message">
+  <form
+    class="form-style"
+    [formGroup]="translationForms"
+    #form
+    *ngIf="this.message"
+  >
     <div class="key-text">
-      <span class="text-style">Translation key : <span style="font-weight: bold;">{{ key }}</span></span>
+      <span class="text-style"
+        >Translation key :
+        <span style="font-weight: bold">{{ key }}</span></span
+      >
+      <div class="p-field-checkbox ms-5px d-inline">
+        <p-checkbox
+          name="group1"
+          binary="true"
+          formControlName="isArray"
+          inputId="isArray"
+        ></p-checkbox>
+       <label
+          class="ms-5px"
+          style="font-size: large; font-weight: bold"
+          for="isArray"
+          >isArray</label
+        >
+        <span
+          class="ms-5px"
+          *ngIf="this.translationForms.controls.isArray.value === true"
+          >(Use enter ↵ to split between item)</span
+        >
+      </div>
     </div>
 
     <ul>
-      <li formArrayName="value" *ngFor="let item of this.value.controls; let i = index;"
-        [dir]=" this.message.languages[i].Direction">
+      <li
+        formArrayName="value"
+        *ngFor="let item of this.value.controls; let i = index"
+        [dir]="this.message.languages[i].Direction"
+      >
         <div [formGroupName]="i">
-          <label [class]=" this.message.languages[i].Direction" [for]=" this.message.languages[i].Culture">
-            {{ this.message.languages[i].Native}}</label>
-          <input type="text" [name]="this.message.languages[i].Culture" formControlName="translationValue"
-            [name]=" this.message.languages[i].Culture" />
+          <label
+            [class]="this.message.languages[i].Direction"
+            [for]="this.message.languages[i].Culture"
+          >
+            {{ this.message.languages[i].Native }}</label
+          >
+
+          <input
+            *ngIf="this.translationForms.controls.isArray.value === false"
+            type="text"
+            [name]="this.message.languages[i].Culture"
+            formControlName="translationValue"
+          />
+          <tag-input
+            *ngIf="this.translationForms.controls.isArray.value === true"
+            placeholder="+"
+            modelAsStrings="true"
+            [attr.name]="this.message.languages[i].Culture"
+            formControlName="translationValue"
+            [editable]="true"
+          ></tag-input>
         </div>
       </li>
 
       <li></li>
     </ul>
-    <div style="text-align: center;">
+    <div style="text-align: center">
       <button type="button" (click)="save()">
         Save
 
-        <ng-container *ngIf="navigator.platform.match('Mac'); then Mac; else Other">
+        <ng-container
+          *ngIf="navigator.platform.match('Mac'); then Mac; else Other"
+        >
         </ng-container>
 
         <ng-template #Mac>
-          <span>
-            (Command+S)
-          </span>
+          <span> (Command+S) </span>
         </ng-template>
         <ng-template #Other>
-          <span>
-            (Ctrl+S)
-          </span>
+          <span> (Ctrl+S) </span>
         </ng-template>
       </button>
     </div>
   </form>
-
-
 </section>
-<notifier-container></notifier-container>

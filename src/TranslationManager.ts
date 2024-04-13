@@ -1,13 +1,12 @@
-
 import * as fs from 'fs';
 import * as path from 'path';
 import * as papa from 'papaparse';
 import * as jsonfile from 'jsonfile';
 
-import _ from 'lodash';
 import { ISaveMessage, IWebviewMessage } from './WebViewManager';
 import { SignalDispatcher } from 'strongly-typed-events';
 import { ConfigurationManager } from './ConfigurationManager';
+import { get, set } from 'lodash';
 const sortobject = require('deep-sort-object');
 export class TranslationManager {
   languageDetailsList: Array<ILanguage> = [];
@@ -78,13 +77,14 @@ export class TranslationManager {
         message.value = [
           {
             culture: element.Culture,
-            translationValue: this.getKeyInfo(message.TranslationKey, obj)?.value
+            translationValue: this.getKeyInfo(message.TranslationKey, obj)
+              ?.value,
           },
         ];
       } else {
         message.value.push({
           culture: element.Culture,
-          translationValue: this.getKeyInfo(message.TranslationKey, obj)?.value
+          translationValue: this.getKeyInfo(message.TranslationKey, obj)?.value,
         });
       }
     });
@@ -92,8 +92,11 @@ export class TranslationManager {
 
   getTranslationValuesFromText(text: string) {
     let translationValues: any = {};
-    this.translations.forEach(element => {
-      translationValues[element.Culture] = this.getKeyInfo(text, element.Translations)?.value;
+    this.translations.forEach((element) => {
+      translationValues[element.Culture] = this.getKeyInfo(
+        text,
+        element.Translations
+      )?.value;
     });
 
     return translationValues;
@@ -126,9 +129,9 @@ export class TranslationManager {
       )?.Translations;
       const keyInfo = this.getKeyInfo(data.translationKey, obj);
       if (keyInfo) {
-        _.set(obj!, keyInfo.path, element.translationValue);
+        set(obj!, keyInfo.path, element.translationValue);
       } else {
-        _.set(obj!, data.translationKey, element.translationValue);
+        set(obj!, data.translationKey, element.translationValue);
       }
       obj = this.sortObject(obj);
       jsonfile.writeFileSync(
@@ -149,20 +152,40 @@ export class TranslationManager {
       return sortobject(unsorted);
     }
   }
-  private getKeyInfo(key: string, translations: ITranslation): KeyInfo | undefined {
+  private getKeyInfo(
+    key: string,
+    translations: ITranslation
+  ): KeyInfo | undefined {
     let flag = true;
     let path = [];
+    let isArray = false;
+    let position = '';
+    if (key.includes('[')) {
+      isArray = true;
+      position = key.substring(key.indexOf('[') + 1, key.indexOf(']'));
+      key = key.substring(0, key.indexOf('['));
+    }
     path.push(key);
     while (flag) {
-      const x = _.get(translations, path, '');
-      if (x) {
+      const translationValue = get(translations, path, '');
+      if (translationValue) {
         flag = false;
-        const returndValue: KeyInfo = { path, value: x };
+        let returndValue: KeyInfo;
+        if (isArray === false) {
+          returndValue = { path, value: translationValue };
+        } else {
+          returndValue = {
+            path,
+            value: translationValue[Number.parseInt(position)],
+          };
+        }
+
         return returndValue;
-      }
-      else {
+      } else {
         if (key && key.includes('.')) {
-          path = path.filter(function (e) { return e !== key; });
+          path = path.filter(function (e) {
+            return e !== key;
+          });
           path = path.concat(key.replace(/\./, '^~').split('^~'));
           key = path[path.length - 1];
         } else {
@@ -172,12 +195,11 @@ export class TranslationManager {
       }
     }
   }
-
 }
 
 export interface KeyInfo {
-  path: Array<string>,
-  value: any
+  path: Array<string>;
+  value: any;
 }
 
 export interface ILanguage {
