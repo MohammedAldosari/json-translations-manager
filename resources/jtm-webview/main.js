@@ -40283,9 +40283,16 @@ TagInputModule.\u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
 
 // src/app/app.component.ts
 var _c07 = ["form"];
-function AppComponent_form_5_li_12_input_4_Template(rf, ctx) {
+function AppComponent_form_5_span_11_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "input", 23);
+    \u0275\u0275elementStart(0, "span", 19);
+    \u0275\u0275text(1, "(Use enter \u21B5 to split between item)");
+    \u0275\u0275elementEnd();
+  }
+}
+function AppComponent_form_5_li_13_input_4_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "input", 25);
   }
   if (rf & 2) {
     const i_r2 = \u0275\u0275nextContext().index;
@@ -40293,9 +40300,9 @@ function AppComponent_form_5_li_12_input_4_Template(rf, ctx) {
     \u0275\u0275property("name", ctx_r2.message.languages[i_r2].Culture);
   }
 }
-function AppComponent_form_5_li_12_tag_input_5_Template(rf, ctx) {
+function AppComponent_form_5_li_13_tag_input_5_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "tag-input", 24);
+    \u0275\u0275element(0, "tag-input", 26);
   }
   if (rf & 2) {
     const i_r2 = \u0275\u0275nextContext().index;
@@ -40304,12 +40311,12 @@ function AppComponent_form_5_li_12_tag_input_5_Template(rf, ctx) {
     \u0275\u0275attribute("name", ctx_r2.message.languages[i_r2].Culture);
   }
 }
-function AppComponent_form_5_li_12_Template(rf, ctx) {
+function AppComponent_form_5_li_13_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "li", 18)(1, "div", 19)(2, "label", 20);
+    \u0275\u0275elementStart(0, "li", 20)(1, "div", 21)(2, "label", 22);
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
-    \u0275\u0275template(4, AppComponent_form_5_li_12_input_4_Template, 1, 1, "input", 21)(5, AppComponent_form_5_li_12_tag_input_5_Template, 1, 2, "tag-input", 22);
+    \u0275\u0275template(4, AppComponent_form_5_li_13_input_4_Template, 1, 1, "input", 23)(5, AppComponent_form_5_li_13_tag_input_5_Template, 1, 2, "tag-input", 24);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
@@ -40329,19 +40336,19 @@ function AppComponent_form_5_li_12_Template(rf, ctx) {
     \u0275\u0275property("ngIf", ctx_r2.translationForms.controls.isArray.value === true);
   }
 }
-function AppComponent_form_5_ng_container_17_Template(rf, ctx) {
+function AppComponent_form_5_ng_container_18_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementContainer(0);
   }
 }
-function AppComponent_form_5_ng_template_18_Template(rf, ctx) {
+function AppComponent_form_5_ng_template_19_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span");
     \u0275\u0275text(1, " (Command+S) ");
     \u0275\u0275elementEnd();
   }
 }
-function AppComponent_form_5_ng_template_20_Template(rf, ctx) {
+function AppComponent_form_5_ng_template_21_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span");
     \u0275\u0275text(1, " (Ctrl+S) ");
@@ -40360,29 +40367,33 @@ function AppComponent_form_5_Template(rf, ctx) {
     \u0275\u0275element(8, "p-checkbox", 12);
     \u0275\u0275elementStart(9, "label", 13);
     \u0275\u0275text(10, "isArray");
-    \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(11, "ul");
-    \u0275\u0275template(12, AppComponent_form_5_li_12_Template, 6, 8, "li", 14);
-    \u0275\u0275element(13, "li");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(14, "div", 15)(15, "button", 16);
-    \u0275\u0275listener("click", function AppComponent_form_5_Template_button_click_15_listener() {
+    \u0275\u0275template(11, AppComponent_form_5_span_11_Template, 2, 0, "span", 14);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(12, "ul");
+    \u0275\u0275template(13, AppComponent_form_5_li_13_Template, 6, 8, "li", 15);
+    \u0275\u0275element(14, "li");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(15, "div", 16)(16, "button", 17);
+    \u0275\u0275listener("click", function AppComponent_form_5_Template_button_click_16_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.save());
     });
-    \u0275\u0275text(16, " Save ");
-    \u0275\u0275template(17, AppComponent_form_5_ng_container_17_Template, 1, 0, "ng-container", 17)(18, AppComponent_form_5_ng_template_18_Template, 2, 0, "ng-template", null, 1, \u0275\u0275templateRefExtractor)(20, AppComponent_form_5_ng_template_20_Template, 2, 0, "ng-template", null, 2, \u0275\u0275templateRefExtractor);
+    \u0275\u0275text(17, " Save ");
+    \u0275\u0275template(18, AppComponent_form_5_ng_container_18_Template, 1, 0, "ng-container", 18)(19, AppComponent_form_5_ng_template_19_Template, 2, 0, "ng-template", null, 1, \u0275\u0275templateRefExtractor)(21, AppComponent_form_5_ng_template_21_Template, 2, 0, "ng-template", null, 2, \u0275\u0275templateRefExtractor);
     \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
-    const Mac_r4 = \u0275\u0275reference(19);
-    const Other_r5 = \u0275\u0275reference(21);
+    const Mac_r4 = \u0275\u0275reference(20);
+    const Other_r5 = \u0275\u0275reference(22);
     const ctx_r2 = \u0275\u0275nextContext();
     \u0275\u0275property("formGroup", ctx_r2.translationForms);
     \u0275\u0275advance(6);
     \u0275\u0275textInterpolate(ctx_r2.key);
-    \u0275\u0275advance(6);
+    \u0275\u0275advance(5);
+    \u0275\u0275property("ngIf", ctx_r2.translationForms.controls.isArray.value === true);
+    \u0275\u0275advance(2);
     \u0275\u0275property("ngForOf", ctx_r2.value.controls);
     \u0275\u0275advance(5);
     \u0275\u0275property("ngIf", ctx_r2.navigator.platform.match("Mac"))("ngIfThen", Mac_r4)("ngIfElse", Other_r5);
@@ -40423,8 +40434,6 @@ var _AppComponent = class _AppComponent {
           element.controls.translationValue.setValue(element.controls.translationValue.value.toString());
         }
       });
-      console.log("**************");
-      console.log(this.value);
       this.changeDetectorRef.detectChanges();
     });
     message.value.forEach((element) => {
@@ -40452,7 +40461,6 @@ var _AppComponent = class _AppComponent {
         this.message = event.data;
         this.key = this.message.TranslationKey;
         this.generateForm(this.message);
-        console.log(this.message);
       } else if (event.data === "Saved") {
         this.dataSaved();
       }
@@ -40488,7 +40496,6 @@ var _AppComponent = class _AppComponent {
     }
   }
   save() {
-    console.log(this.translationForms.value);
     this.vscode.postMessage(this.translationForms.value);
   }
   dataSaved() {
@@ -40512,7 +40519,7 @@ _AppComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _A
       return ctx.onMessage($event);
     }, false, \u0275\u0275resolveWindow);
   }
-}, decls: 6, vars: 1, consts: [["form", ""], ["Mac", ""], ["Other", ""], [1, "section", 3, "keydown"], [1, "center"], [1, "svg", 2, "width", "10%"], [1, "text-style"], ["class", "form-style", 3, "formGroup", 4, "ngIf"], [1, "form-style", 3, "formGroup"], [1, "key-text"], [2, "font-weight", "bold"], [1, "p-field-checkbox", "ms-5px", "d-inline"], ["name", "group1", "binary", "true", "formControlName", "isArray", "inputId", "isArray"], ["for", "isArray", 1, "ms-5px"], ["formArrayName", "value", 3, "dir", 4, "ngFor", "ngForOf"], [2, "text-align", "center"], ["type", "button", 3, "click"], [4, "ngIf", "ngIfThen", "ngIfElse"], ["formArrayName", "value", 3, "dir"], [3, "formGroupName"], [3, "for"], ["type", "text", "formControlName", "translationValue", 3, "name", 4, "ngIf"], ["placeholder", "+", "modelAsStrings", "true", "formControlName", "translationValue", 3, "editable", 4, "ngIf"], ["type", "text", "formControlName", "translationValue", 3, "name"], ["placeholder", "+", "modelAsStrings", "true", "formControlName", "translationValue", 3, "editable"]], template: function AppComponent_Template(rf, ctx) {
+}, decls: 6, vars: 1, consts: [["form", ""], ["Mac", ""], ["Other", ""], [1, "section", 3, "keydown"], [1, "center"], [1, "svg", 2, "width", "10%"], [1, "text-style"], ["class", "form-style", 3, "formGroup", 4, "ngIf"], [1, "form-style", 3, "formGroup"], [1, "key-text"], [2, "font-weight", "bold"], [1, "p-field-checkbox", "ms-5px", "d-inline"], ["name", "group1", "binary", "true", "formControlName", "isArray", "inputId", "isArray"], ["for", "isArray", 1, "ms-5px", 2, "font-size", "large", "font-weight", "bold"], ["class", "ms-5px", 4, "ngIf"], ["formArrayName", "value", 3, "dir", 4, "ngFor", "ngForOf"], [2, "text-align", "center"], ["type", "button", 3, "click"], [4, "ngIf", "ngIfThen", "ngIfElse"], [1, "ms-5px"], ["formArrayName", "value", 3, "dir"], [3, "formGroupName"], [3, "for"], ["type", "text", "formControlName", "translationValue", 3, "name", 4, "ngIf"], ["placeholder", "+", "modelAsStrings", "true", "formControlName", "translationValue", 3, "editable", 4, "ngIf"], ["type", "text", "formControlName", "translationValue", 3, "name"], ["placeholder", "+", "modelAsStrings", "true", "formControlName", "translationValue", 3, "editable"]], template: function AppComponent_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "section", 3);
     \u0275\u0275listener("keydown", function AppComponent_Template_section_keydown_0_listener($event) {
@@ -40521,16 +40528,16 @@ _AppComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _A
     \u0275\u0275elementStart(1, "div", 4);
     \u0275\u0275element(2, "div", 5);
     \u0275\u0275elementStart(3, "h3", 6);
-    \u0275\u0275text(4, "Json Translation Manager v2");
+    \u0275\u0275text(4, "Json Translation Manager");
     \u0275\u0275elementEnd()();
-    \u0275\u0275template(5, AppComponent_form_5_Template, 22, 6, "form", 7);
+    \u0275\u0275template(5, AppComponent_form_5_Template, 23, 7, "form", 7);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
     \u0275\u0275advance(5);
     \u0275\u0275property("ngIf", ctx.message);
   }
-}, dependencies: [NgForOf, NgIf, \u0275NgNoValidate, DefaultValueAccessor, NgControlStatus, NgControlStatusGroup, FormGroupDirective, FormControlName, FormGroupName, FormArrayName, Checkbox, TagInputComponent], styles: ["\n\n.section[_ngcontent-%COMP%] {\n  padding: 20px;\n}\n.svg[_ngcontent-%COMP%] {\n  width: 100px;\n  height: 100px;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: var(--vscode-activityBar-foreground);\n  mask: var(--logo) no-repeat center/contain;\n  -webkit-mask: var(--logo) no-repeat center/contain;\n}\n.center[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.key-text[_ngcontent-%COMP%] {\n  margin-bottom: 20px;\n}\n.text-style[_ngcontent-%COMP%] {\n  color: var(--vscode-activityBar-foreground);\n  font-size: x-large;\n}\n.form-style[_ngcontent-%COMP%] {\n  padding: 20px;\n}\n.form-style[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  display: block;\n  text-align: center;\n  padding: 0;\n  margin: 0px 0px 20px 0px;\n  color: var(--vscode-activityBar-foreground);\n  font-size: x-large;\n}\n.form-style[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.form-style[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  display: block;\n  padding: 9px;\n  border: 1px solid var(--vscode-activityBar-foreground);\n  margin-bottom: 30px;\n  border-radius: 0px;\n}\n.form-style[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  border: none;\n  margin-bottom: 0px;\n  text-align: center;\n}\n.form-style[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]   label[_ngcontent-%COMP%] {\n  display: block;\n  float: left;\n  margin-top: -19px;\n  background-color: var(--vscode-activityBar-background);\n  height: 19px;\n  padding: 2px 5px 2px 5px;\n  color: var(--vscode-activityBar-foreground);\n  font-size: 14px;\n  overflow: hidden;\n  font-family:\n    Arial,\n    Helvetica,\n    sans-serif;\n}\n.form-style[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]   label.rtl[_ngcontent-%COMP%] {\n  float: right;\n}\n.form-style[_ngcontent-%COMP%]   input[type=text][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=date][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=datetime][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=email][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=number][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=search][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=time][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=url][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=password][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   textarea[_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   select[_ngcontent-%COMP%] {\n  box-sizing: border-box;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  width: 100%;\n  display: block;\n  color: var(--vscode-activityBar-foreground);\n  background-color: transparent;\n  outline: none;\n  border: none;\n  height: 25px;\n  line-height: 25px;\n  font-size: 16px;\n  padding: 0;\n}\n.form-style[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  background: transparent;\n  display: block;\n  padding: 3px;\n  margin: 0 -9px -9px -9px;\n  text-align: center;\n  color: var(--vscode-activityBar-foreground);\n  font-family:\n    Arial,\n    Helvetica,\n    sans-serif;\n  font-size: 11px;\n}\n.form-style[_ngcontent-%COMP%]   textarea[_ngcontent-%COMP%] {\n  resize: none;\n}\n.form-style[_ngcontent-%COMP%]   input[type=submit][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=button][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   button[_ngcontent-%COMP%] {\n  background: var(--vscode-button-background);\n  border: none;\n  padding: 10px 20px 10px 20px;\n  border-bottom: 3px solid var(--vscode-button-background);\n  border-radius: 0px;\n  cursor: pointer;\n  color: var(--vscode-activityBar-foreground);\n}\n.form-style[_ngcontent-%COMP%]   input[type=submit][_ngcontent-%COMP%]:hover, .form-style[_ngcontent-%COMP%]   input[type=button][_ngcontent-%COMP%]:hover {\n  background: var(--vscode-button-background);\n  border-bottom: 1px solid var(--vscode-button-background);\n  border-radius: 0px;\n  color: var(--vscode-activityBar-foreground);\n}\n.ms-5px[_ngcontent-%COMP%] {\n  margin-inline-start: 5px;\n}\n/*# sourceMappingURL=app.component.css.map */"] });
+}, dependencies: [NgForOf, NgIf, \u0275NgNoValidate, DefaultValueAccessor, NgControlStatus, NgControlStatusGroup, FormGroupDirective, FormControlName, FormGroupName, FormArrayName, Checkbox, TagInputComponent], styles: ["\n\n.section[_ngcontent-%COMP%] {\n  padding: 20px;\n}\n.svg[_ngcontent-%COMP%] {\n  width: 85px;\n  height: 85px;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: var(--vscode-activityBar-foreground);\n  mask: var(--logo) no-repeat center/contain;\n  -webkit-mask: var(--logo) no-repeat center/contain;\n}\n.center[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.key-text[_ngcontent-%COMP%] {\n  margin-bottom: 20px;\n}\n.text-style[_ngcontent-%COMP%] {\n  color: var(--vscode-activityBar-foreground);\n  font-size: x-large;\n}\n.form-style[_ngcontent-%COMP%] {\n  padding: 20px;\n}\n.form-style[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  display: block;\n  text-align: center;\n  padding: 0;\n  margin: 0px 0px 20px 0px;\n  color: var(--vscode-activityBar-foreground);\n  font-size: x-large;\n}\n.form-style[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n.form-style[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  display: block;\n  padding: 9px;\n  border: 1px solid var(--vscode-activityBar-foreground);\n  margin-bottom: 30px;\n  border-radius: 0px;\n}\n.form-style[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:last-child {\n  border: none;\n  margin-bottom: 0px;\n  text-align: center;\n}\n.form-style[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]   label[_ngcontent-%COMP%] {\n  display: block;\n  float: left;\n  margin-top: -19px;\n  background-color: var(--vscode-activityBar-background);\n  height: 19px;\n  padding: 2px 5px 2px 5px;\n  color: var(--vscode-activityBar-foreground);\n  font-size: 14px;\n  overflow: hidden;\n  font-family:\n    Arial,\n    Helvetica,\n    sans-serif;\n}\n.form-style[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]   label.rtl[_ngcontent-%COMP%] {\n  float: right;\n}\n.form-style[_ngcontent-%COMP%]   input[type=text][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=date][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=datetime][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=email][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=number][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=search][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=time][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=url][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=password][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   textarea[_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   select[_ngcontent-%COMP%] {\n  box-sizing: border-box;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  width: 100%;\n  display: block;\n  color: var(--vscode-activityBar-foreground);\n  background-color: transparent;\n  outline: none;\n  border: none;\n  height: 25px;\n  line-height: 25px;\n  font-size: 16px;\n  padding: 0;\n}\n.form-style[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  background: transparent;\n  display: block;\n  padding: 3px;\n  margin: 0 -9px -9px -9px;\n  text-align: center;\n  color: var(--vscode-activityBar-foreground);\n  font-family:\n    Arial,\n    Helvetica,\n    sans-serif;\n  font-size: 11px;\n}\n.form-style[_ngcontent-%COMP%]   textarea[_ngcontent-%COMP%] {\n  resize: none;\n}\n.form-style[_ngcontent-%COMP%]   input[type=submit][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   input[type=button][_ngcontent-%COMP%], .form-style[_ngcontent-%COMP%]   button[_ngcontent-%COMP%] {\n  background: var(--vscode-button-background);\n  border: none;\n  padding: 10px 20px 10px 20px;\n  border-bottom: 3px solid var(--vscode-button-background);\n  border-radius: 0px;\n  cursor: pointer;\n  color: var(--vscode-activityBar-foreground);\n}\n.form-style[_ngcontent-%COMP%]   input[type=submit][_ngcontent-%COMP%]:hover, .form-style[_ngcontent-%COMP%]   input[type=button][_ngcontent-%COMP%]:hover {\n  background: var(--vscode-button-background);\n  border-bottom: 1px solid var(--vscode-button-background);\n  border-radius: 0px;\n  color: var(--vscode-activityBar-foreground);\n}\n.ms-5px[_ngcontent-%COMP%] {\n  margin-inline-start: 5px;\n}\n/*# sourceMappingURL=app.component.css.map */"] });
 var AppComponent = _AppComponent;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AppComponent, { className: "AppComponent", filePath: "src\\app\\app.component.ts", lineNumber: 18 });
